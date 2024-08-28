@@ -1,0 +1,91 @@
+/*
+ * COPYRIGHT Ericsson 2023
+ *
+ *
+ *
+ * The copyright to the computer program(s) herein is the property of
+ *
+ * Ericsson Inc. The programs may be used and/or copied only with written
+ *
+ * permission from Ericsson Inc. or in accordance with the terms and
+ *
+ * conditions stipulated in the agreement/contract under which the
+ *
+ * program(s) have been supplied.
+ */
+
+plugins {
+    id 'org.unbroken-dome.helm'
+    id 'org.unbroken-dome.helm-publish'
+    id 'org.unbroken-dome.helm-releases'
+}
+
+ext {
+    chartRepoPath = "https://arm.seli.gic.ericsson.se/artifactory/${getHelmRepo()}/oss-testware/${rootProject.name}".toString()
+}
+
+task clean(type:Delete) {
+    group = "clean"
+    description = "clear resources created by previous builds"
+    delete buildDir
+}
+
+helm {
+    namespace = "oss-deploy"
+    lint {
+        enabled = false
+    }
+    filtering {
+        filePatterns = [ "values.yaml", "Chart.yaml" ]
+        values = [
+                name: rootProject.name,
+                version: getReleaseVersion(),
+                defaultDockerTag: defaultDockerTag
+        ]
+    }
+    publishing {
+        repositories {
+            artifactory(getHelmRepo()) {
+                url = uri(chartRepoPath)
+                credentials {
+                    username = "${System.env.SELI_ARTIFACTORY_REPO_USER}"
+                    password = "${System.env.SELI_ARTIFACTORY_REPO_PASS}"
+                }
+            }
+        }
+    }
+    charts {
+        main {
+            sourceDir = file('src/chart/main')
+            chartVersion = imageVersion
+
+            renderings {
+                'default' {
+                    releaseName = 'eric-oss-performance-monitoring-enabler-testware'
+
+                    // use release name in the output-dir path
+                    // (helm template --release-name)
+                    useReleaseNameInOutputPath = true
+
+                    // validate manifests against the Kubernetes cluster
+                    // (helm template --validate)
+                    validate = true
+                }
+            }
+        }
+    }
+    releases {
+        // This is used if you want to deploy (helm install) your chart to your cluster
+        // make sure to run a package target first to generate the chart
+        main {
+            releaseName = 'eric-oss-performance-monitoring-enabler'
+
+            from file("${project.buildDir}/helm/charts/${project.name}-${imageVersion}.tgz")
+
+            // Use to override values
+            values = [
+                "env.BUILD_URL": "http://dummy-job/123"
+            ]
+        }
+    }
+}

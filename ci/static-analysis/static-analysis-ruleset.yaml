@@ -1,0 +1,69 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+modelVersion: 2.0
+
+description: "performance-monitoring-enabler-static-analysis"
+
+docker-images:
+  - adp-maven-builder: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/bob-java11mvnbuilder:${env.MVN_BUILDER_TAG}
+import:
+  common: ../../common-properties.yaml
+
+env:
+  - HOME
+  - MAVEN_CLI_OPTS (default=-Duser.home=${env.HOME} -B)
+  - MAVEN_OPTS (default=-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn)
+  - RELEASE (default=false)
+  - DOCKER_VOLUME_MAPPING_PASSWD (default=--volume ${env.HOME}/mypasswd:/etc/passwd:ro)
+  - PROJ_MVN (default=/proj/mvn)
+  - MVN_BUILDER_TAG (default=latest)
+  - GERRIT_CHANGE_NUMBER (default=$GERRIT_CHANGE_NUMBER)
+  - SELI_ARTIFACTORY_REPO_USER
+  - SELI_ARTIFACTORY_REPO_PASS
+
+var:
+  - version
+  - version-prefix
+  - commithash
+  - rstate
+  - image-full-name-internal
+
+rules:
+  static-analysis:
+    - task: static-analysis-job
+      docker-image: adp-maven-builder
+      docker-flags: &mvn-docker-flags-with-creds
+        - "--env MAVEN_OPTS=${env.MAVEN_OPTS}"
+        - "--env HOME=${env.HOME}"
+        - "--volume ${env.HOME}:${env.HOME}"
+        - "--volume ${env.PROJ_MVN}:/proj/mvn"
+        - "--env SELI_ARTIFACTORY_REPO_USER=${env.SELI_ARTIFACTORY_REPO_USER}"
+        - "--env SELI_ARTIFACTORY_REPO_PASS=${env.SELI_ARTIFACTORY_REPO_PASS}"
+      cmd: mvn ${env.MAVEN_CLI_OPTS} -V spotbugs:spotbugs pmd:check checkstyle:check
+    - task: k6-static-analysis-job
+      cmd: docker run ${var.image-full-name-internal}-k6-static-analysis_image:${var.version}
+
+  build-k6-static-analysis-image:
+    - task: k6-static-analysis-image-job
+      cmd:
+        docker build -t ${var.image-full-name-internal}-k6-static-analysis_image:${var.version}
+        --file epme-testware/epme-testware-impl/src/Dockerfile
+        --no-cache .
+
+  delete-k6-static-analysis-image:
+    - task: k6-static-analysis-image-job
+      cmd: docker image remove ${var.image-full-name-internal}-k6-static-analysis_image:${var.version} --force || true

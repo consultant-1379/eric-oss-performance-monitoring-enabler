@@ -1,0 +1,43 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+suite: Test EPME Log Design Rule (DR-D470222-010) - verify log control has default log level
+templates:
+  - logcontrol-configmap.yaml
+tests:
+  - it: When EPME is deployed with its default configuration, then the log control file has default log level set to INFO
+    asserts:
+      - isKind:
+          of: ConfigMap
+#
+#     Verify default log level is INFO
+######################################################################################
+      - equal:
+          path: data
+          value:
+            logcontrol.json: |-
+              [
+                {
+                  "container": "eric-oss-performance-monitoring-enabler",
+                  "severity": "INFO"
+                }
+              ]
+#
+#     Verify the metadata log control configmap name
+######################################################################################
+      - equal:
+          path: metadata.name
+          value: eric-oss-performance-monitoring-enabler-log-control-configmap

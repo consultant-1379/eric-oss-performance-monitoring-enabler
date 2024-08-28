@@ -1,0 +1,184 @@
+#
+# COPYRIGHT Ericsson 2021
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+# Default values for eric-oss-data-generator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+#global:
+#  timezone: UTC
+#  registry:
+#    url: armdocker.rnd.ericsson.se
+#  #Secret must be manually created in the namespace, no default value
+#  pullSecret: eric-adp-example-secret
+#  fsGroup:
+#    manual: 10000
+#    namespace: true
+#  # The IP family the service belongs to when service.type is set to ClusterIP.
+#  # Options are: IPv4, IPv6
+#  internalIPFamily:
+#  security:
+#    roleBinding:
+#      create: true
+#    roleReferenceMap:
+#      default-restricted-security-policy: "<restricted security policy at customer deployment>"
+#    tls:
+#      enabled: true
+
+dataGenerator:
+  configLocation: "/config/config.default.json"
+  kafka:
+    bootstrapServers: eric-oss-dmm-kf-op-sz-kafka-bootstrap:9092
+    producer:
+       keySerializer: org.apache.kafka.common.serialization.StringSerializer
+       valueSerializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+       groupId: custom-group
+       properties:
+         lingerMs: 500
+         batchSize: 16384
+         bufferMemory: 33554432
+         compressionType: gzip
+    properties:
+      schemaRegistryUrl: http://eric-schema-registry-sr:8081
+  schemaRegistry:
+    url: http://eric-schema-registry-sr:8081
+  dataCatalog:
+    baseUrl: http://eric-oss-data-catalog:8080/catalog
+    messageBusClusterName: eric-oss-dmm-kf-op-sz-kafka-bootstrap
+    messageBusNamespace: namespace
+    messageBusName: name
+    messageBusAccessEndpoints: eric-oss-dmm-kf-op-sz-kafka-bootstrap:9092
+    dataSpaceName: PM_STATS_KPI
+
+livenessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 20
+  timeoutSeconds: 15
+  failureThreshold: 5
+
+replicaCount: 1
+
+podDisruptionBudget:
+  # Minimum number/percentage of Pods that must remain available during the planned disruption.
+  # Value can be expressed as an integer or as a percentage. When specified as a percentage of the Pods,
+  # if it does not map to an exact number, Kubernetes rounds up to the nearest integer.
+  # minAvailable: 2 # example value for 2 pods defined as integer
+  minAvailable: "40%"
+
+productInfo:
+  # R-State of the product. R State should match helm chart version (3.1.0 -> R2A)
+  # To automate it when packaging the helm chart rstate can be generated
+  # and below value replaced with correct R-Statei by e.g. Bob
+  rstate: R1AH
+
+updateStrategy:
+ type: RollingUpdate
+ rollingUpdate:
+   maxSurge: 1
+   maxUnavailable: 0
+
+imageCredentials:
+  eric-oss-data-generator:
+    # repoPath include the image path relative to the registry url, excluding image name
+    # repoPath: sandbox/adp-staging/adp-cicd
+    #pullPolicy: IfNotPresent
+    pullPolicy: IfNotPresent
+    repoPath: "proj-eric-oss-drop"
+    registry:
+    # overrides global registry url
+      url: "armdocker.rnd.ericsson.se"
+    #- Secret must be manually created in the namespace, no default value
+    # pullSecret: REPO_SECRET
+  eric-oss-data-generator-test:
+    repoPath: proj-eric-oss-drop
+
+images:
+  eric-oss-data-generator:
+    name: eric-oss-data-loader
+    tag: 1.0.27-84
+  eric-oss-data-generator-test:
+    name: eric-oss-helm-test
+    tag: 1.0.0-1
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+annotations: {}
+
+service:
+  type: ClusterIP
+  port: 8080    # Changed from 80 to 8080 and spring application is hosted on 8080
+  endpoints:
+    chassisapi:
+      tls:
+        enforced: required
+        verifyClientCertificate: required
+
+ingress:
+  enabled: false
+  ingressClass: OAM-IngressClass
+  # TODO: Please add in appropriate details while enabling the ingress
+  ingressClass:
+
+  hosts:
+    - host: chart-example.local
+      paths: [/]
+
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+eric-pm-server:
+  rbac:
+    appMonitoring:
+      enabled: true
+
+prometheus:
+  path: /actuator/prometheus
+  scrape: true
+
+resources:
+  eric-oss-data-generator:
+    requests:
+      memory: 512Mi
+      cpu: 250m
+    limits:
+      memory: 2Gi
+      cpu: 500m
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity:
+  podAntiAffinity: "soft"

@@ -1,0 +1,160 @@
+{
+  "tenant": "master",
+  "roles": [
+      {
+          "name": "PME_Configuration_Reader",
+          "attributes": {}
+      },
+      {
+          "name": "PME_Configuration_Operator",
+          "attributes": {}
+      },
+      {
+          "name": "PME_Session_Operator",
+          "attributes": {}
+      }
+  ],
+  "authorization": {
+      "resources": [
+          {
+              "name": "PmeConfigurations",
+              "type": "urn:eo:resources:extrapp",
+              "ownerManagedAccess": false,
+              "displayName": "Performance Monitoring Enabler Configurations",
+              "attributes": {},
+              "uris": [
+                  "/performance-monitoring-enabler/*/configurations/**"
+              ],
+              "scopes": [
+                  {
+                      "name": "GET"
+                  },
+                  {
+                      "name": "POST"
+                  },
+                  {
+                      "name": "DELETE"
+                  },
+                  {
+                      "name": "PUT"
+                  },
+                  {
+                      "name": "PATCH"
+                  }
+              ]
+          },
+          {
+              "name": "PmeSessions",
+              "type": "urn:eo:resources:extrapp",
+              "ownerManagedAccess": false,
+              "displayName": "Performance Monitoring Enabler Sessions",
+              "attributes": {},
+              "uris": [
+                  "/performance-monitoring-enabler/*/sessions/**"
+              ],
+              "scopes": [
+                  {
+                      "name": "GET"
+                  },
+                  {
+                      "name": "POST"
+                  },
+                  {
+                      "name": "DELETE"
+                  },
+                  {
+                      "name": "PUT"
+                  },
+                  {
+                      "name": "PATCH"
+                  }
+              ]
+          }
+      ],
+      "policies": [
+          {
+              "name": "Is PME Configuration Reader Policy",
+              "description": "Policy for PME_Configuration_Reader that is based on role",
+              "type": "role",
+              "logic": "POSITIVE",
+              "decisionStrategy": "UNANIMOUS",
+              "config": {
+                  "roles": "[{\"id\":\"PME_Configuration_Reader\",\"required\":false}]"
+              }
+          },
+          {
+              "name": "Is PME Configuration Operator Policy",
+              "description": "Policy for PME_Configuration_Operator that is based on role",
+              "type": "role",
+              "logic": "POSITIVE",
+              "decisionStrategy": "UNANIMOUS",
+              "config": {
+                  "roles": "[{\"id\":\"PME_Configuration_Operator\",\"required\":false}]"
+              }
+          },
+          {
+              "name": "Is PME Sessions Operator Policy",
+              "description": "Policy for PME_Session_Operator that is based on role",
+              "type": "role",
+              "logic": "POSITIVE",
+              "decisionStrategy": "UNANIMOUS",
+              "config": {
+                  "roles": "[{\"id\":\"PME_Session_Operator\",\"required\":false}]"
+              }
+          },
+          {
+              "name": "PME Configuration Reader Permission",
+              "description": "Permission to read PME Configurations",
+              "type": "scope",
+              "logic": "POSITIVE",
+              "decisionStrategy": "AFFIRMATIVE",
+              "config": {
+                  "resources": "[\"PmeConfigurations\"]",
+                  "scopes": "[\"GET\"]",
+                  "applyPolicies": "[\"Is PME Configuration Reader Policy\", \"Is PME Configuration Operator Policy\"]"
+              }
+          },
+          {
+              "name": "PME Configuration Operator Permission",
+              "description": "Permission to access PME Configurations",
+              "type": "scope",
+              "logic": "POSITIVE",
+              "decisionStrategy": "AFFIRMATIVE",
+              "config": {
+                  "resources": "[\"PmeConfigurations\"]",
+                  "scopes": "[\"PUT\",\"POST\",\"DELETE\",\"PATCH\"]",
+                  "applyPolicies": "[\"Is PME Configuration Operator Policy\"]"
+              }
+          },
+          {
+              "name": "PME Session Operator Permission",
+              "description": "Permission to operate PME Sessions",
+              "type": "scope",
+              "logic": "POSITIVE",
+              "decisionStrategy": "AFFIRMATIVE",
+              "config": {
+                  "resources": "[\"PmeSessions\"]",
+                  "scopes": "[\"GET\",\"PUT\",\"POST\",\"DELETE\",\"PATCH\"]",
+                  "applyPolicies": "[\"Is PME Sessions Operator Policy\"]"
+              }
+          }
+      ],
+      "scopes": [
+          {
+              "name": "GET"
+          },
+          {
+              "name": "POST"
+          },
+          {
+              "name": "DELETE"
+          },
+          {
+              "name": "PUT"
+          },
+          {
+              "name": "PATCH"
+          }
+      ]
+  }
+}

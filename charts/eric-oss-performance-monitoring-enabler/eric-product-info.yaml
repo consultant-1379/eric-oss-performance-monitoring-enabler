@@ -1,0 +1,40 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+productName: "eric-oss-performance-monitoring-enabler HELM"
+productNumber: "CXC 201 0000"
+images:
+  eric-oss-performance-monitoring-enabler:
+    productName: "eric-oss-performance-monitoring-enabler IMAGE"
+    productNumber: "CXC 201 0001"
+    registry: "armdocker.rnd.ericsson.se"
+    repoPath: REPO_PATH
+    name: "eric-oss-performance-monitoring-enabler"
+    tag: VERSION
+  eric-data-document-database-pg:
+    productName: "Document Database PG"
+    productNumber: "CAX 105 3319"
+    registry: "armdocker.rnd.ericsson.se"
+    repoPath: "proj-document-database-pg-release/data"
+    name: "eric-data-document-database-pg13"
+    tag: 8.5.0-22
+  logshipper:
+    productName: "Log Shipper Image"
+    productNumber: "CXU 101 0642"
+    registry: "armdocker.rnd.ericsson.se"
+    repoPath: "proj-adp-log-released"
+    name: "eric-log-shipper"
+    tag: "12.0.0-18"

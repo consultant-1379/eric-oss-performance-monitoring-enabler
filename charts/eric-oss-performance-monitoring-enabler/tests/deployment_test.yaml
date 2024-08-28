@@ -1,0 +1,114 @@
+#
+# COPYRIGHT Ericsson 2023 - 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+suite: Test EPME Deployment
+templates:
+  - deployment.yaml
+tests:
+  - it: deployment should render with 1 replica count
+    asserts:
+      - isKind:
+          of: Deployment
+      - equal:
+          path: spec.replicas
+          value: 1
+  - it: When eric-oss-performance-monitoring-enabler-pg is disabled, no pg-access label should exist on pod
+    set:
+      eric-oss-performance-monitoring-enabler-pg.enabled: false
+    asserts:
+      - isNull:
+          path: spec.template.metadata.labels.eric-oss-performance-monitoring-enabler-pg-access
+  - it: When eric-oss-performance-monitoring-enabler-pg name is override pg-access label uses name override
+    set:
+      eric-oss-performance-monitoring-enabler-pg.nameOverride: pme-test-pg
+    asserts:
+      - isNull:
+          path: spec.template.metadata.labels.eric-oss-performance-monitoring-enabler-pg-access
+      - equal:
+          path: spec.template.metadata.labels.pme-test-pg-access
+          value: "true"
+  - it: When global GAS host is set, PMSCH & DMM URL is populated correctly
+    set:
+      global.hosts.gas: gas.ericsson.se
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: PMSCH_URL
+            value: "https://gas.ericsson.se"
+          count: 1
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: DMM_URL
+            value: "https://gas.ericsson.se"
+          count: 1
+  - it: When PMSCH & DMM host is set, PMSCH & DMM URL is populated correctly
+    set:
+      pmsch.host: gas.ericsson.se
+      dmm.host: gas.ericsson.se
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: PMSCH_URL
+            value: "https://gas.ericsson.se"
+          count: 1
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: DMM_URL
+            value: "https://gas.ericsson.se"
+          count: 1
+  - it: When https PMSCH & DMM url is set, PMSCH & DMM URL is populated correctly
+    set:
+      pmsch.url: https://gas.ericsson.se
+      dmm.url: https://gas.ericsson.se
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: PMSCH_URL
+            value: "https://gas.ericsson.se"
+          count: 1
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: DMM_URL
+            value: "https://gas.ericsson.se"
+          count: 1
+  - it: When http PMSCH & DMM url is set, PMSCH & DMM URL is populated correctly
+    set:
+      pmsch.url: http://gas.ericsson.se
+      dmm.url: http://gas.ericsson.se
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: PMSCH_URL
+            value: "http://gas.ericsson.se"
+          count: 1
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: DMM_URL
+            value: "http://gas.ericsson.se"
+          count: 1
+  - it: TLS metric scraping should be enabled
+    asserts:
+      - equal:
+          path: spec.template.metadata.labels["service.cleartext/scraping"]
+          value: "true"

@@ -1,0 +1,165 @@
+#
+# COPYRIGHT Ericsson 2023 - 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+modelVersion: 2.0
+
+description: "Ruleset for running PME integration test with PMSCH"
+
+docker-images:
+  - helm: armdocker.rnd.ericsson.se/dockerhub-ericsson-remote/alpine/helm:3.5.4
+  - kubectl: armdocker.rnd.ericsson.se/dockerhub-ericsson-remote/bitnami/kubectl:1.20.8
+  - adp-helm-kubectl: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/bob-py3kubehelmbuilder:latest
+
+properties:
+  - HELM_SET: apiGateway.route.enabled=false,tls.enabled=false,eric-oss-performance-monitoring-enabler-pg.postgresPassword=admin,pmsch.url=http://${env.INGRESS_HOST},dmm.url=http://${env.INGRESS_HOST},eric-oss-performance-monitoring-enabler-pg.imageCredentials.pullSecret=k8s-registry-secret,global.pullSecret=k8s-registry-secret,kpiDefinitions.fileName=KpiDefinitionsShortForm.json,clientId=epme-client-id,networkPolicy.enabled=false,log.streamingMethod=indirect,global.registry.imagePullPolicy=Always
+  - HELM_SET_INT: eric-oss-data-loader.dataGenerator.kafka.producer.properties.bufferMemory=33554432,global.pullSecret=k8s-registry-secret
+  - TEST_PREP_DATA_SUBSCRIPTION_SQL: |
+      DELETE FROM subscription;
+      DELETE FROM input_data_specification;
+
+      INSERT INTO input_data_specification (id, r_app_id, status, ids)
+      VALUES
+        (1, 'epme-client-id', 'Active', '{}');
+
+      INSERT INTO subscription (id, ids_id, name, status, is_mandatory, consumer, requester, predicates)
+      VALUES
+        (1, 1, 'pme-nrcellcu-subscription', 'Active', true, 'pm-stats-calculator-handling', 1, '{}'),
+        (2, 1, 'pme-ep-ngu-subscription', 'Active', true, 'pm-stats-calculator-handling', 1, '{}'),
+        (3, 1, 'pme-nrcelldu-subscription', 'Active', true, 'pm-stats-calculator-handling', 1, '{}'),
+        (4, 1, 'pme-eutrancell-tdd-subscription', 'Active', true, 'pm-stats-calculator-handling', 1, '{}'),
+        (5, 1, 'pme-eutrancell-fdd-subscription', 'Active', true, 'pm-stats-calculator-handling', 1, '{}');
+
+env:
+  - PWD
+  - KUBECONFIG_FILE_PATH
+  - WORKSPACE
+  - DOCKER_REPO
+  - CHART_VERSION
+  - HOME
+  - SELI_ARTIFACTORY_REPO_USER
+  - SELI_ARTIFACTORY_REPO_PASS
+  - INGRESS_HOST
+  - NAMESPACE
+
+rules:
+  clean-env:
+    - task: chmod-file
+      cmd: chmod -f 777 ${env.PWD}/kubeconfig | true
+    - task: copy-file
+      cmd: cp ${env.KUBECONFIG_FILE_PATH} ${env.PWD}/kubeconfig
+    - task: namespace-setup
+      docker-image: adp-helm-kubectl
+      docker-flags:
+        - "--env KUBECONFIG=/.kube/kubeconfig"
+      docker-mounts:
+        - "${env.PWD}:/.kube"
+      cmd:
+        - kubectl delete -n ${env.NAMESPACE} kafkatopic epme-verdicts epme-monitoring-objects || true
+        - kubectl delete ns ${env.NAMESPACE} || true
+        - kubectl patch -n ${env.NAMESPACE} kafkatopic epme-verdicts -p '{"metadata":{"finalizers":[]}}' || true
+        - kubectl patch -n ${env.NAMESPACE} kafkatopic epme-monitoring-objects -p '{"metadata":{"finalizers":[]}}' || true
+        - kubectl create ns ${env.NAMESPACE}
+        - kubectl create secret generic k8s-registry-secret --from-file=.dockerconfigjson=/.kube/ci/newdockerconfig.json --type=kubernetes.io/dockerconfigjson --namespace ${env.NAMESPACE}
+
+  helm-repo-init:
+    - task: chmod-file
+      cmd: chmod 777 charts
+    - task: update-chart-version
+      cmd:
+        - sed -i s/VERSION/${env.CHART_VERSION}/g ./charts/eric-oss-performance-monitoring-enabler/eric-product-info.yaml
+        - sed -i s/REPO_PATH/${env.DOCKER_REPO}/g ./charts/eric-oss-performance-monitoring-enabler/eric-product-info.yaml
+    - task: helm-dep-up-pme
+      docker-image: adp-helm-kubectl
+      docker-flags:
+        - "--env HOME=${env.HOME}"
+        - "--volume ${env.PWD}:${env.PWD}"
+        - "--volume ${env.HOME}:${env.HOME}"
+        - "--env SELI_ARTIFACTORY_REPO_USER='${env.SELI_ARTIFACTORY_REPO_USER}'"
+        - "--env SELI_ARTIFACTORY_REPO_PASS='${env.SELI_ARTIFACTORY_REPO_PASS}'"
+      docker-mounts:
+        - "${env.PWD}:/.config"
+      cmd:
+        - helm repo add eric-data-document-database-pg13 https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-adp-gs-all-helm --repository-cache ${env.PWD}/.helm/cache --repository-config ${env.PWD}/.helm/repositories.yaml
+        - helm repo update eric-data-document-database-pg13 --repository-cache ${env.PWD}/.helm/cache --repository-config ${env.PWD}/.helm/repositories.yaml
+        - helm dependency update ./charts/eric-oss-performance-monitoring-enabler --repository-cache ${env.PWD}/.helm/cache --repository-config ${env.PWD}/.helm/repositories.yaml --skip-refresh
+    - task: helm-dep-up-pme-int
+      docker-image: adp-helm-kubectl
+      docker-flags:
+        - "--env HOME=${env.HOME}"
+        - "--volume ${env.PWD}:${env.PWD}"
+        - "--volume ${env.HOME}:${env.HOME}"
+        - "--env SELI_ARTIFACTORY_REPO_USER='${env.SELI_ARTIFACTORY_REPO_USER}'"
+        - "--env SELI_ARTIFACTORY_REPO_PASS='${env.SELI_ARTIFACTORY_REPO_PASS}'"
+      docker-mounts:
+        - "${env.PWD}/ci/config:/.config"
+      cmd:
+        - helm repo add eric-oss-dmm https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-drop-helm --username '${env.SELI_ARTIFACTORY_REPO_USER}' --password '${env.SELI_ARTIFACTORY_REPO_PASS}' --repository-cache ${env.PWD}/.helm/cache --repository-config ${env.PWD}/.helm/repositories.yaml
+        - helm repo add eric-oss-pm-stats-calc-handling https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-drop-helm --username '${env.SELI_ARTIFACTORY_REPO_USER}' --password '${env.SELI_ARTIFACTORY_REPO_PASS}' --repository-cache ${env.PWD}/.helm/cache --repository-config ${env.PWD}/.helm/repositories.yaml
+        - helm repo update eric-oss-dmm eric-oss-pm-stats-calc-handling --repository-cache ${env.PWD}/.helm/cache --repository-config ${env.PWD}/.helm/repositories.yaml
+        - helm dependency update ./charts/eric-oss-performance-monitoring-enabler-integration --repository-cache ${env.PWD}/.helm/cache --repository-config ${env.PWD}/.helm/repositories.yaml --skip-refresh
+
+  helm-install-dependencies:
+    - task: install-integration-chart
+      docker-image: helm
+      docker-flags:
+        - "--env KUBECONFIG=/.kube/kubeconfig"
+      docker-mounts:
+        - "${env.PWD}:/.kube"
+      cmd: upgrade --install pme-integration /.kube/charts/eric-oss-performance-monitoring-enabler-integration -n ${env.NAMESPACE} --set-string ${HELM_SET_INT} --set pmsch.ingress.host=${env.INGRESS_HOST},dmm.ingress.host=${env.INGRESS_HOST},pme.ingress.host=${env.INGRESS_HOST} --wait --timeout 15m
+
+  create-kafka-topics:
+    - task: chmod-file
+      cmd: chmod -f 777 ${env.PWD}/kubeconfig | true
+    - task: copy-file
+      cmd: cp ${env.KUBECONFIG_FILE_PATH} ${env.PWD}/kubeconfig
+    - task: update-partitions
+      cmd: "sed -i 's/partitions: 6/partitions: 1/g' ${env.PWD}/ci/csar_template/OtherDefinitions/ASD/kafka-topics.yaml"
+    - task: create-topics
+      docker-image: adp-helm-kubectl
+      docker-flags:
+        - "--env KUBECONFIG=/.kube/kubeconfig"
+      docker-mounts:
+        - "${env.PWD}:/.kube"
+      cmd:
+        - kubectl apply -n ${env.NAMESPACE} -f /.kube/ci/csar_template/OtherDefinitions/ASD/kafka-topics.yaml
+        - kubectl patch -n ${env.NAMESPACE} kafkatopic epme-verdicts -p '{"spec":{"partitions":1}}' --type=merge
+
+  helm-install-pme:
+    - task: install-pme-chart
+      docker-image: helm
+      docker-flags:
+        - "--env KUBECONFIG=/.kube/kubeconfig"
+      docker-mounts:
+        - "${env.PWD}:/.kube"
+      cmd: upgrade --install pme /.kube/charts/eric-oss-performance-monitoring-enabler -n ${env.NAMESPACE} --set ${HELM_SET} --wait --timeout 15m
+
+  test-preparation:
+    - task: persist-ids-subscriptions
+      docker-image: adp-helm-kubectl
+      docker-flags:
+        - "--env KUBECONFIG=/.kube/kubeconfig"
+      docker-mounts:
+        - "${env.PWD}:/.kube"
+      cmd:
+        - kubectl exec -itn ${env.NAMESPACE} eric-dmm-common-db-0 -- psql catalog edcapg -c "${TEST_PREP_DATA_SUBSCRIPTION_SQL}"
+    - task: set-execution-schedule
+      docker-image: adp-helm-kubectl
+      docker-flags:
+        - "--env KUBECONFIG=/.kube/kubeconfig"
+      docker-mounts:
+        - "${env.PWD}:/.kube"
+      cmd:
+        - kubectl -n ${env.NAMESPACE} set env deployment/eric-oss-performance-monitoring-enabler EXECUTION_SCHEDULE="0 $(date -d "-50 minutes" +"%M") * * * *"

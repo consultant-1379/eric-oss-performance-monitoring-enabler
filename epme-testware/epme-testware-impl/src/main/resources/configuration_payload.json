@@ -1,0 +1,82 @@
+{
+  "name": "sample_configuration_with_all_kpis_included",
+  "weekendDays": "SATURDAY,SUNDAY",
+  "fixedThresholdKpis": [
+    {
+      "kpiName": "en_dc_setup_sr_captured_gnodeb_hourly",
+      "fixedThreshold": 95
+    },
+    {
+      "kpiName": "diff_initial_erab_establishment_sr_enodeb_hourly",
+      "fixedThreshold": 95
+    },
+    {
+      "kpiName": "scg_active_radio_resource_retainability_gnodeb_hourly",
+      "fixedThreshold": 95
+    },
+    {
+      "kpiName": "avg_dl_mac_drb_throughput_hourly",
+      "fixedThreshold": 95000
+    },
+    {
+      "kpiName": "avg_ul_mac_ue_throughput_hourly",
+      "fixedThreshold": 95000
+    },
+    {
+      "kpiName": "normalized_avg_dl_mac_cell_throughput_traffic_hourly",
+      "fixedThreshold": 95000
+    },
+    {
+      "kpiName": "endc_ps_cell_change_success_rate_hourly",
+      "fixedThreshold": 95
+    },
+    {
+      "kpiName": "partial_cell_availability_gnodeb_hourly",
+      "fixedThreshold": 95
+    },
+    {
+      "kpiName": "nr_to_lte_inter_rat_handover_sr_gnodeb_hourly",
+      "fixedThreshold": 95
+    },
+    {
+      "kpiName": "nr_handover_success_rate_gnodeb_hourly",
+      "fixedThreshold": 95
+    },
+    {
+      "kpiName": "cell_availability_hourly",
+      "fixedThreshold": 95
+    },
+    {
+      "kpiName": "initial_and_added_e_rab_establishment_sr_hourly",
+      "fixedThreshold": 95
+    },
+    {
+      "kpiName": "avg_ul_pdcp_ue_throughput_cell_hourly",
+      "fixedThreshold": 95000
+    },
+    {
+      "kpiName": "avg_dl_pdcp_ue_throughput_cell_hourly",
+      "fixedThreshold": 95000
+    },
+    {
+      "kpiName": "ul_pusch_sinr_hourly",
+      "fixedThreshold": 95
+    },
+    {
+      "kpiName": "cell_handover_success_rate_hourly",
+      "fixedThreshold": 95
+    },
+    {
+      "kpiName": "e_rab_retainability_percentage_lost_hourly",
+      "fixedThreshold": 95
+    },
+    {
+      "kpiName": "avg_dl_latency_hourly",
+      "fixedThreshold": 95
+    },
+    {
+      "kpiName": "voip_cell_integrity_hourly",
+      "fixedThreshold": 95
+    }
+  ]
+}

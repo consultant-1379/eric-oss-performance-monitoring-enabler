@@ -1,0 +1,68 @@
+{
+  "version": "1.0",
+  "subscriptions": [{
+    "name": "pme-nrcelldu-subscription",
+    "isMandatory": "yes",
+    "isOnHold": "no",
+    "isTagged": "no",
+    "consumer": "pm-stats-calculation-handling",
+    "dataType": {
+      "dataspace": "5G",
+      "dataCategory": "PM_COUNTERS",
+      "schemaName": "NRCellDU_GNBDU_1",
+      "schemaVersion": "1"
+    }
+  },
+    {
+      "name": "pme-nrcellcu-subscription",
+      "isMandatory": "yes",
+      "isOnHold": "no",
+      "isTagged": "no",
+      "consumer": "pm-stats-calculation-handling",
+      "dataType": {
+        "dataspace": "5G",
+        "dataCategory": "PM_COUNTERS",
+        "schemaName": "NRCellCU_GNBCUCP_1",
+        "schemaVersion": "1"
+      }
+    },
+    {
+      "name": "pme-ep-ngu-subscription",
+      "isMandatory": "yes",
+      "isOnHold": "no",
+      "isTagged": "no",
+      "consumer": "pm-stats-calculation-handling",
+      "dataType": {
+        "dataspace": "5G",
+        "dataCategory": "PM_COUNTERS",
+        "schemaName": "EP_NgU_GNBCUUP_1",
+        "schemaVersion": "1"
+      }
+    },
+    {
+      "name": "pme-eutrancell-fdd-subscription",
+      "isMandatory": "yes",
+      "isOnHold": "no",
+      "isTagged": "no",
+      "consumer": "pm-stats-calculation-handling",
+      "dataType": {
+        "dataspace": "4G",
+        "dataCategory": "PM_COUNTERS",
+        "schemaName": "EUtranCellFDD_1",
+        "schemaVersion": "1"
+      }
+    },
+    {
+      "name": "pme-eutrancell-tdd-subscription",
+      "isMandatory": "yes",
+      "isOnHold": "no",
+      "isTagged": "no",
+      "consumer": "pm-stats-calculation-handling",
+      "dataType": {
+        "dataspace": "4G",
+        "dataCategory": "PM_COUNTERS",
+        "schemaName": "EUtranCellTDD_1",
+        "schemaVersion": "1"
+      }
+    }]
+}

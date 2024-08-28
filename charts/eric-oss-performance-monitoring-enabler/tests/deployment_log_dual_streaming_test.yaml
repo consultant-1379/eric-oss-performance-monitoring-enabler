@@ -1,0 +1,54 @@
+#
+# COPYRIGHT Ericsson 2023 - 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+suite: Test EPME Log Design Rule (DR-D470222-010) - verify dual steaming
+templates:
+  - deployment.yaml
+values:
+  - global_log_streaming_dual_values.yaml
+tests:
+  - it: When EPME is deployed with dual logging configuration, then indirect and direct stream logging is correctly configured
+    asserts:
+      - isKind:
+          of: Deployment
+#
+#     Deployment should render a logger-communication-type set to direct
+######################################################################################
+      - equal:
+          path: spec.template.metadata.labels.logger-communication-type
+          value:
+            direct
+#
+#     Verify that the first container is the EPME container
+######################################################################################
+      - equal:
+          path: spec.template.spec.containers[0].name
+          value: eric-oss-performance-monitoring-enabler
+#
+#     Verify the dual specific env parameter
+######################################################################################
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: LOGBACK_CONFIG_FILE
+            value: "classpath:logback-dual-sec.xml"
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: LOG_STREAMING_METHOD
+            value: "dual"
+          any: true

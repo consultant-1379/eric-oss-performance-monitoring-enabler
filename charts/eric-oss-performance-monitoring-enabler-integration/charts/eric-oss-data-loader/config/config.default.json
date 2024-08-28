@@ -1,0 +1,3496 @@
+{
+  "dataloader": {
+    "schedule": {
+      "enabled": true,
+      "dynamicDelay": 1000,
+      "delayChange": "CONSTANT",
+      "startDate": null,
+      "startHour": null,
+      "startMinute": null,
+      "maxMessages": null,
+      "lifespan": null
+    },
+    "firstRopStartTime": "00:00",
+    "ropConfigurations": [
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 5,
+        "recordsConfiguration": [
+          { "schemaName": "EUtranCellTDD_1", "records": 1 },
+          { "schemaName": "EUtranCellFDD_1", "records": 1 },
+          { "schemaName": "NRCellDU_GNBDU_1", "records": 1 },
+          { "schemaName": "NRCellCU_GNBCUCP_1", "records": 1 },
+          { "schemaName": "EP_NgU_GNBCUUP_1", "records": 1 }
+        ]
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      },
+      {
+        "lengthInMinutes": 15,
+        "numberOfRecords": 0,
+        "recordsConfiguration": []
+      }
+    ],
+    "batchConfigurations": [
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 },
+      { "numberOfRecords": 5 }
+    ],
+    "schemaInstances": [
+      {
+        "schema": "EUtranCellTDD_1",
+        "topic": {
+          "name": "EUtranCellTDD_1",
+          "partitions": 1,
+          "replicationFactor": 1
+        },
+        "dataSpace": "4G",
+        "dataSpaceId": 3,
+        "dataCategory": "PM_COUNTERS",
+        "dataCategoryId": 3,
+        "messageKeyConfiguration": {
+          "fieldName": "EUtranCellTDD_1-messageKey",
+          "fieldType": "integer",
+          "generationAlgorithm": {
+            "type": "constant_change",
+            "configuration": {
+              "startValue": 1000,
+              "direction": "DESC",
+              "change": 2
+            }
+          }
+        },
+        "messageHeaders": {
+          "recordName": "new_fact_table_0",
+          "test": "2"
+        },
+        "fields": [
+          {
+            "fieldName": "nodeFDN",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "template",
+              "configuration": {
+                "templateMap": [
+                  {
+                    "value": 0,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 2,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "ENodeBFunction",
+                    "valuePrefix": "constant2MoFdn",
+                    "valueFormat": "000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 0,
+                    "name": "EUtranCellTDD_1",
+                    "valuePrefix": "constant3MoFdn",
+                    "valueFormat": "00",
+                    "counterLimit": 10,
+                    "visible": false
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "fieldName": "elementType",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantElementType"
+              }
+            }
+          },
+          {
+            "fieldName": "ropBeginTime",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantRopBeginTime"
+              }
+            }
+          },
+          {
+            "fieldName": "ropEndTime",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantRopEndTime"
+              }
+            }
+          },
+          {
+            "fieldName": "moFdn",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "template",
+              "configuration": {
+                "templateMap": [
+                  {
+                    "value": 0,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 2,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "ENodeBFunction",
+                    "valuePrefix": "constant2MoFdn",
+                    "valueFormat": "000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "EUtranCellTDD_1",
+                    "valuePrefix": "constant3MoFdn",
+                    "valueFormat": "00",
+                    "counterLimit": 5,
+                    "visible": true
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "fieldName": "dnPrefix",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "SubNetwork=Europe,SubNetwork=Ireland,SubNetwork=NETSimW"
+              }
+            }
+          },
+          {
+            "fieldName": "pmCounters",
+            "fieldType": "object",
+            "fields": [
+              {
+                "fieldName": "pmCellHoPrepSuccLteIntraF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 17
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellHoPrepSuccLteInterF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 6
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellHoExeSuccLteIntraF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellHoExeSuccLteInterF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 15
+                  }
+                }
+              },
+              {
+                "fieldName": "pmHoPrepRejOutUlThres",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 2
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellHoPrepAttLteIntraF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 19
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellHoPrepAttLteInterF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 7
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellHoExeAttLteIntraF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 12
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellHoExeAttLteInterF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 15
+                  }
+                }
+              },
+              {
+                "fieldName": "pmPdcpVolDlDrb",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmPdcpVolDlDrbLastTTI",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmUeThpVolUl",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmUeThpTimeDl",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmUeThpTimeUl",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabSuccMod",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabSuccMoVoice",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabSuccMta",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabSuccHpa",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttMod",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 36
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttMoVoice",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 30
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttMta",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 6
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttHpa",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttReattMod",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttReattMoVoice",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttReattMta",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttReattHpa",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabFailMmeOvlMod",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 6
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabSuccMod",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabSuccMoVoice",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabSuccMta",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabSuccHpa",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabAttMod",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 11
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabAttMoVoice",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabAttMta",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabAttHpa",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabSuccInitQci",
+                "fieldType": "array",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "values": [1, 2, 3]
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabSuccAddedQci",
+                "fieldType": "array",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "values": [10, 20, 30]
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabAttInitQci",
+                "fieldType": "array",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "values": [10, 19, 30]
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabAttAddedQci",
+                "fieldType": "array",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "values": [7, 8, 30]
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabAttAddedHoOngoingQci",
+                "fieldType": "array",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "values": [1, 4, 30]
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabSucc",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 33
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAtt",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 60
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttReatt",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 12
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabFailMmeOvlMos",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 8
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabSucc",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 19
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabAtt",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 26
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabFailMmeOvlMos",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 6
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabSuccInit",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 21
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabSuccAdded",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 19
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabAttInit",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 30
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabAttAdded",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 22
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabAttAddedHoOngoing",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 11
+                  }
+                }
+              },
+              {
+                "fieldName": "pmSinrPuschDistr",
+                "fieldType": "array",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "values": [1, 2, 3, 4, 5, 6, 7, 80, 222]
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelAbnormalEnbAct",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelAbnormalMmeAct",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelAbnormalEnb",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 50
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelNormalEnb",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 30
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelMme",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelAbnormalEnbActQci",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelAbnormalMmeActQci",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelAbnormalEnbQci",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelNormalEnbQci",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 30
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelMmeQci",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 50
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellDowntimeAuto",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 42
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellDowntimeMan",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 30
+                  }
+                }
+              },
+              {
+                "fieldName": "pmPdcpLatTimeDl",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmPdcpLatPktTransDl",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 4
+                  }
+                }
+              },
+              {
+                "fieldName": "pmVoipQualityRUlOk",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 95
+                  }
+                }
+              },
+              {
+                "fieldName": "pmVoipQualityRbUlOk",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 40
+                  }
+                }
+              },
+              {
+                "fieldName": "pmVoipQualityRbUlNok",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 60
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnLevSum",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 100
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnLevSamp",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmFlexErabEstabSuccInit",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 39
+                  }
+                }
+              },
+              {
+                "fieldName": "pmFlexErabEstabAttInit",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 40
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "schema": "EUtranCellFDD_1",
+        "topic": {
+          "name": "EUtranCellFDD_1",
+          "partitions": 1,
+          "replicationFactor": 1
+        },
+        "dataSpace": "4G",
+        "dataSpaceId": 3,
+        "dataCategory": "PM_COUNTERS",
+        "dataCategoryId": 3,
+        "messageKeyConfiguration": {
+          "fieldName": "EUtranCellFDD_1-messageKey",
+          "fieldType": "integer",
+          "generationAlgorithm": {
+            "type": "constant_change",
+            "configuration": {
+              "startValue": 1000,
+              "direction": "DESC",
+              "change": 2
+            }
+          }
+        },
+        "messageHeaders": {
+          "recordName": "new_fact_table_1",
+          "test": "2"
+        },
+        "fields": [
+          {
+            "fieldName": "nodeFDN",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "template",
+              "configuration": {
+                "templateMap": [
+                  {
+                    "value": 0,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 2,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "ENodeBFunction",
+                    "valuePrefix": "constant2MoFdn",
+                    "valueFormat": "000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 0,
+                    "name": "EUtranCellFDD_1",
+                    "valuePrefix": "constant3MoFdn",
+                    "valueFormat": "00",
+                    "counterLimit": 10,
+                    "visible": false
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "fieldName": "elementType",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantElementType"
+              }
+            }
+          },
+          {
+            "fieldName": "ropBeginTime",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantRopBeginTime"
+              }
+            }
+          },
+          {
+            "fieldName": "ropEndTime",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantRopEndTime"
+              }
+            }
+          },
+          {
+            "fieldName": "moFdn",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "template",
+              "configuration": {
+                "templateMap": [
+                  {
+                    "value": 0,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 2,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "ENodeBFunction",
+                    "valuePrefix": "constant2MoFdn",
+                    "valueFormat": "000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "EUtranCellFDD_1",
+                    "valuePrefix": "constant3MoFdn",
+                    "valueFormat": "00",
+                    "counterLimit": 5,
+                    "visible": true
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "fieldName": "dnPrefix",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "SubNetwork=Europe,SubNetwork=Ireland,SubNetwork=NETSimW"
+              }
+            }
+          },
+          {
+            "fieldName": "pmCounters",
+            "fieldType": "object",
+            "fields": [
+              {
+                "fieldName": "pmCellHoPrepSuccLteIntraF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 17
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellHoPrepSuccLteInterF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 6
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellHoExeSuccLteIntraF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellHoExeSuccLteInterF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 15
+                  }
+                }
+              },
+              {
+                "fieldName": "pmHoPrepRejOutUlThres",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 2
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellHoPrepAttLteIntraF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 19
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellHoPrepAttLteInterF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 7
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellHoExeAttLteIntraF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 12
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellHoExeAttLteInterF",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 15
+                  }
+                }
+              },
+              {
+                "fieldName": "pmPdcpVolDlDrb",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmPdcpVolDlDrbLastTTI",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmUeThpVolUl",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmUeThpTimeDl",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmUeThpTimeUl",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabSuccMod",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabSuccMoVoice",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabSuccMta",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabSuccHpa",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttMod",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 36
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttMoVoice",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 30
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttMta",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 6
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttHpa",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttReattMod",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttReattMoVoice",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttReattMta",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttReattHpa",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabFailMmeOvlMod",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 6
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabSuccMod",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabSuccMoVoice",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabSuccMta",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabSuccHpa",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabAttMod",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 11
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabAttMoVoice",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabAttMta",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabAttHpa",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabSuccInitQci",
+                "fieldType": "array",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "values": [1, 2, 3]
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabSuccAddedQci",
+                "fieldType": "array",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "values": [10, 20, 30]
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabAttInitQci",
+                "fieldType": "array",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "values": [10, 19, 30]
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabAttAddedQci",
+                "fieldType": "array",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "values": [7, 8, 30]
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabAttAddedHoOngoingQci",
+                "fieldType": "array",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "values": [1, 4, 30]
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabSucc",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 33
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAtt",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 60
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttReatt",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 12
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabFailMmeOvlMos",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 8
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabSucc",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 19
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabAtt",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 26
+                  }
+                }
+              },
+              {
+                "fieldName": "pmS1SigConnEstabFailMmeOvlMos",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 6
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabSuccInit",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 21
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabSuccAdded",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 19
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabAttInit",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 30
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabAttAdded",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 22
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabEstabAttAddedHoOngoing",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 11
+                  }
+                }
+              },
+              {
+                "fieldName": "pmSinrPuschDistr",
+                "fieldType": "array",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "values": [1, 2, 3, 4, 5, 6, 7, 80, 222]
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelAbnormalEnbAct",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelAbnormalMmeAct",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelAbnormalEnb",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 50
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelNormalEnb",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 30
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelMme",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelAbnormalEnbActQci",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelAbnormalMmeActQci",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelAbnormalEnbQci",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelNormalEnbQci",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 30
+                  }
+                }
+              },
+              {
+                "fieldName": "pmErabRelMmeQci",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 50
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellDowntimeAuto",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 42
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellDowntimeMan",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 30
+                  }
+                }
+              },
+              {
+                "fieldName": "pmPdcpLatTimeDl",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmPdcpLatPktTransDl",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 4
+                  }
+                }
+              },
+              {
+                "fieldName": "pmVoipQualityRUlOk",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 95
+                  }
+                }
+              },
+              {
+                "fieldName": "pmVoipQualityRbUlOk",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 40
+                  }
+                }
+              },
+              {
+                "fieldName": "pmVoipQualityRbUlNok",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 60
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnLevSum",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 100
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnLevSamp",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmFlexErabEstabSuccInit",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 39
+                  }
+                }
+              },
+              {
+                "fieldName": "pmFlexErabEstabAttInit",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 40
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "schema": "EP_NgU_GNBCUUP_1",
+        "topic": {
+          "name": "EP_NgU_GNBCUUP_1",
+          "partitions": 1,
+          "replicationFactor": 1
+        },
+        "dataSpace": "5G",
+        "dataSpaceId": 3,
+        "dataCategory": "PM_COUNTERS",
+        "dataCategoryId": 3,
+        "messageKeyConfiguration": {
+          "fieldName": "EP_NgU_GNBCUUP_1-messageKey",
+          "fieldType": "integer",
+          "generationAlgorithm": {
+            "type": "constant_change",
+            "configuration": {
+              "startValue": 1000,
+              "direction": "DESC",
+              "change": 2
+            }
+          }
+        },
+        "messageHeaders": {
+          "recordName": "new_fact_table_0",
+          "test": "2"
+        },
+        "fields": [
+          {
+            "fieldName": "nodeFDN",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "template",
+              "configuration": {
+                "templateMap": [
+                  {
+                    "value": 0,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 2,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "GNodeBFunction",
+                    "valuePrefix": "constant2MoFdn",
+                    "valueFormat": "000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 0,
+                    "name": "EP_NgU_GNBCUUP_1",
+                    "valuePrefix": "constant3MoFdn",
+                    "valueFormat": "00",
+                    "counterLimit": 10,
+                    "visible": false
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "fieldName": "elementType",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantElementType"
+              }
+            }
+          },
+          {
+            "fieldName": "ropBeginTime",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantRopBeginTime"
+              }
+            }
+          },
+          {
+            "fieldName": "ropEndTime",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantRopEndTime"
+              }
+            }
+          },
+          {
+            "fieldName": "moFdn",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "template",
+              "configuration": {
+                "templateMap": [
+                  {
+                    "value": 0,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 2,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "GNodeBFunction",
+                    "valuePrefix": "constant2MoFdn",
+                    "valueFormat": "000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "EP_NgU_GNBCUUP_1",
+                    "valuePrefix": "constant3MoFdn",
+                    "valueFormat": "00",
+                    "counterLimit": 5,
+                    "visible": true
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "fieldName": "dnPrefix",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "SubNetwork=Europe,SubNetwork=Ireland,SubNetwork=NETSimW"
+              }
+            }
+          },
+          {
+            "fieldName": "pmCounters",
+            "fieldType": "object",
+            "fields": [
+              {
+                "fieldName": "pmPdcpPktRecDlDisc5qi",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 70
+                  }
+                }
+              },
+              {
+                "fieldName": "pmPdcpPktRecDlDiscAqm5qi",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmPdcpPktRecDl5qi",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "schema": "NRCellDU_GNBDU_1",
+        "topic": {
+          "name": "NRCellDU_GNBDU_1",
+          "partitions": 1,
+          "replicationFactor": 1
+        },
+        "dataSpace": "5G",
+        "dataSpaceId": 3,
+        "dataCategory": "PM_COUNTERS",
+        "dataCategoryId": 3,
+        "messageKeyConfiguration": {
+          "fieldName": "NRCellDU_GNBDU_1-messageKey",
+          "fieldType": "integer",
+          "generationAlgorithm": {
+            "type": "constant_change",
+            "configuration": {
+              "startValue": 1000,
+              "direction": "DESC",
+              "change": 2
+            }
+          }
+        },
+        "messageHeaders": {
+          "recordName": "new_fact_table_3",
+          "test": "2"
+        },
+        "fields": [
+          {
+            "fieldName": "nodeFDN",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "template",
+              "configuration": {
+                "templateMap": [
+                  {
+                    "value": 0,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 2,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "GNodeBFunction",
+                    "valuePrefix": "constant2MoFdn",
+                    "valueFormat": "000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 0,
+                    "name": "NRCellDU",
+                    "valuePrefix": "constant3MoFdn",
+                    "valueFormat": "00",
+                    "counterLimit": 10,
+                    "visible": false
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "fieldName": "elementType",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantElementType"
+              }
+            }
+          },
+          {
+            "fieldName": "ropBeginTime",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantRopBeginTime"
+              }
+            }
+          },
+          {
+            "fieldName": "ropEndTime",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantRopEndTime"
+              }
+            }
+          },
+          {
+            "fieldName": "moFdn",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "template",
+              "configuration": {
+                "templateMap": [
+                  {
+                    "value": 0,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 2,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "GNodeBFunction",
+                    "valuePrefix": "constant2MoFdn",
+                    "valueFormat": "000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "NRCellDU",
+                    "valuePrefix": "constant3MoFdn",
+                    "valueFormat": "00",
+                    "counterLimit": 5,
+                    "visible": true
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "fieldName": "dnPrefix",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "SubNetwork=Europe,SubNetwork=Ireland,SubNetwork=NETSimW"
+              }
+            }
+          },
+          {
+            "fieldName": "pmCounters",
+            "fieldType": "object",
+            "fields": [
+              {
+                "fieldName": "pmMacVolDlDrb",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 1000
+                  }
+                }
+              },
+              {
+                "fieldName": "pmMacTimeDlDrb",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmMacVolUlResUe",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 1000
+                  }
+                }
+              },
+              {
+                "fieldName": "pmMacTimeUlResUe",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 9
+                  }
+                }
+              },
+              {
+                "fieldName": "pmMacVolDl",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 100
+                  }
+                }
+              },
+              {
+                "fieldName": "pmPdschSchedActivity",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellDowntimeAuto",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 42
+                  }
+                }
+              },
+              {
+                "fieldName": "pmCellDowntimeMan",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 30
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "schema": "NRCellCU_GNBCUCP_1",
+        "topic": {
+          "name": "NRCellCU_GNBCUCP_1",
+          "partitions": 1,
+          "replicationFactor": 1
+        },
+        "dataSpace": "5G",
+        "dataSpaceId": 3,
+        "dataCategory": "PM_COUNTERS",
+        "dataCategoryId": 3,
+        "messageKeyConfiguration": {
+          "fieldName": "NRCellCU_GNBCUCP_1-messageKey",
+          "fieldType": "integer",
+          "generationAlgorithm": {
+            "type": "constant_change",
+            "configuration": {
+              "startValue": 1000,
+              "direction": "DESC",
+              "change": 2
+            }
+          }
+        },
+        "messageHeaders": {
+          "recordName": "new_fact_table_0",
+          "test": "2"
+        },
+        "fields": [
+          {
+            "fieldName": "nodeFDN",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "template",
+              "configuration": {
+                "templateMap": [
+                  {
+                    "value": 0,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 2,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "GNodeBFunction",
+                    "valuePrefix": "constant2MoFdn",
+                    "valueFormat": "000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 0,
+                    "name": "NRCellCU_GNBCUCP_1",
+                    "valuePrefix": "constant3MoFdn",
+                    "valueFormat": "00",
+                    "counterLimit": 10,
+                    "visible": false
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "fieldName": "elementType",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantElementType"
+              }
+            }
+          },
+          {
+            "fieldName": "ropBeginTime",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantRopBeginTime"
+              }
+            }
+          },
+          {
+            "fieldName": "ropEndTime",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "constantRopEndTime"
+              }
+            }
+          },
+          {
+            "fieldName": "moFdn",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "template",
+              "configuration": {
+                "templateMap": [
+                  {
+                    "value": 0,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": false
+                  },
+                  {
+                    "value": 2,
+                    "name": "ManagementElement",
+                    "valuePrefix": "constant1MoFdn",
+                    "valueFormat": "0000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "GNodeBFunction",
+                    "valuePrefix": "constant2MoFdn",
+                    "valueFormat": "000",
+                    "counterLimit": 1,
+                    "visible": true
+                  },
+                  {
+                    "value": 0,
+                    "name": "NRCellCU_GNBCUCP_1",
+                    "valuePrefix": "constant3MoFdn",
+                    "valueFormat": "00",
+                    "counterLimit": 5,
+                    "visible": true
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "fieldName": "dnPrefix",
+            "fieldType": "string",
+            "generationAlgorithm": {
+              "type": "constant",
+              "configuration": {
+                "value": "SubNetwork=Europe,SubNetwork=Ireland,SubNetwork=NETSimW"
+              }
+            }
+          },
+          {
+            "fieldName": "pmCounters",
+            "fieldType": "object",
+            "fields": [
+              {
+                "fieldName": "pmHoPrepSuccOutEutran",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 90
+                  }
+                }
+              },
+              {
+                "fieldName": "pmHoPrepAttOutEutran",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 100
+                  }
+                }
+              },
+              {
+                "fieldName": "pmHoExeSuccOutEutran",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 90
+                  }
+                }
+              },
+              {
+                "fieldName": "pmHoExeAttOutEutran",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 100
+                  }
+                }
+              },
+              {
+                "fieldName": "pmHoPrepSuccOutInterGnb",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 45
+                  }
+                }
+              },
+              {
+                "fieldName": "pmHoPrepSuccOutIntraGnb",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 45
+                  }
+                }
+              },
+              {
+                "fieldName": "pmHoPrepAttOutInterGnb",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 70
+                  }
+                }
+              },
+              {
+                "fieldName": "pmHoPrepAttOutIntraGnb",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 30
+                  }
+                }
+              },
+              {
+                "fieldName": "pmHoExeSuccOutInterGnb",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 55
+                  }
+                }
+              },
+              {
+                "fieldName": "pmHoExeSuccOutIntraGnb",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 35
+                  }
+                }
+              },
+              {
+                "fieldName": "pmHoExeAttOutInterGnb",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 60
+                  }
+                }
+              },
+              {
+                "fieldName": "pmHoExeAttOutIntraGnb",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 40
+                  }
+                }
+              },
+              {
+                "fieldName": "pmDrbRelAbnormalGnbAct5qi",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 15
+                  }
+                }
+              },
+              {
+                "fieldName": "pmDrbRelAbnormalAmfAct5qi",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 5
+                  }
+                }
+              },
+              {
+                "fieldName": "pmDrbRelNormal5qi",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 40
+                  }
+                }
+              },
+              {
+                "fieldName": "pmDrbRelAbnormalGnb5qi",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 30
+                  }
+                }
+              },
+              {
+                "fieldName": "pmDrbRelAbnormalAmf5qi",
+                "fieldType": "integer",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 30
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabSucc",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 40
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabSuccMos",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAtt",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 12
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttReatt",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 2
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttMos",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 2
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnEstabAttReattMos",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 2
+                  }
+                }
+              },
+              {
+                "fieldName": "pmNgSigConnEstabSucc",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 60
+                  }
+                }
+              },
+              {
+                "fieldName": "pmNgSigConnEstabSuccMos",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmNgSigConnEstabAtt",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 200
+                  }
+                }
+              },
+              {
+                "fieldName": "pmNgSigConnEstabAttMos",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 100
+                  }
+                }
+              },
+              {
+                "fieldName": "pmDrbEstabSucc5qi",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 40
+                  }
+                }
+              },
+              {
+                "fieldName": "pmDrbEstabAtt5qi",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 100
+                  }
+                }
+              },
+              {
+                "fieldName": "pmEndcSetupUeSucc",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 20
+                  }
+                }
+              },
+              {
+                "fieldName": "pmEndcSetupUeAtt",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 21
+                  }
+                }
+              },
+              {
+                "fieldName": "pmEndcRelUeAbnormalMenbAct",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 12
+                  }
+                }
+              },
+              {
+                "fieldName": "pmEndcRelUeAbnormalSgnbAct",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 13
+                  }
+                }
+              },
+              {
+                "fieldName": "pmEndcRelUeAbnormalSgnb",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 7
+                  }
+                }
+              },
+              {
+                "fieldName": "pmEndcRelUeAbnormalMenb",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmEndcRelUeNormal",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 9
+                  }
+                }
+              },
+              {
+                "fieldName": "pmEndcPSCellChangeSuccIntraSgnb",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmEndcPSCellChangeSuccInterSgnb",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 14
+                  }
+                }
+              },
+              {
+                "fieldName": "pmEndcPSCellChangeAttInterSgnb",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 15
+                  }
+                }
+              },
+              {
+                "fieldName": "pmEndcPSCellChangeAttIntraSgnb",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 10
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnLevelSumEnDc",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 7
+                  }
+                }
+              },
+              {
+                "fieldName": "pmRrcConnLevelSamp",
+                "fieldType": "INTEGER",
+                "generationAlgorithm": {
+                  "type": "constant",
+                  "configuration": {
+                    "value": 49
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "schemas": [
+      "{\"type\":\"record\",\"name\":\"EUtranCellTDD_1\",\"namespace\":\"com.ericsson.oss.air.avro.model\",\"fields\":[{\"name\":\"nodeFDN\",\"type\":\"string\"},{\"name\":\"elementType\",\"type\":\"string\"},{\"name\":\"ropBeginTime\",\"type\":\"string\"},{\"name\":\"ropEndTime\",\"type\":\"string\"},{\"name\":\"moFdn\",\"type\":\"string\"},{\"name\": \"dnPrefix\",\"type\":\"string\"},{\"name\":\"pmCounters\",\"type\":{\"name\":\"pmCounters\",\"type\":\"record\",\"fields\":[{\"name\":\"pmCellHoPrepSuccLteIntraF\",\"type\":\"int\"},{\"name\":\"pmCellHoPrepSuccLteInterF\",\"type\":\"int\"},{\"name\":\"pmCellHoExeSuccLteIntraF\",\"type\":\"int\"},{\"name\":\"pmCellHoExeSuccLteInterF\",\"type\":\"int\"},{\"name\":\"pmHoPrepRejOutUlThres\",\"type\":\"int\"},{\"name\":\"pmSinrPuschDistr\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"pmCellHoPrepAttLteIntraF\",\"type\":\"int\"},{\"name\":\"pmCellHoPrepAttLteInterF\",\"type\":\"int\"},{\"name\":\"pmCellHoExeAttLteIntraF\",\"type\":\"int\"},{\"name\":\"pmCellHoExeAttLteInterF\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabSuccMod\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabSuccMoVoice\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabSuccMta\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabSuccHpa\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttMod\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttMoVoice\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttMta\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttHpa\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttReattMod\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttReattMoVoice\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttReattMta\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttReattHpa\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabSuccMod\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabSuccMoVoice\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabSuccMta\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabSuccHpa\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabAttMod\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabAttMoVoice\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabAttMta\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabAttHpa\",\"type\":\"int\"},{\"name\":\"pmErabEstabAttInitQci\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"pmErabEstabSuccInitQci\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"pmErabEstabSuccAddedQci\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"pmErabEstabAttAddedQci\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"pmErabEstabAttAddedHoOngoingQci\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"pmRrcConnEstabAtt\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttReatt\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabFailMmeOvlMos\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabFailMmeOvlMod\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabSucc\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabAtt\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabFailMmeOvlMos\",\"type\":\"int\"},{\"name\":\"pmErabEstabSuccInit\",\"type\":\"int\"},{\"name\":\"pmErabEstabSuccAdded\",\"type\":\"int\"},{\"name\":\"pmErabEstabAttInit\",\"type\":\"int\"},{\"name\":\"pmErabEstabAttAdded\",\"type\":\"int\"},{\"name\":\"pmErabEstabAttAddedHoOngoing\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabSucc\",\"type\":\"int\"},{\"name\":\"pmPdcpVolDlDrbLastTTI\",\"type\":\"int\"},{\"name\":\"pmPdcpVolDlDrb\",\"type\":\"int\"},{\"name\":\"pmUeThpTimeDl\",\"type\":\"int\"},{\"name\":\"pmUeThpTimeUl\",\"type\":\"int\"},{\"name\":\"pmUeThpVolUl\",\"type\":\"int\"},{\"name\":\"pmErabRelAbnormalEnbActQci\",\"type\":\"int\"},{\"name\":\"pmErabRelAbnormalMmeActQci\",\"type\":\"int\"},{\"name\":\"pmErabRelAbnormalEnbQci\",\"type\":\"int\"},{\"name\":\"pmErabRelNormalEnbQci\",\"type\":\"int\"},{\"name\":\"pmErabRelMmeQci\",\"type\":\"int\"},{\"name\":\"pmCellDowntimeAuto\",\"type\":\"int\"},{\"name\":\"pmCellDowntimeMan\",\"type\":\"int\"},{\"name\":\"pmPdcpLatTimeDl\",\"type\":\"int\"},{\"name\":\"pmPdcpLatPktTransDl\",\"type\":\"int\"},{\"name\":\"pmVoipQualityRUlOk\",\"type\":\"int\"},{\"name\":\"pmVoipQualityRbUlOk\",\"type\":\"int\"},{\"name\":\"pmVoipQualityRbUlNok\",\"type\":\"int\"},{\"name\":\"pmRrcConnLevSum\",\"type\":\"int\"},{\"name\":\"pmRrcConnLevSamp\",\"type\":\"int\"},{\"name\":\"pmErabRelAbnormalEnbAct\",\"type\":\"int\"},{\"name\":\"pmErabRelAbnormalMmeAct\",\"type\":\"int\"},{\"name\":\"pmErabRelAbnormalEnb\",\"type\":\"int\"},{\"name\":\"pmErabRelNormalEnb\",\"type\":\"int\"},{\"name\":\"pmErabRelMme\",\"type\":\"int\"},{\"name\":\"pmFlexErabEstabSuccInit\",\"type\":\"int\"},{\"name\":\"pmFlexErabEstabAttInit\",\"type\":\"int\"}]}}]}",
+      "{\"type\":\"record\",\"name\":\"EUtranCellFDD_1\",\"namespace\":\"com.ericsson.oss.air.avro.model\",\"fields\":[{\"name\":\"nodeFDN\",\"type\":\"string\"},{\"name\":\"elementType\",\"type\":\"string\"},{\"name\":\"ropBeginTime\",\"type\":\"string\"},{\"name\":\"ropEndTime\",\"type\":\"string\"},{\"name\":\"moFdn\",\"type\":\"string\"},{\"name\": \"dnPrefix\",\"type\":\"string\"},{\"name\":\"pmCounters\",\"type\":{\"name\":\"pmCounters\",\"type\":\"record\",\"fields\":[{\"name\":\"pmCellHoPrepSuccLteIntraF\",\"type\":\"int\"},{\"name\":\"pmCellHoPrepSuccLteInterF\",\"type\":\"int\"},{\"name\":\"pmCellHoExeSuccLteIntraF\",\"type\":\"int\"},{\"name\":\"pmCellHoExeSuccLteInterF\",\"type\":\"int\"},{\"name\":\"pmHoPrepRejOutUlThres\",\"type\":\"int\"},{\"name\":\"pmSinrPuschDistr\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"pmCellHoPrepAttLteIntraF\",\"type\":\"int\"},{\"name\":\"pmCellHoPrepAttLteInterF\",\"type\":\"int\"},{\"name\":\"pmCellHoExeAttLteIntraF\",\"type\":\"int\"},{\"name\":\"pmCellHoExeAttLteInterF\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabSuccMod\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabSuccMoVoice\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabSuccMta\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabSuccHpa\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttMod\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttMoVoice\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttMta\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttHpa\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttReattMod\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttReattMoVoice\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttReattMta\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttReattHpa\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabSuccMod\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabSuccMoVoice\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabSuccMta\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabSuccHpa\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabAttMod\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabAttMoVoice\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabAttMta\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabAttHpa\",\"type\":\"int\"},{\"name\":\"pmErabEstabAttInitQci\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"pmErabEstabSuccInitQci\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"pmErabEstabSuccAddedQci\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"pmErabEstabAttAddedQci\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"pmErabEstabAttAddedHoOngoingQci\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"pmRrcConnEstabAtt\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttReatt\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabFailMmeOvlMos\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabFailMmeOvlMod\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabSucc\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabAtt\",\"type\":\"int\"},{\"name\":\"pmS1SigConnEstabFailMmeOvlMos\",\"type\":\"int\"},{\"name\":\"pmErabEstabSuccInit\",\"type\":\"int\"},{\"name\":\"pmErabEstabSuccAdded\",\"type\":\"int\"},{\"name\":\"pmErabEstabAttInit\",\"type\":\"int\"},{\"name\":\"pmErabEstabAttAdded\",\"type\":\"int\"},{\"name\":\"pmErabEstabAttAddedHoOngoing\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabSucc\",\"type\":\"int\"},{\"name\":\"pmPdcpVolDlDrbLastTTI\",\"type\":\"int\"},{\"name\":\"pmPdcpVolDlDrb\",\"type\":\"int\"},{\"name\":\"pmUeThpTimeDl\",\"type\":\"int\"},{\"name\":\"pmUeThpTimeUl\",\"type\":\"int\"},{\"name\":\"pmUeThpVolUl\",\"type\":\"int\"},{\"name\":\"pmErabRelAbnormalEnbActQci\",\"type\":\"int\"},{\"name\":\"pmErabRelAbnormalMmeActQci\",\"type\":\"int\"},{\"name\":\"pmErabRelAbnormalEnbQci\",\"type\":\"int\"},{\"name\":\"pmErabRelNormalEnbQci\",\"type\":\"int\"},{\"name\":\"pmErabRelMmeQci\",\"type\":\"int\"},{\"name\":\"pmCellDowntimeAuto\",\"type\":\"int\"},{\"name\":\"pmCellDowntimeMan\",\"type\":\"int\"},{\"name\":\"pmPdcpLatTimeDl\",\"type\":\"int\"},{\"name\":\"pmPdcpLatPktTransDl\",\"type\":\"int\"},{\"name\":\"pmVoipQualityRUlOk\",\"type\":\"int\"},{\"name\":\"pmVoipQualityRbUlOk\",\"type\":\"int\"},{\"name\":\"pmVoipQualityRbUlNok\",\"type\":\"int\"},{\"name\":\"pmRrcConnLevSum\",\"type\":\"int\"},{\"name\":\"pmRrcConnLevSamp\",\"type\":\"int\"},{\"name\":\"pmErabRelAbnormalEnbAct\",\"type\":\"int\"},{\"name\":\"pmErabRelAbnormalMmeAct\",\"type\":\"int\"},{\"name\":\"pmErabRelAbnormalEnb\",\"type\":\"int\"},{\"name\":\"pmErabRelNormalEnb\",\"type\":\"int\"},{\"name\":\"pmErabRelMme\",\"type\":\"int\"},{\"name\":\"pmFlexErabEstabSuccInit\",\"type\":\"int\"},{\"name\":\"pmFlexErabEstabAttInit\",\"type\":\"int\"}]}}]}",
+      "{\"type\":\"record\",\"name\":\"EP_NgU_GNBCUUP_1\",\"namespace\":\"com.ericsson.oss.air.avro.model\",\"fields\":[{\"name\":\"nodeFDN\",\"type\":\"string\"},{\"name\":\"elementType\",\"type\":\"string\"},{\"name\":\"ropBeginTime\",\"type\":\"string\"},{\"name\":\"ropEndTime\",\"type\":\"string\"},{\"name\":\"moFdn\",\"type\":\"string\"},{\"name\": \"dnPrefix\",\"type\":\"string\"},{\"name\":\"pmCounters\",\"type\":{\"name\":\"pmCounters\",\"type\":\"record\",\"fields\":[{\"name\":\"pmPdcpPktRecDlDisc5qi\",\"type\":\"int\"},{\"name\":\"pmPdcpPktRecDlDiscAqm5qi\",\"type\":\"int\"},{\"name\":\"pmPdcpPktRecDl5qi\",\"type\":\"int\"}]}}]}",
+      "{\"type\":\"record\",\"name\":\"NRCellCU_GNBCUCP_1\",\"namespace\":\"com.ericsson.oss.air.avro.model\",\"fields\":[{\"name\":\"nodeFDN\",\"type\":\"string\"},{\"name\":\"elementType\",\"type\":\"string\"},{\"name\":\"ropBeginTime\",\"type\":\"string\"},{\"name\":\"ropEndTime\",\"type\":\"string\"},{\"name\":\"moFdn\",\"type\":\"string\"},{\"name\": \"dnPrefix\",\"type\":\"string\"},{\"name\":\"pmCounters\",\"type\":{\"name\":\"pmCounters\",\"type\":\"record\",\"fields\":[{\"name\":\"pmHoPrepSuccOutEutran\",\"type\":\"int\"},{\"name\":\"pmHoPrepAttOutEutran\",\"type\":\"int\"},{\"name\":\"pmHoExeSuccOutEutran\",\"type\":\"int\"},{\"name\":\"pmHoExeAttOutEutran\",\"type\":\"int\"},{\"name\":\"pmHoPrepSuccOutInterGnb\",\"type\":\"int\"},{\"name\":\"pmHoPrepSuccOutIntraGnb\",\"type\":\"int\"},{\"name\":\"pmHoPrepAttOutInterGnb\",\"type\":\"int\"},{\"name\":\"pmHoPrepAttOutIntraGnb\",\"type\":\"int\"},{\"name\":\"pmHoExeSuccOutInterGnb\",\"type\":\"int\"},{\"name\":\"pmHoExeSuccOutIntraGnb\",\"type\":\"int\"},{\"name\":\"pmHoExeAttOutInterGnb\",\"type\":\"int\"},{\"name\":\"pmHoExeAttOutIntraGnb\",\"type\":\"int\"},{\"name\":\"pmDrbRelAbnormalGnbAct5qi\",\"type\":\"int\"},{\"name\":\"pmDrbRelAbnormalAmfAct5qi\",\"type\":\"int\"},{\"name\":\"pmDrbRelNormal5qi\",\"type\":\"int\"},{\"name\":\"pmDrbRelAbnormalGnb5qi\",\"type\":\"int\"},{\"name\":\"pmDrbRelAbnormalAmf5qi\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabSucc\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabSuccMos\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAtt\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttReatt\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttMos\",\"type\":\"int\"},{\"name\":\"pmRrcConnEstabAttReattMos\",\"type\":\"int\"},{\"name\":\"pmNgSigConnEstabSucc\",\"type\":\"int\"},{\"name\":\"pmNgSigConnEstabSuccMos\",\"type\":\"int\"},{\"name\":\"pmNgSigConnEstabAtt\",\"type\":\"int\"},{\"name\":\"pmNgSigConnEstabAttMos\",\"type\":\"int\"},{\"name\":\"pmDrbEstabSucc5qi\",\"type\":\"int\"},{\"name\":\"pmDrbEstabAtt5qi\",\"type\":\"int\"},{\"name\":\"pmEndcSetupUeSucc\",\"type\":\"int\"},{\"name\":\"pmEndcSetupUeAtt\",\"type\":\"int\"},{\"name\":\"pmEndcRelUeNormal\",\"type\":\"int\"},{\"name\":\"pmEndcRelUeAbnormalMenb\",\"type\":\"int\"},{\"name\":\"pmEndcRelUeAbnormalSgnb\",\"type\":\"int\"},{\"name\":\"pmEndcRelUeAbnormalMenbAct\",\"type\":\"int\"},{\"name\":\"pmEndcRelUeAbnormalSgnbAct\",\"type\":\"int\"},{\"name\":\"pmEndcPSCellChangeAttInterSgnb\",\"type\":\"int\"},{\"name\":\"pmRrcConnLevelSamp\",\"type\":\"int\"},{\"name\":\"pmRrcConnLevelSumEnDc\",\"type\":\"int\"},{\"name\":\"pmEndcPSCellChangeSuccIntraSgnb\",\"type\":\"int\"},{\"name\":\"pmEndcPSCellChangeAttIntraSgnb\",\"type\":\"int\"},{\"name\":\"pmEndcPSCellChangeSuccInterSgnb\",\"type\":\"int\"}]}}]}",
+      "{\"type\":\"record\",\"name\":\"NRCellDU_GNBDU_1\",\"namespace\":\"com.ericsson.oss.air.avro.model\",\"fields\":[{\"name\":\"nodeFDN\",\"type\":\"string\"},{\"name\":\"elementType\",\"type\":\"string\"},{\"name\":\"ropBeginTime\",\"type\":\"string\"},{\"name\":\"ropEndTime\",\"type\":\"string\"},{\"name\":\"moFdn\",\"type\":\"string\"},{\"name\": \"dnPrefix\",\"type\":\"string\"},{\"name\":\"pmCounters\",\"type\":{\"name\":\"pmCounters\",\"type\":\"record\",\"fields\":[{\"name\":\"pmMacVolDlDrb\",\"type\":\"int\"},{\"name\":\"pmMacTimeDlDrb\",\"type\":\"int\"},{\"name\":\"pmMacVolUlResUe\",\"type\":\"int\"},{\"name\":\"pmMacTimeUlResUe\",\"type\":\"int\"},{\"name\":\"pmMacVolDl\",\"type\":\"int\"},{\"name\":\"pmPdschSchedActivity\",\"type\":\"int\"},{\"name\":\"pmCellDowntimeAuto\",\"type\":\"int\"},{\"name\":\"pmCellDowntimeMan\",\"type\":\"int\"}]}}]}"
+    ]
+  }
+}

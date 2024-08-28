@@ -1,0 +1,1 @@
+Testware {{.Values.build.name}} - {{.Values.build.version}} was deployed to {{ .Release.Namespace }}.

@@ -1,0 +1,25 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+# This site-values file is used as input to CSAR package tool.
+# The CSAR package tool uses a helm template to get the docker images required for the CSAR
+# This file does NOT get packaged
+global:
+  hosts:
+    gas: "gas.XXX"
+
+apiGatewayRoute:
+  enabled: true # Ensure apiGatewayRoute enabled to display API-Gateway Client images in helm template

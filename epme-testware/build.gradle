@@ -1,0 +1,62 @@
+/*
+ * COPYRIGHT Ericsson 2023
+ *
+ *
+ *
+ * The copyright to the computer program(s) herein is the property of
+ *
+ * Ericsson Inc. The programs may be used and/or copied only with written
+ *
+ * permission from Ericsson Inc. or in accordance with the terms and
+ *
+ * conditions stipulated in the agreement/contract under which the
+ *
+ * program(s) have been supplied.
+ */
+
+buildscript {
+    dependencies {
+        classpath 'com.vdurmont:semver4j:3.1.0'
+    }
+}
+plugins {
+    id 'com.bmuschko.docker-remote-api' version '9.3.3'
+    id 'org.unbroken-dome.helm' version '2.0.0' apply false
+    id 'org.unbroken-dome.helm-publish' version '2.0.0' apply false
+    id 'org.unbroken-dome.helm-releases' version '2.0.0' apply false
+}
+ext {
+    dockerRepoPrefix = "armdocker.rnd.ericsson.se/${getDockerRepo()}"
+    imageVersion = getReleaseVersion()
+    defaultDockerTag = "${dockerRepoPrefix}/oss-testware/${rootProject.name}:${imageVersion}".toString()
+    latestDockerTag = "${dockerRepoPrefix}/oss-testware/${rootProject.name}:latest".toString()
+}
+
+import com.bmuschko.gradle.docker.tasks.container.*
+import com.bmuschko.gradle.docker.tasks.image.*
+import com.vdurmont.semver4j.Semver
+
+tasks.register('setupVersion') {
+    group = "versioning"
+    description = "creates a version variable file to be used by bob"
+
+    doLast {
+        new File(".bob").mkdirs()
+        def file = new File(".bob/var.version")
+        file.createNewFile()
+
+        file.text = getReleaseVersion()
+    }
+}
+
+def getDockerRepo() {
+    return System.getProperty("epme.docker.repo", "proj-eric-oss-drop");
+}
+
+def getHelmRepo() {
+    return System.getProperty("epme.helm.repo", "proj-eric-oss-released-helm-local");
+}
+
+def getReleaseVersion() {
+    return System.getProperty("epme.release.version", "1.0.0");
+}

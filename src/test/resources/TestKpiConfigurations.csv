@@ -1,0 +1,2 @@
+kpiName,monitor,thresholdType,fixedThresholdValue,relevanceThreshold,confidenceInterval
+test_kpi,TRUE,fixed,95,99.00,97.50

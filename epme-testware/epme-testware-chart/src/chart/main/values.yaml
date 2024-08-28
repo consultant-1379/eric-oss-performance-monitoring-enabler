@@ -1,0 +1,73 @@
+#
+# COPYRIGHT Ericsson 2023 - 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+images:
+  # Your testware image (including version)
+  testwareImage: ${defaultDockerTag}
+
+# the docker credentials secret used to pull images from the repository
+pullSecretName: k8s-registry-secret
+
+build:
+  # Your testware version
+  version: ${version}
+  # Your testware name
+  name: ${name}
+
+# Environment variables to be passed to the container
+env:
+  APP_NAME: "eric-oss-performance-monitoring-enabler"
+  APP_VERSION: ${version}
+  BUILD_URL: ""
+  ENVIRONMENT: "development"
+  OPTIONS_FILE: "preOnboarding.options.json"
+  PRODUCT: "eric-oss-performance-monitoring-enabler"
+  PRODUCT_VERSION: ${version}
+  SHUTDOWN_WAIT_TIME: 0
+  STAGING_TYPE: "PRODUCT"
+  TESTWARE_NAME: ${name}
+  TEST_VERSION: ${version}
+  ADDITIONAL_ARGS: "--insecure-skip-tls-verify --quiet --http-debug=full --verbose"
+  INGRESS_SCHEMA: "https"
+  INGRESS_HOST: ""
+  INGRESS_LOGIN_USER: "gas-user"
+  INGRESS_LOGIN_PASSWORD: "idunEr!css0n"
+  INGRESS_PME_TESTWARE_USER: "pme-testware-user"
+  EPME_INGRESS_SCHEMA: "https"
+  EPME_INGRESS_HOST: ""
+  RAPP_ID: ""
+  BUILD_ID: ""
+  EPME_DB_HOST: "eric-oss-performance-monitoring-enabler-pg"
+  EPME_DB_PORT: 5432
+  EPME_DB_NAME: "performance_monitoring"
+  KAFKA_MONITORING_OBJECT_TOPIC: "epme-monitoring-objects"
+  KAFKA_VERDICT_TOPIC: "epme-verdicts"
+  EPME_PREFIX: "/performance-monitoring-enabler"
+  INGRESS_SESSION_OPERATOR: "pme-session-operator"
+  INGRESS_CONFIGURATION_READER: "pme-configuration-reader"
+  INGRESS_CONFIGURATION_OPERATOR: "pme-configuration-operator"
+  VALIDATE_EPME_RBAC: false
+  PG_ACCESS_LABEL_KEY: "eric-oss-performance-monitoring-enabler-pg-access"
+
+postgres:
+  secretName: "eric-oss-performance-monitoring-enabler-postgres-secret"
+
+kafka:
+  host: eric-oss-dmm-kf-op-sz-kafka-bootstrap
+  port: 9092
+  tls:
+    enabled: true
+    port: 9093

@@ -1,0 +1,2246 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+openapi: 3.0.3
+info:
+  x-api-id: 6377a9c2-3a01-497a-b5d9-23dbbc65f7be
+  x-audience: external-public
+  title: Data Type Discovery API
+  description: This section covers the following API endpoints and the prerequisites that are required to externally access the Data Type Discovery APIs.
+  version: '1.0.0'
+servers:
+  - url: "https://<gas host>/dmm-data-catalog"
+tags:
+  - name: /v1/bulk-data-repository/
+    description: Bulk Data Repository Controller
+  - name: /v1/message-bus/
+    description: Message Bus Controller
+  - name: /v1/data-type
+    description: Data Type Controller
+      - It's to be noted that multiple references of *specificationReference* are present in the response. The last instance of *specificationReference* can be found in the Fileformat section, where it's a combination of the namespace and schema name, used in schema details retrieval.
+  - name: /v1/subscriptions
+    description: Subscription Controller
+paths:
+  /catalog/v1/bulk-data-repository/:
+    get:
+      tags:
+        - /v1/bulk-data-repository/
+      summary: get all BulkDataRepository details or filter by QueryParams
+      operationId: queryAllBDR
+      parameters:
+        - name: queryparam
+          in: query
+          description: name (Optional) and namespace (Optional) value of the Bulk data repository
+          required: false
+          style: form
+          allowReserved: true
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BulkDataRepositoryResponseDTO'
+              example:
+                [
+                  {
+                    "accessEndpoints": [
+                      "http://bdrhost.cluster.example.com"
+                    ],
+                    "clusterName": "clusterName",
+                    "fileFormatIds": [
+                      1
+                    ],
+                    "id": 1,
+                    "name": "eric-data-object-storage-mn",
+                    "nameSpace": "namespace",
+                    "fileRepoType": "S3"
+                  }
+                ]
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+  /catalog/v1/message-bus/:
+    get:
+      tags:
+        - /v1/message-bus/
+      summary: get all Message Bus details or filter by QueryParams
+      operationId: getMessageBusByParam
+      parameters:
+        - name: queryParams
+          in: query
+          description: name (Optional) and namespace (Optional) value of the Message Bus
+          required: false
+          style: form
+          allowReserved: true
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MessageBusResponseDto'
+              example:
+                [
+                  {
+                    "accessEndpoints": [
+                      "eric-oss-dmm-kf-op-sz-kafka-bootstrap:9092",
+                      "kafkaBootstrapHost:443"
+                    ],
+                    "clusterName": "clusterName2",
+                    "id": 2,
+                    "messageDataTopicIds": [
+                      23
+                    ],
+                    "messageStatusTopicIds": [
+                      22
+                    ],
+                    "name": "eric-oss-dmm-kf-op-sz-kafka-bootstrap",
+                    "nameSpace": "nameSpace",
+                    "notificationTopicIds": [
+                      22
+                    ]
+                  },{
+                  "accessEndpoints": [
+                    "http://endpoint1:1234/"
+                  ],
+                  "clusterName": "clusterName2",
+                  "id": 3,
+                  "messageDataTopicIds": [
+                    13
+                  ],
+                  "messageStatusTopicIds": [
+                    12
+                  ],
+                  "name": "name",
+                  "nameSpace": "nameSpace",
+                  "notificationTopicIds": [
+                    12
+                  ]
+                }
+                ]
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+  /catalog/v1/data-type:
+    get:
+      tags:
+        - /v1/data-type
+      summary: get all Data Type details or filter by QueryParams
+      operationId: queryAllDataTypeByParams
+      parameters:
+        - name: queryparam
+          in: query
+          description: |
+            Sample table:
+            <table>
+              <tr>
+                <td> Name </td>
+                <td> Description </td>
+                <td> Type </td>
+              </tr>
+              <tr>
+               <td> Data Space </td>
+               <td>The domain or context for the data. The value can be determined based on the data provider's deployment. The Data Space value is "5G" when a data provider is collecting performance management (PM) data for 5G networks.</td>
+               <td> optional</td>
+              </tr>
+              <tr>
+               <td> Data Category </td>
+               <td>The category or type of data determined by the data provider. The value can be determined based on the data provider's deployment. The Data Category is "PM_Events" when a data provider is collecting PM events for 5G networks.</td>
+               <td> optional </td>
+              </tr> 
+              <tr> 
+               <td> DataProvider </td>
+               <td>A specific type of data source that collects data from the network.</td>
+              <td> optional </td>
+              </tr> 
+              <tr> 
+               <td> SchemaName </td>
+               <td>The name of the schema to which the data type is associated.</td>
+              <td> optional </td>
+              </tr> 
+              <tr> 
+               <td> SchemaVersion </td>
+               <td>The version of the schema to which the data type is associated.
+               <td> optional </td>
+              </tr> 
+              <td> serviceName </td>
+               <td>	The name of the mediation service that collects network data from the data provider.</td>
+               <td> optional </td>
+              </tr>
+            </table>
+          required: false
+          style: form
+          allowReserved: true
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataTypeDtoRes'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+  /catalog/v1/subscriptions:
+    get:
+      tags:
+        - /v1/subscriptions
+      summary: Get all v1 Subscriptions(Active only) or filter by using rAppId.
+      operationId: queryAllSubscriptionByParams
+      parameters:
+        - name: queryparam
+          in: query
+          description:  |
+            Sample table:
+            <table>
+              <tr>
+                <td> Name </td>
+                <td> Description </td>
+                <td> Type </td>
+              </tr>
+              <tr>
+               <td>rAppId </td>
+               <td>It identifies the App that created the subscription.
+               </td>
+               <td> optional</td>
+              </tr>
+          required: false
+          style: form
+          allowReserved: true
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubscriptionGetAllRes'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+  /catalog/v1/subscription-notification-topic:
+    get:
+      tags:
+        - /v1/subscriptions
+      summary: Retrieve the list of topic names for file based notifications, to be consumed by App based on rAppId.
+      operationId: queryNotificationTopics
+      parameters:
+        - name: queryParams
+          in: query
+          description: query by rAppId (mandatory)
+          required: false
+          style: form
+          allowReserved: true
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubscriptionNotificationRes'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+  /catalog/v1/subscription-message-data-topic:
+    get:
+      tags:
+        - /v1/subscriptions
+      summary: get the list of Message Data topic to consume which is related to rAppID
+      operationId: queryMessageDataTopics
+      parameters:
+        - name: queryParams
+          in: query
+          description: query by rAppId (mandatory)
+          required: false
+          style: form
+          allowReserved: true
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubscriptionNotificationRes'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+
+components:
+  schemas:
+    DataTypeDto1:
+      title: DataTypeDto1
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+          format: int32
+        dataService:
+          $ref: '#/components/schemas/DataService'
+        dataType:
+          $ref: '#/components/schemas/DataServiceInstanceDtoReq'
+        bulkDataRepository:
+          $ref: '#/components/schemas/BulkDataRepositoryResponseDTO'
+        reportOutputPeriodList:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            example: 2
+        notificationTopic:
+          $ref: '#/components/schemas/DataTypeDto2'
+        specificationReference:
+          type: string
+          example: "spec_ref"
+        dataEncoding:
+          type: string
+          enum:
+            - CSV
+            - JSON
+            - PARQUET
+            - XML
+    DataTypeDto2:
+      title: DataTypeDto2
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+          format: int32
+        name:
+          type: string
+          example: "name_spec"
+        specificationReference:
+          type: string
+          example: "spec_ref"
+        encoding:
+          type: string
+          enum:
+            - CSV
+            - JSON
+            - PARQUET
+            - XML
+        dataProviderType:
+          $ref: '#/components/schemas/DataTypeDto3'
+        fileFormatIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            example: 2
+        messageBus:
+          $ref: '#/components/schemas/MessageBusDto'
+    DataTypeDto3:
+      title: BulkDataRepository3
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+          format: int32
+        dataSpace:
+          $ref: '#/components/schemas/DataSpaceDto'
+        dataCategoryType:
+          $ref: '#/components/schemas/DataCategoryDtoReq'
+        dataProviderName:
+          type: string
+          example: "provider"
+        notificationTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            example: 1
+        messageDataTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            example: 2
+
+    BulkDataRepository:
+      title: BulkDataRepository
+      type: object
+      properties:
+        accessEndpoints:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        clusterName:
+          type: string
+        fileFormat:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/FileFormat'
+        fileFormatIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        nameSpace:
+          type: string
+        fileRepoType:
+          type: string
+          enum:
+            - S3
+            - SFTP
+    BulkDataRepositoryDTO:
+      title: BulkDataRepositoryDTO
+      type: object
+      properties:
+        endPointType:
+          type: string
+        accessEndpoints:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        clusterName:
+          type: string
+        fileFormatIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        nameSpace:
+          type: string
+        fileRepoType:
+          type: string
+          enum:
+            - S3
+            - SFTP
+    BulkDataRepositoryResponseDTO:
+      title: BulkDataRepositoryResponseDTO
+      type: object
+      properties:
+        accessEndpoints:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            example: "http://endpoint1:1234/"
+        clusterName:
+          type: string
+          example: "clusterName2"
+        fileFormatIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            example: 2
+            format: int32
+        id:
+          type: integer
+          example: 2
+          format: int32
+        name:
+          type: string
+          example: "name"
+        nameSpace:
+          type: string
+          example: "namespace"
+        fileRepoType:
+          type: string
+          enum:
+            - S3
+            - SFTP
+    CatalogResponse:
+      title: CatalogResponse
+      type: object
+      properties:
+        message:
+          type: string
+          example: "error message"
+        timeStamp:
+          type: string
+          format: date-time
+    DataCollector:
+      title: DataCollector
+      required:
+        - collectorId
+      type: object
+      properties:
+        collectorId:
+          type: string
+          format: uuid
+        controlEndpoint:
+          type: string
+          format: url
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+    DataCollectorDtoReq:
+      title: DataCollectorDtoReq
+      type: object
+      properties:
+        collectorId:
+          type: string
+          format: uuid
+        controlEndpoint:
+          type: string
+          format: url
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+    DataCollectorDtoRes:
+      title: DataCollectorDtoRes
+      required:
+        - controlEndpoint
+      type: object
+      properties:
+        controlEndpoint:
+          type: string
+          format: url
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+    DataService:
+      title: DataService
+      required:
+        - dataServiceName
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+          format: int32
+        dataServiceName:
+          type: string
+          example: "service_name"
+    DataServiceDtoReq:
+      title: DataServiceDtoReq
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dataServiceName:
+          type: string
+    DataServiceDtoRes:
+      title: DataServiceDtoRes
+      required:
+        - dataServiceName
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dataServiceName:
+          type: string
+        dataServiceInstance:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataServiceInstanceDtoRes'
+        fileFormat:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileFormatRes'
+        messageSchema:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageSchemaDtoV2'
+        predicateParameter:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupportedPredicateParameterDtoRes'
+    DataServiceInstanceDtoReq:
+      title: DataServiceInstanceDtoReq
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+          format: int32
+        dataServiceId:
+          type: integer
+          example: 1
+          format: int32
+        dataServiceInstanceName:
+          type: string
+          example: "instance_name"
+        controlEndPoint:
+          type: string
+          example: "https://endpoint/"
+          format: url
+        consumedDataSpace:
+          type: string
+          example: "5G"
+        consumedDataCategory:
+          type: string
+          example: "5G"
+        consumedDataProvider:
+          type: string
+          example: "5G"
+        consumedSchemaName:
+          type: string
+          example: "5G"
+        consumedSchemaVersion:
+          type: string
+          example: "5G"
+    DataServiceInstanceDtoResponse:
+      title: DataServiceInstanceDtoResponse
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dataService:
+          $ref: '#/components/schemas/DataServiceRes'
+        dataServiceInstanceName:
+          type: string
+        controlEndpoint:
+          type: string
+          format: url
+        consumedDataSpace:
+          type: string
+        consumedDataCategory:
+          type: string
+        consumedDataProvider:
+          type: string
+        consumedSchemaName:
+          type: string
+        consumedSchemaVersion:
+          type: string
+    DataServiceRes:
+      title: DataServiceRes
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dataServiceName:
+          type: string
+    DataServiceInstanceDtoRes:
+      title: DataServiceInstanceDtoRes
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dataServiceId:
+          type: integer
+          format: int32
+        dataServiceInstanceName:
+          type: string
+        controlEndpoint:
+          type: string
+          format: url
+        consumedDataSpace:
+          type: string
+        consumedDataCategory:
+          type: string
+        consumedDataProvider:
+          type: string
+        consumedSchemaName:
+          type: string
+        consumedSchemaVersion:
+          type: string
+    DataServiceInstanceForDataTypeDtoRes:
+      title: DataServiceInstanceForDataTypeDtoRes
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dataServiceInstanceName:
+          type: string
+        controlEndpoint:
+          type: string
+          format: url
+        consumedDataSpace:
+          type: string
+        consumedDataCategory:
+          type: string
+        consumedDataProvider:
+          type: string
+        consumedSchemaName:
+          type: string
+        consumedSchemaVersion:
+          type: integer
+          format: int32
+    DataServiceInstancesDtoRes:
+      title: DataServiceInstancesDtoRes
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dataServiceName:
+          type: string
+        dataServiceInstance:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataServiceInstanceForDataTypeDtoRes'
+    DataProviderType:
+      title: DataProviderType
+      required:
+        - dataSpace
+      type: object
+      properties:
+        dataCategory:
+          type: string
+          enum:
+            - CM_EXPORT
+            - CM_NOTIFICATIONS
+            - FM_NOTIFICATIONS
+            - PM_EVENTS
+            - PM_COUNTERS
+        dataSpace:
+          $ref: '#/components/schemas/DataSpace'
+        dataSpaceId:
+          type: integer
+          format: int32
+        fileFormatIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        fileFormats:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/FileFormat'
+        id:
+          type: integer
+          format: int32
+        messageSchemaIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        messageSchemas:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageSchema'
+        providerTypeId:
+          type: string
+        providerVersion:
+          type: string
+    DataProviderTypeDtoReq:
+      title: DataProviderTypeDtoReq
+      type: object
+      properties:
+        dataCategory:
+          type: string
+          enum:
+            - CM_EXPORT
+            - CM_NOTIFICATIONS
+            - FM_NOTIFICATIONS
+            - PM_EVENTS
+            - PM_COUNTERS
+        dataSpaceId:
+          type: integer
+          format: int32
+        fileFormatIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        id:
+          type: integer
+          format: int32
+        messageSchemaIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        providerTypeId:
+          type: string
+        providerVersion:
+          type: string
+    DataProviderTypeDtoReqV2:
+      title: DataProviderTypeDtoReqV2
+      type: object
+      properties:
+        dataSpaceId:
+          type: integer
+          format: int32
+        dataCategoryId:
+          type: integer
+          format: int32
+        fileFormatIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        id:
+          type: integer
+          format: int32
+        messageSchemaIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        providerTypeId:
+          type: string
+        providerVersion:
+          type: string
+    DataProviderTypeDtoRes:
+      title: DataProviderTypeDtoRes
+      required:
+        - dataCategory
+      type: object
+      properties:
+        dataCategory:
+          type: string
+          enum:
+            - CM_EXPORT
+            - CM_NOTIFICATIONS
+            - FM_NOTIFICATIONS
+            - PM_EVENTS
+            - PM_COUNTERS
+        dataSpace:
+          $ref: '#/components/schemas/DataSpaceDto'
+        fileFormatIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        id:
+          type: integer
+          format: int32
+        messageSchemaIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        providerTypeId:
+          type: string
+        providerVersion:
+          type: string
+    DataProviderTypeDtoResV2:
+      title: DataProviderTypeDtoResV2
+      required:
+        - dataCategory
+      type: object
+      properties:
+        dataSpace:
+          $ref: '#/components/schemas/DataSpaceDto'
+        dataCategoryType:
+          $ref: '#/components/schemas/DataCategoryDtoRes'
+        id:
+          type: integer
+          format: int32
+        providerTypeId:
+          type: string
+        providerVersion:
+          type: string
+        notificationTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        messageDataTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+    DataSpace:
+      title: DataSpace
+      type: object
+      properties:
+        dataProviderTypeIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        dataProviderTypes:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DataProviderType'
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+    DataSpaceDto:
+      title: DataSpaceDto
+      type: object
+      properties:
+        dataProviderTypeIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            example: 2
+            format: int32
+        id:
+          type: integer
+          example: 1
+          format: int32
+        name:
+          type: string
+          example: "space_name"
+    FileFormat:
+      title: FileFormat
+      type: object
+      properties:
+        bulkDataRepository:
+          $ref: '#/components/schemas/BulkDataRepository'
+        bulkDataRepositoryId:
+          type: integer
+          format: int32
+        dataCollector:
+          $ref: '#/components/schemas/DataCollector'
+        dataEncoding:
+          type: string
+          enum:
+            - CSV
+            - JSON
+            - PARQUET
+            - XML
+        dataProviderType:
+          $ref: '#/components/schemas/DataProviderType'
+        id:
+          type: integer
+          format: int32
+        notificationTopic:
+          $ref: '#/components/schemas/NotificationTopic'
+        reportOutputPeriodList:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        specificationReference:
+          type: string
+    FileFormatReq:
+      title: FileFormatReq
+      type: object
+      properties:
+        dataCategory:
+          $ref: '#/components/schemas/DataCategoryDtoReq'
+        dataService:
+          $ref: '#/components/schemas/DataServiceDtoReq'
+        dataServiceInstance:
+          $ref: '#/components/schemas/DataServiceInstanceDtoReq'
+        supportedPredicateParameter:
+          $ref: '#/components/schemas/SupportedPredicateParameterDtoReq'
+        dataSpace:
+          $ref: '#/components/schemas/DataSpaceDto'
+        dataProviderType:
+          $ref: '#/components/schemas/DataProviderTypeDtoReqV3'
+        notificationTopic:
+          $ref: '#/components/schemas/NotificationTopicDtoReqV2'
+        fileFormat:
+          $ref: '#/components/schemas/FileFormatDtoV2'
+        dataType:
+          $ref: '#/components/schemas/DataTypeDtoReq'
+    FileFormatRes:
+      title: FileFormatRes
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        bulkDataRepository:
+          $ref: '#/components/schemas/BulkDataRepositoryDTO'
+        dataService:
+          $ref: '#/components/schemas/DataServiceDtoRes'
+        notificationTopic:
+          $ref: '#/components/schemas/NotificationTopicDtoResV2'
+        dataType:
+          $ref: '#/components/schemas/DataTypeDtoRes'
+    FileFormatDto:
+      title: FileFormatDto
+      type: object
+      properties:
+        bulkDataRepositoryId:
+          type: integer
+          format: int32
+        dataCollectorId:
+          type: string
+          format: uuid
+        dataEncoding:
+          type: string
+          enum:
+            - CSV
+            - JSON
+            - PARQUET
+            - XML
+        dataProviderTypeId:
+          type: integer
+          format: int32
+        id:
+          type: integer
+          format: int32
+        notificationTopicId:
+          type: integer
+          format: int32
+        reportOutputPeriodList:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        specificationReference:
+          type: string
+    FileFormatDtoRes:
+      title: FileFormatDtoRes
+      type: object
+      properties:
+        bulkDataRepository:
+          $ref: '#/components/schemas/BulkDataRepositoryDTO'
+        dataCollector:
+          $ref: '#/components/schemas/DataCollectorDtoRes'
+        dataEncoding:
+          type: string
+          enum:
+            - CSV
+            - JSON
+            - PARQUET
+            - XML
+        dataProviderType:
+          $ref: '#/components/schemas/DataProviderTypeDtoRes'
+        id:
+          type: integer
+          format: int32
+        notificationTopic:
+          $ref: '#/components/schemas/NotificationTopicDtoRes'
+        reportOutputPeriodList:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        specificationReference:
+          type: string
+    FileFormatDtoResV2:
+      title: FileFormatDtoResV2
+      type: object
+      properties:
+        bulkDataRepository:
+          $ref: '#/components/schemas/BulkDataRepositoryDTO'
+        dataService:
+          $ref: '#/components/schemas/DataServiceDtoRes'
+        dataType:
+          $ref: '#/components/schemas/DataTypeDtoRes'
+        dataEncoding:
+          type: string
+          enum:
+            - CSV
+            - JSON
+            - PARQUET
+            - XML
+        id:
+          type: integer
+          format: int32
+        notificationTopic:
+          $ref: '#/components/schemas/NotificationTopicDtoResV2'
+        reportOutputPeriodList:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        specificationReference:
+          type: string
+    FileFormatDtoV2:
+      title: FileFormatDtoV2
+      type: object
+      properties:
+        bulkDataRepositoryId:
+          type: integer
+          format: int32
+        dataEncoding:
+          type: string
+          enum:
+            - CSV
+            - JSON
+            - PARQUET
+            - XML
+        dataServiceId:
+          type: integer
+          format: int32
+        id:
+          type: integer
+          format: int32
+        notificationTopicId:
+          type: integer
+          format: int32
+        reportOutputPeriodList:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        specificationReference:
+          type: string
+    MessageBus:
+      title: MessageBus
+      type: object
+      properties:
+        accessEndpoints:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        clusterName:
+          type: string
+        id:
+          type: integer
+          format: int32
+        messageDataTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        messageDataTopics:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageDataTopic'
+        messageStatusTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        messageStatusTopics:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageStatusTopic'
+        name:
+          type: string
+        nameSpace:
+          type: string
+        notificationTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        notificationTopics:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationTopic'
+    MessageBusDto:
+      title: MessageBusDto
+      type: object
+      properties:
+        endPointType:
+          type: string
+          example: "https://endpoint/"
+        accessEndpoints:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            example: "https://access-endpoint/"
+        clusterName:
+          type: string
+          example: "cluster_name"
+        id:
+          type: integer
+          example: 2
+          format: int32
+        messageDataTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            example: 1
+            format: int32
+        messageStatusTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            example: 3
+            format: int32
+        name:
+          type: string
+          example: "sample_name"
+        nameSpace:
+          type: string
+          example: "namespace_name"
+        notificationTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            example: 2
+            format: int32
+    MessageBusResponseDto:
+      title: MessageBusResponseDto
+      type: object
+      properties:
+        accessEndpoints:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            example:
+              - eric-oss-dmm-kf-op-sz-kafka-bootstrap:9092
+              - bootstraphost:443
+        clusterName:
+          type: string
+          example: "clusterName2"
+        id:
+          type: integer
+          format: int32
+          example: 1
+        messageDataTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+            example: 23
+        messageStatusTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+            example: 22
+        name:
+          type: string
+          example: "name"
+        nameSpace:
+          type: string
+          example: "nameSpace"
+        notificationTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+            example: 22
+    MessageDataTopic:
+      title: MessageDataTopic
+      required:
+        - messageBus
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - AVRO
+            - JSON
+            - PROTOBUF
+        id:
+          type: integer
+          format: int32
+        messageBus:
+          $ref: '#/components/schemas/MessageBus'
+        messageBusId:
+          type: integer
+          format: int32
+        messageSchemaIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        messageSchemas:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageSchema'
+        messageStatusTopic:
+          $ref: '#/components/schemas/MessageStatusTopic'
+        messageStatusTopicId:
+          type: integer
+          format: int32
+        name:
+          type: string
+    MessageDataTopicDtoReq:
+      title: MessageDataTopicDtoReq
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - AVRO
+            - JSON
+            - PROTOBUF
+        id:
+          type: integer
+          format: int32
+        messageBusId:
+          type: integer
+          format: int32
+        dataProviderTypeId:
+          type: integer
+          format: int32
+        messageSchemaIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        messageStatusTopicId:
+          type: integer
+          format: int32
+        name:
+          type: string
+    MessageDataTopicDtoRes:
+      title: MessageDataTopicDtoRes
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - AVRO
+            - JSON
+            - PROTOBUF
+        id:
+          type: integer
+          format: int32
+        messageBus:
+          $ref: '#/components/schemas/MessageBusDto'
+        messageSchemaIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        messageStatusTopic:
+          $ref: '#/components/schemas/MessageStatusTopicDto'
+        name:
+          type: string
+    MessageDataTopicDtoReqV2:
+      title: MessageDataTopicDtoReq
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - AVRO
+            - JSON
+            - PROTOBUF
+        id:
+          type: integer
+          format: int32
+        messageBusId:
+          type: integer
+          format: int32
+        messageSchemaIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        name:
+          type: string
+    MessageDataTopicDtoResV2:
+      title: MessageDataTopicDtoRes
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - AVRO
+            - JSON
+            - PROTOBUF
+        id:
+          type: integer
+          format: int32
+        dataProviderType:
+          $ref: '#/components/schemas/DataProviderTypeDtoResV2'
+        messageBus:
+          $ref: '#/components/schemas/MessageBusDto'
+        messageSchemaIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        messageStatusTopic:
+          $ref: '#/components/schemas/MessageStatusTopicDto'
+        name:
+          type: string
+    MessageSchema:
+      title: MessageSchema
+      type: object
+      properties:
+        dataCollector:
+          $ref: '#/components/schemas/DataCollector'
+        dataProviderType:
+          $ref: '#/components/schemas/DataProviderType'
+        messageDataTopic:
+          $ref: '#/components/schemas/MessageDataTopic'
+        id:
+          type: integer
+          format: int32
+        specificationReference:
+          type: string
+    MessageSchemaReq:
+      title: MessageSchemaReq
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dataSpace:
+          $ref: '#/components/schemas/DataSpaceDto'
+        dataCategory:
+          $ref: '#/components/schemas/DataCategoryDtoReq'
+        dataProviderType:
+          $ref: '#/components/schemas/DataProviderTypeDtoReqV2'
+        messageStatusTopic:
+          $ref: '#/components/schemas/MessageStatusTopicDtoReq'
+        messageDataTopic:
+          $ref: '#/components/schemas/MessageDataTopicDtoReqV2'
+        messageSchema:
+          $ref: '#/components/schemas/MessageSchemaDtoReqV2'
+        dataService:
+          $ref: '#/components/schemas/DataServiceDtoReq'
+        dataServiceInstance:
+          $ref: '#/components/schemas/DataServiceInstanceDtoReq'
+        supportedPredicateParameter:
+          $ref: '#/components/schemas/SupportedPredicateParameterDtoReq'
+        dataType:
+          $ref: '#/components/schemas/DataTypeDtoReq'
+    MessageSchemaDto:
+      title: MessageSchemaDto
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dataCollector:
+          $ref: '#/components/schemas/DataCollectorDtoRes'
+        dataProviderType:
+          $ref: '#/components/schemas/DataProviderTypeDtoRes'
+        messageDataTopic:
+          $ref: '#/components/schemas/MessageDataTopicDtoRes'
+        specificationReference:
+          type: string
+    MessageSchemaDtoReq:
+      title: MessageSchemaDtoReq
+      type: object
+      properties:
+        dataCollectorId:
+          type: string
+          format: uuid
+        dataProviderTypeId:
+          type: integer
+          format: int32
+        id:
+          type: integer
+          format: int32
+        messageDataTopicId:
+          type: integer
+          format: int32
+        specificationReference:
+          type: string
+    MessageSchemaDtoV2:
+      title: MessageSchemaDtoV2
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dataService:
+          $ref: '#/components/schemas/DataServiceDtoRes'
+        messageDataTopic:
+          $ref: '#/components/schemas/MessageDataTopicDtoResV2'
+        dataType:
+          $ref: '#/components/schemas/DataTypeDtoRes'
+        specificationReference:
+          type: string
+    MessageSchemaDtoReqV2:
+      title: MessageSchemaDtoReqV2
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dataServiceId:
+          type: integer
+          format: int32
+        messageDataTopicId:
+          type: integer
+          format: int32
+        specificationReference:
+          type: string
+    MessageStatusTopic:
+      title: MessageStatusTopic
+      required:
+        - messageBus
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - AVRO
+            - JSON
+            - PROTOBUF
+        id:
+          type: integer
+          format: int32
+        messageBus:
+          $ref: '#/components/schemas/MessageBus'
+        messageBusId:
+          type: integer
+          format: int32
+        messageDataTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        messageDataTopics:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageDataTopic'
+        name:
+          type: string
+        specificationReference:
+          type: string
+    MessageStatusTopicDto:
+      title: MessageStatusTopicDto
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - AVRO
+            - JSON
+            - PROTOBUF
+        id:
+          type: integer
+          format: int32
+        messageBus:
+          $ref: '#/components/schemas/MessageBusDto'
+        messageDataTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        name:
+          type: string
+        specificationReference:
+          type: string
+    MessageStatusTopicDtoReq:
+      title: MessageStatusTopicDtoReq
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - AVRO
+            - JSON
+            - PROTOBUF
+        id:
+          type: integer
+          format: int32
+        messageBusId:
+          type: integer
+          format: int32
+        name:
+          type: string
+        specificationReference:
+          type: string
+    MessageStatusTopicDtoRes:
+      title: MessageStatusTopicDtoRes
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - AVRO
+            - JSON
+            - PROTOBUF
+        id:
+          type: integer
+          format: int32
+        messageBus:
+          $ref: '#/components/schemas/MessageBusDto'
+        messageDataTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        name:
+          type: string
+        specificationReference:
+          type: string
+    NotificationTopic:
+      title: NotificationTopic
+      required:
+        - messageBus
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - AVRO
+            - JSON
+            - PROTOBUF
+        fileFormatIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        fileFormats:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/FileFormat'
+        id:
+          type: integer
+          format: int32
+        messageBus:
+          $ref: '#/components/schemas/MessageBus'
+        messageBusId:
+          type: integer
+          format: int32
+        name:
+          type: string
+        specificationReference:
+          type: string
+    NotificationTopicDtoReq:
+      title: NotificationTopicDtoReq
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - AVRO
+            - JSON
+            - PROTOBUF
+        fileFormatIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        id:
+          type: integer
+          format: int32
+        messageBusId:
+          type: integer
+          format: int32
+        name:
+          type: string
+        specificationReference:
+          type: string
+    NotificationTopicDtoReqV2:
+      title: NotificationTopicDtoReq
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - AVRO
+            - JSON
+            - PROTOBUF
+        fileFormatIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        id:
+          type: integer
+          format: int32
+        dataProviderTypeId:
+          type: integer
+          format: int32
+        messageBusId:
+          type: integer
+          format: int32
+        name:
+          type: string
+        specificationReference:
+          type: string
+    NotificationTopicDtoRes:
+      title: NotificationTopicDtoRes
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - AVRO
+            - JSON
+            - PROTOBUF
+        fileFormatIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        id:
+          type: integer
+          format: int32
+        messageBus:
+          $ref: '#/components/schemas/MessageBusDto'
+        name:
+          type: string
+        specificationReference:
+          type: string
+    NotificationTopicDtoResV2:
+      title: NotificationTopicDtoRes
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - AVRO
+            - JSON
+            - PROTOBUF
+        fileFormatIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        id:
+          type: integer
+          format: int32
+        messageBus:
+          $ref: '#/components/schemas/MessageBusDto'
+        dataProviderType:
+          $ref: '#/components/schemas/DataProviderTypeDtoResV2'
+        name:
+          type: string
+        specificationReference:
+          type: string
+    SupportedPredicateParameterDtoReq:
+      title: SupportedPredicateParameterDtoReq
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        parameterName:
+          type: string
+        dataServiceId:
+          type: integer
+          format: int32
+        isPassedToConsumedService:
+          type: boolean
+    SupportedPredicateParameterDtoRes:
+      title: SupportedPredicateParameterDtoRes
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        parameterName:
+          type: string
+        dataServiceId:
+          type: integer
+          format: int32
+        isPassedToConsumedService:
+          type: boolean
+        dataService:
+          $ref: '#/components/schemas/DataServiceDtoRes'
+    DataTypeDtoReq:
+      title: DataTypeDtoReq
+      type: object
+      properties:
+        mediumType:
+          type: string
+        schemaName:
+          type: string
+        schemaVersion:
+          type: string
+        isExternal:
+          type: boolean
+        consumedDataSpace:
+          type: string
+        consumedDataCategory:
+          type: string
+        consumedDataProvider:
+          type: string
+        consumedSchemaName:
+          type: string
+        consumedSchemaVersion:
+          type: string
+    DataTypeDtoRes:
+      title: DataTypeDtoRes
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        mediumId:
+          type: integer
+          format: int32
+        mediumType:
+          type: string
+          example: "file"
+        schemaName:
+          type: string
+          example: "SCHMNM"
+        schemaVersion:
+          type: string
+          example: "2"
+        isExternal:
+          type: boolean
+          example: true
+        consumedDataSpace:
+          type: string
+          example: "5G"
+        consumedDataCategory:
+          type: string
+          example: "5G"
+        consumedDataProvider:
+          type: string
+          example: "5G"
+        consumedSchemaName:
+          type: string
+          example: "5G"
+        consumedSchemaVersion:
+          type: string
+          example: "2"
+        fileFormat:
+          $ref: '#/components/schemas/DataTypeDto1'
+    DataTypeNDataServiceInstancesDtoRes:
+      title: DataTypeNDataServiceInstancesDtoRes
+      type: object
+      properties:
+        dataType:
+          $ref: '#/components/schemas/DataTypeAndDataServiceInstancesDtoRes'
+    DataTypeAndDataServiceInstancesDtoRes:
+      title: DataTypeAndDataServiceInstancesDtoRes
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        mediumId:
+          type: integer
+          format: int32
+        mediumType:
+          type: string
+        schemaName:
+          type: string
+        schemaVersion:
+          type: string
+        isExternal:
+          type: boolean
+        consumedDataSpace:
+          type: string
+        consumedDataCategory:
+          type: string
+        consumedDataProvider:
+          type: string
+        consumedSchemaName:
+          type: string
+        consumedSchemaVersion:
+          type: string
+        dataService:
+          $ref: '#/components/schemas/DataServiceInstancesDtoRes'
+    DataCategoryDtoReq:
+      title: DataCategoryDtoReq
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+          format: int32
+        dataCategoryName:
+          type: string
+          example: "5G"
+    DataCategoryDtoRes:
+      title: DataCategoryDtoRes
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dataCategoryName:
+          type: string
+    InputDataSpecificationReq:
+      title: InputDataSpecificationReq
+      type: object
+      properties:
+        ids:
+          type: string
+        rAppId:
+          type: string
+        status:
+          type: string
+    InputDataSpecificationRes:
+      title: InputDataSpecificationRes
+      type: object
+      properties:
+        subscriptionIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            example: 2
+            format: int32
+        id:
+          type: integer
+          example: 2
+          format: int32
+        ids:
+          type: string
+          example: 3
+        rAppId:
+          type: string
+          example: 2
+        status:
+          type: string
+          example: "Active"
+    PredicatesInputDataSpecificationRes:
+      title: PredicatesInputDataSpecificationRes
+      type: object
+      properties:
+        nodeName:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            example: "ERBS"
+        nodeType:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            example: "RNS"
+        dataType:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            example: "dataType"
+    InputDataSpecificationStatusRes:
+      title: InputDataSpecificationRes
+      type: object
+      properties:
+        status:
+          type: string
+
+    SubscriptionReq:
+      title: SubscriptionReq
+      type: object
+      properties:
+        idsId:
+          type: integer
+          format: int32
+        name:
+          type: string
+        status:
+          type: string
+        isMandatory:
+          type: boolean
+        consumer:
+          type: string
+        requester:
+          type: string
+        predicates:
+          type: string
+    InputDataSpecificationMessageRes:
+      title: InputDataSpecificationMessageRes
+      type: object
+      properties:
+        status:
+          type: string
+    SubscriptionGetAllRes:
+      title: SubscriptionGetAllRes
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+          format: int32
+        ids:
+          $ref: '#/components/schemas/InputDataSpecificationRes'
+        name:
+          type: string
+          example: "subscription"
+        status:
+          type: string
+          example: "ACTIVE"
+        isMandatory:
+          type: boolean
+          example: true
+        consumer:
+          type: string
+          example: "consumer"
+        requester:
+          type: string
+          example: "requester"
+        predicates:
+          type: string
+          example: "predicates"
+        dataTypeIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            example: 2
+            format: int32
+    SubscriptionGetAllResv3:
+      title: SubscriptionGetAllRes
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+          format: int32
+        ids:
+          $ref: '#/components/schemas/InputDataSpecificationRes'
+        name:
+          type: string
+          example: "subscription"
+        status:
+          type: string
+          example: "ACTIVE"
+        isMandatory:
+          type: boolean
+          example: true
+        consumer:
+          type: string
+          example: "consumer"
+        requester:
+          type: string
+          example: "requester"
+        predicates:
+          $ref: '#/components/schemas/PredicatesInputDataSpecificationRes'
+        dataTypeIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+    SubscriptionRes:
+      title: SubscriptionRes
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        ids:
+          $ref: '#/components/schemas/InputDataSpecificationRes'
+        name:
+          type: string
+        status:
+          type: string
+        isMandatory:
+          type: boolean
+        consumer:
+          type: string
+        requester:
+          type: string
+        predicates:
+          type: string
+    DataTypeInSubscriptionReq:
+      title: DataTypeInSubscriptionReq
+      type: object
+      properties:
+        subscriptionId:
+          type: integer
+          format: int32
+        dataTypeId:
+          type: integer
+          format: int32
+    DataTypeInSubscriptionRes:
+      title: DataTypeInSubscriptionRes
+      type: object
+      properties:
+        subscription:
+          $ref: '#/components/schemas/SubscriptionRes'
+        dataType:
+          $ref: '#/components/schemas/DataTypeDtoRes'
+    DataTypeInSubscriptionWithDataTypeRes:
+      title: DataTypeInSubscriptionWithDataTypeRes
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        ids:
+          $ref: '#/components/schemas/InputDataSpecificationRes'
+        name:
+          type: string
+        status:
+          type: string
+        isMandatory:
+          type: boolean
+        consumer:
+          type: string
+        requester:
+          type: string
+        predicates:
+          type: string
+        dataType:
+          $ref: '#/components/schemas/DataTypeDtoRes'
+    SubscriptionNotificationDTO:
+      title: SubscriptionNotificationDTO
+      type: object
+      properties:
+        name:
+          type: string
+          example: "subscription"
+        topics:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            example: "my-topic"
+    SubscriptionNotificationRes:
+      title: SubscriptionNotificationRes
+      type: object
+      properties:
+        subscriptions:
+          $ref: '#/components/schemas/SubscriptionNotificationDTO'
+    DataProviderTypeDtoReqV3:
+      title: DataProviderTypeDtoReqV3
+      type: object
+      properties:
+        dataProviderName:
+          type: string
+        dataSpaceId:
+          type: integer
+          format: int32
+        dataCategoryId:
+          type: integer
+          format: int32
+        fileFormatIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        id:
+          type: integer
+          format: int32
+        messageSchemaIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+    URLStreamHandler:
+      title: URLStreamHandler
+      type: object

@@ -1,0 +1,1012 @@
+{
+  "scheduled_simple": {
+    "kpi_output_tables": [
+      {
+        "alias": "pme_cell_simple_fdd",
+        "aggregation_period": 60,
+        "aggregation_elements": [
+          "EUtranCellFDD_1.nodeFDN",
+          "EUtranCellFDD_1.moFdn"
+        ],
+        "data_lookback_limit": 240,
+        "inp_data_identifier": "4G|PM_COUNTERS|EUtranCellFDD_1",
+        "kpi_definitions": [
+          {
+            "name": "fdn_fdd",
+            "expression": "CASE WHEN ISNULL(EUtranCellFDD_1.dnPrefix) THEN EUtranCellFDD_1.moFdn ELSE CONCAT(EUtranCellFDD_1.dnPrefix, ',', EUtranCellFDD_1.moFdn) END",
+            "object_type": "STRING",
+            "aggregation_type": "FIRST"
+          },
+          {
+            "name": "avg_conn_users_hourly_num_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmRrcConnLevSum.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "avg_conn_users_hourly_den_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmRrcConnLevSamp.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "avg_dl_latency_hourly_num_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmPdcpLatTimeDl.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "avg_dl_latency_hourly_den_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmPdcpLatPktTransDl.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "cell_downtime_4g_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmCellDowntimeAuto.counterValue + EUtranCellFDD_1.pmCounters.pmCellDowntimeMan.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "cell_prep_succ_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmCellHoPrepSuccLteIntraF.counterValue + EUtranCellFDD_1.pmCounters.pmCellHoPrepSuccLteInterF.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "cell_prep_att_hourly_fdd",
+            "expression": "CASE WHEN SUM(EUtranCellFDD_1.pmCounters.pmHoPrepRejOutUlThres.counterValue) IS NULL THEN SUM(EUtranCellFDD_1.pmCounters.pmCellHoPrepAttLteIntraF.counterValue + EUtranCellFDD_1.pmCounters.pmCellHoPrepAttLteInterF.counterValue) ELSE SUM(EUtranCellFDD_1.pmCounters.pmCellHoPrepAttLteIntraF.counterValue + EUtranCellFDD_1.pmCounters.pmCellHoPrepAttLteInterF.counterValue - EUtranCellFDD_1.pmCounters.pmHoPrepRejOutUlThres.counterValue) END",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "cell_exe_succ_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmCellHoExeSuccLteIntraF.counterValue + EUtranCellFDD_1.pmCounters.pmCellHoExeSuccLteInterF.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "cell_exe_att_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmCellHoExeAttLteIntraF.counterValue + EUtranCellFDD_1.pmCounters.pmCellHoExeAttLteInterF.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "dl_pdcp_ue_throughput_num_cell_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmPdcpVolDlDrb.counterValue - EUtranCellFDD_1.pmCounters.pmPdcpVolDlDrbLastTTI.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "dl_pdcp_ue_throughput_den_cell_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmUeThpTimeDl.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "e_rab_retainability_percentage_lost_hourly_num_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmErabRelAbnormalEnbAct.counterValue + EUtranCellFDD_1.pmCounters.pmErabRelAbnormalMmeAct.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "e_rab_retainability_percentage_lost_hourly_den_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmErabRelAbnormalEnb.counterValue + EUtranCellFDD_1.pmCounters.pmErabRelNormalEnb.counterValue + EUtranCellFDD_1.pmCounters.pmErabRelMme.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_rrc_conn_estab_succ_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmRrcConnEstabSucc.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "rrc_conn_estab_att_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmRrcConnEstabAtt.counterValue - EUtranCellFDD_1.pmCounters.pmRrcConnEstabAttReatt.counterValue - EUtranCellFDD_1.pmCounters.pmRrcConnEstabFailMmeOvlMos.counterValue - EUtranCellFDD_1.pmCounters.pmRrcConnEstabFailMmeOvlMod.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_s1_sig_conn_estab_succ_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmS1SigConnEstabSucc.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "s1_sig_conn_estab_att_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmS1SigConnEstabAtt.counterValue - EUtranCellFDD_1.pmCounters.pmS1SigConnEstabFailMmeOvlMos.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "erab_estab_succ_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmErabEstabSuccInit.counterValue + EUtranCellFDD_1.pmCounters.pmErabEstabSuccAdded.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "erab_estab_att_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmErabEstabAttInit.counterValue + EUtranCellFDD_1.pmCounters.pmErabEstabAttAdded.counterValue - EUtranCellFDD_1.pmCounters.pmErabEstabAttAddedHoOngoing.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "ul_pdcp_ue_throughput_num_cell_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmUeThpVolUl.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "ul_pdcp_ue_throughput_den_cell_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmUeThpTimeUl.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_0_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmSinrPuschDistr.counterValue[0]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_1_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmSinrPuschDistr.counterValue[1]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_2_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmSinrPuschDistr.counterValue[2]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_3_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmSinrPuschDistr.counterValue[3]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_4_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmSinrPuschDistr.counterValue[4]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_5_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmSinrPuschDistr.counterValue[5]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_6_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmSinrPuschDistr.counterValue[6]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_7_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmSinrPuschDistr.counterValue[7]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_8_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmSinrPuschDistr.counterValue[8]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "voip_cell_integrity_hourly_num_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmVoipQualityRbUlOk.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "voip_cell_integrity_hourly_den_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmVoipQualityRbUlOk.counterValue + EUtranCellFDD_1.pmCounters.pmVoipQualityRbUlNok.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_flex_erab_estab_succ_init_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmFlexErabEstabSuccInit.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_flex_erab_estab_att_init_hourly_fdd",
+            "expression": "EUtranCellFDD_1.pmCounters.pmFlexErabEstabAttInit.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          }
+        ]
+      },
+      {
+        "alias": "pme_cell_simple_tdd",
+        "aggregation_period": 60,
+        "aggregation_elements": [
+          "EUtranCellTDD_1.nodeFDN",
+          "EUtranCellTDD_1.moFdn"
+        ],
+        "data_lookback_limit": 240,
+        "inp_data_identifier": "4G|PM_COUNTERS|EUtranCellTDD_1",
+        "kpi_definitions": [
+          {
+            "name": "fdn_tdd",
+            "expression": "CASE WHEN ISNULL(EUtranCellTDD_1.dnPrefix) THEN EUtranCellTDD_1.moFdn ELSE CONCAT(EUtranCellTDD_1.dnPrefix, ',', EUtranCellTDD_1.moFdn) END",
+            "object_type": "STRING",
+            "aggregation_type": "FIRST"
+          },
+          {
+            "name": "avg_conn_users_hourly_num_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmRrcConnLevSum.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "avg_conn_users_hourly_den_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmRrcConnLevSamp.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "avg_dl_latency_hourly_num_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmPdcpLatTimeDl.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "avg_dl_latency_hourly_den_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmPdcpLatPktTransDl.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "cell_downtime_4g_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmCellDowntimeAuto.counterValue + EUtranCellTDD_1.pmCounters.pmCellDowntimeMan.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "cell_prep_succ_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmCellHoPrepSuccLteIntraF.counterValue + EUtranCellTDD_1.pmCounters.pmCellHoPrepSuccLteInterF.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "cell_prep_att_hourly_tdd",
+            "expression": "CASE WHEN SUM(EUtranCellTDD_1.pmCounters.pmHoPrepRejOutUlThres.counterValue) IS NULL THEN SUM(EUtranCellTDD_1.pmCounters.pmCellHoPrepAttLteIntraF.counterValue + EUtranCellTDD_1.pmCounters.pmCellHoPrepAttLteInterF.counterValue) ELSE SUM(EUtranCellTDD_1.pmCounters.pmCellHoPrepAttLteIntraF.counterValue + EUtranCellTDD_1.pmCounters.pmCellHoPrepAttLteInterF.counterValue - EUtranCellTDD_1.pmCounters.pmHoPrepRejOutUlThres.counterValue) END",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "cell_exe_succ_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmCellHoExeSuccLteIntraF.counterValue + EUtranCellTDD_1.pmCounters.pmCellHoExeSuccLteInterF.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "cell_exe_att_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmCellHoExeAttLteIntraF.counterValue + EUtranCellTDD_1.pmCounters.pmCellHoExeAttLteInterF.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "dl_pdcp_ue_throughput_num_cell_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmPdcpVolDlDrb.counterValue - EUtranCellTDD_1.pmCounters.pmPdcpVolDlDrbLastTTI.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "dl_pdcp_ue_throughput_den_cell_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmUeThpTimeDl.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "e_rab_retainability_percentage_lost_hourly_num_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmErabRelAbnormalEnbAct.counterValue + EUtranCellTDD_1.pmCounters.pmErabRelAbnormalMmeAct.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "e_rab_retainability_percentage_lost_hourly_den_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmErabRelAbnormalEnb.counterValue + EUtranCellTDD_1.pmCounters.pmErabRelNormalEnb.counterValue + EUtranCellTDD_1.pmCounters.pmErabRelMme.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_rrc_conn_estab_succ_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmRrcConnEstabSucc.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "rrc_conn_estab_att_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmRrcConnEstabAtt.counterValue - EUtranCellTDD_1.pmCounters.pmRrcConnEstabAttReatt.counterValue - EUtranCellTDD_1.pmCounters.pmRrcConnEstabFailMmeOvlMos.counterValue - EUtranCellTDD_1.pmCounters.pmRrcConnEstabFailMmeOvlMod.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_s1_sig_conn_estab_succ_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmS1SigConnEstabSucc.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "s1_sig_conn_estab_att_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmS1SigConnEstabAtt.counterValue - EUtranCellTDD_1.pmCounters.pmS1SigConnEstabFailMmeOvlMos.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "erab_estab_succ_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmErabEstabSuccInit.counterValue + EUtranCellTDD_1.pmCounters.pmErabEstabSuccAdded.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "erab_estab_att_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmErabEstabAttInit.counterValue + EUtranCellTDD_1.pmCounters.pmErabEstabAttAdded.counterValue - EUtranCellTDD_1.pmCounters.pmErabEstabAttAddedHoOngoing.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "ul_pdcp_ue_throughput_num_cell_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmUeThpVolUl.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "ul_pdcp_ue_throughput_den_cell_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmUeThpTimeUl.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_0_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmSinrPuschDistr.counterValue[0]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_1_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmSinrPuschDistr.counterValue[1]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_2_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmSinrPuschDistr.counterValue[2]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_3_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmSinrPuschDistr.counterValue[3]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_4_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmSinrPuschDistr.counterValue[4]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_5_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmSinrPuschDistr.counterValue[5]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_6_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmSinrPuschDistr.counterValue[6]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_7_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmSinrPuschDistr.counterValue[7]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_sinr_pusch_distr_bin_8_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmSinrPuschDistr.counterValue[8]",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "voip_cell_integrity_hourly_num_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmVoipQualityRbUlOk.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "voip_cell_integrity_hourly_den_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmVoipQualityRbUlOk.counterValue + EUtranCellTDD_1.pmCounters.pmVoipQualityRbUlNok.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_flex_erab_estab_succ_init_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmFlexErabEstabSuccInit.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_flex_erab_estab_att_init_hourly_tdd",
+            "expression": "EUtranCellTDD_1.pmCounters.pmFlexErabEstabAttInit.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          }
+        ]
+      },
+      {
+        "alias": "pme_cell_simple_nrcellcu",
+        "aggregation_period": 60,
+        "aggregation_elements": [
+          "NRCellCU_GNBCUCP_1.nodeFDN",
+          "NRCellCU_GNBCUCP_1.moFdn"
+        ],
+        "data_lookback_limit": 240,
+        "inp_data_identifier": "5G|PM_COUNTERS|NRCellCU_GNBCUCP_1",
+        "kpi_definitions": [
+          {
+            "name": "fdn_nrcellcu",
+            "expression": "CASE WHEN ISNULL(NRCellCU_GNBCUCP_1.dnPrefix) THEN NRCellCU_GNBCUCP_1.moFdn ELSE CONCAT(NRCellCU_GNBCUCP_1.dnPrefix, ',', NRCellCU_GNBCUCP_1.moFdn) END",
+            "object_type": "STRING",
+            "aggregation_type": "FIRST"
+          },
+          {
+            "name": "pm_rrc_conn_level_sum_en_dc_hourly",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmRrcConnLevelSumEnDc.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_rrc_conn_level_samp_hourly",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmRrcConnLevelSamp.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "endc_ps_cell_change_success_rate_hourly_num",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmEndcPSCellChangeSuccIntraSgnb.counterValue + NRCellCU_GNBCUCP_1.pmCounters.pmEndcPSCellChangeSuccInterSgnb.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "endc_ps_cell_change_success_rate_hourly_den",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmEndcPSCellChangeAttIntraSgnb.counterValue + NRCellCU_GNBCUCP_1.pmCounters.pmEndcPSCellChangeAttInterSgnb.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_endc_setup_ue_succ_hourly",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmEndcSetupUeSucc.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_endc_setup_ue_att_hourly",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmEndcSetupUeAtt.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "nr_handover_prep_succ_out_hourly",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmHoPrepSuccOutInterGnb.counterValue + NRCellCU_GNBCUCP_1.pmCounters.pmHoPrepSuccOutIntraGnb.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "nr_handover_prep_att_out_hourly",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmHoPrepAttOutInterGnb.counterValue + NRCellCU_GNBCUCP_1.pmCounters.pmHoPrepAttOutIntraGnb.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "nr_handover_exe_succ_out_hourly",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmHoExeSuccOutInterGnb.counterValue + NRCellCU_GNBCUCP_1.pmCounters.pmHoExeSuccOutIntraGnb.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "nr_handover_exe_att_out_hourly",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmHoExeAttOutInterGnb.counterValue + NRCellCU_GNBCUCP_1.pmCounters.pmHoExeAttOutIntraGnb.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_ho_exe_succ_out_eutran_hourly",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmHoExeSuccOutEutran.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_ho_exe_att_out_eutran_hourly",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmHoExeAttOutEutran.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_ho_prep_succ_out_eutran_hourly",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmHoPrepSuccOutEutran.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_ho_prep_att_out_eutran_hourly",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmHoPrepAttOutEutran.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "endc_ue_rel_abnormal_act_hourly",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmEndcRelUeAbnormalMenbAct.counterValue + NRCellCU_GNBCUCP_1.pmCounters.pmEndcRelUeAbnormalSgnbAct.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "endc_ue_rel_total_hourly",
+            "expression": "NRCellCU_GNBCUCP_1.pmCounters.pmEndcRelUeNormal.counterValue + NRCellCU_GNBCUCP_1.pmCounters.pmEndcRelUeAbnormalMenb.counterValue + NRCellCU_GNBCUCP_1.pmCounters.pmEndcRelUeAbnormalSgnb.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          }
+        ]
+      },
+      {
+        "alias": "pme_cell_simple_nrcelldu",
+        "aggregation_period": 60,
+        "aggregation_elements": [
+          "NRCellDU_GNBDU_1.nodeFDN",
+          "NRCellDU_GNBDU_1.moFdn"
+        ],
+        "data_lookback_limit": 240,
+        "inp_data_identifier": "5G|PM_COUNTERS|NRCellDU_GNBDU_1",
+        "kpi_definitions": [
+          {
+            "name": "fdn_nrcelldu",
+            "expression": "CASE WHEN ISNULL(NRCellDU_GNBDU_1.dnPrefix) THEN NRCellDU_GNBDU_1.moFdn ELSE CONCAT(NRCellDU_GNBDU_1.dnPrefix, ',', NRCellDU_GNBDU_1.moFdn) END",
+            "object_type": "STRING",
+            "aggregation_type": "FIRST"
+          },
+          {
+            "name": "pm_mac_vol_dl_drb_hourly",
+            "expression": "NRCellDU_GNBDU_1.pmCounters.pmMacVolDlDrb.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_mac_time_dl_drb_hourly",
+            "expression": "NRCellDU_GNBDU_1.pmCounters.pmMacTimeDlDrb.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_mac_vol_ul_res_ue_hourly",
+            "expression": "NRCellDU_GNBDU_1.pmCounters.pmMacVolUlResUe.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_mac_time_ul_res_ue_hourly",
+            "expression": "NRCellDU_GNBDU_1.pmCounters.pmMacTimeUlResUe.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_mac_vol_dl_hourly",
+            "expression": "NRCellDU_GNBDU_1.pmCounters.pmMacVolDl.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "pm_pdsch_sched_activity_hourly",
+            "expression": "NRCellDU_GNBDU_1.pmCounters.pmPdschSchedActivity.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          },
+          {
+            "name": "cell_downtime_5g_hourly",
+            "expression": "NRCellDU_GNBDU_1.pmCounters.pmCellDowntimeAuto.counterValue + NRCellDU_GNBDU_1.pmCounters.pmCellDowntimeMan.counterValue",
+            "object_type": "LONG",
+            "aggregation_type": "SUM"
+          }
+        ]
+      }
+    ]
+  },
+  "scheduled_complex": {
+    "kpi_output_tables": [
+      {
+        "alias": "pme_cell_complex",
+        "aggregation_period": 60,
+        "aggregation_elements": [
+          "kpi_pme_cell_simple_fdd_60.nodeFDN",
+          "kpi_pme_cell_simple_fdd_60.moFdn",
+          "kpi_pme_cell_simple_fdd_60.fdn_fdd as fullFdn"
+        ],
+        "data_lookback_limit": 240,
+        "kpi_definitions": [
+          {
+            "name": "avg_conn_users_hourly_fdd",
+            "expression": "kpi_pme_cell_simple_fdd_60.avg_conn_users_hourly_num_fdd / NULLIF(kpi_pme_cell_simple_fdd_60.avg_conn_users_hourly_den_fdd, 0) FROM kpi_db://kpi_pme_cell_simple_fdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "avg_dl_latency_hourly_fdd",
+            "expression": "kpi_pme_cell_simple_fdd_60.avg_dl_latency_hourly_num_fdd / NULLIF(kpi_pme_cell_simple_fdd_60.avg_dl_latency_hourly_den_fdd, 0) FROM kpi_db://kpi_pme_cell_simple_fdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "cell_availability_hourly_fdd",
+            "expression": "100 * (1 - (kpi_pme_cell_simple_fdd_60.cell_downtime_4g_hourly_fdd / 3600)) FROM kpi_db://kpi_pme_cell_simple_fdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "cell_handover_success_rate_hourly_fdd",
+            "expression": "100 * (kpi_pme_cell_simple_fdd_60.cell_prep_succ_hourly_fdd * kpi_pme_cell_simple_fdd_60.cell_exe_succ_hourly_fdd) / NULLIF(kpi_pme_cell_simple_fdd_60.cell_prep_att_hourly_fdd * kpi_pme_cell_simple_fdd_60.cell_exe_att_hourly_fdd, 0) FROM kpi_db://kpi_pme_cell_simple_fdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "avg_dl_pdcp_ue_throughput_cell_hourly_fdd",
+            "expression": "1000 * kpi_pme_cell_simple_fdd_60.dl_pdcp_ue_throughput_num_cell_hourly_fdd / NULLIF(kpi_pme_cell_simple_fdd_60.dl_pdcp_ue_throughput_den_cell_hourly_fdd, 0) FROM kpi_db://kpi_pme_cell_simple_fdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "e_rab_retainability_percentage_lost_hourly_fdd",
+            "expression": "100 * kpi_pme_cell_simple_fdd_60.e_rab_retainability_percentage_lost_hourly_num_fdd / NULLIF(kpi_pme_cell_simple_fdd_60.e_rab_retainability_percentage_lost_hourly_den_fdd, 0) FROM kpi_db://kpi_pme_cell_simple_fdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "initial_and_added_e_rab_establishment_sr_hourly_fdd",
+            "expression": "100 * (kpi_pme_cell_simple_fdd_60.pm_rrc_conn_estab_succ_hourly_fdd * kpi_pme_cell_simple_fdd_60.pm_s1_sig_conn_estab_succ_hourly_fdd * kpi_pme_cell_simple_fdd_60.erab_estab_succ_hourly_fdd) / NULLIF(kpi_pme_cell_simple_fdd_60.rrc_conn_estab_att_hourly_fdd * kpi_pme_cell_simple_fdd_60.s1_sig_conn_estab_att_hourly_fdd * kpi_pme_cell_simple_fdd_60.erab_estab_att_hourly_fdd, 0) FROM kpi_db://kpi_pme_cell_simple_fdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "avg_ul_pdcp_ue_throughput_cell_hourly_fdd",
+            "expression": "1000 * kpi_pme_cell_simple_fdd_60.ul_pdcp_ue_throughput_num_cell_hourly_fdd / NULLIF(kpi_pme_cell_simple_fdd_60.ul_pdcp_ue_throughput_den_cell_hourly_fdd, 0) FROM kpi_db://kpi_pme_cell_simple_fdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "ul_pusch_sinr_num_hourly_fdd",
+            "expression": "SUM(-5 * kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_0_hourly_fdd + -3.5 * kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_1_hourly_fdd + 0 * kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_2_hourly_fdd + 4 * kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_3_hourly_fdd + 8 * kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_4_hourly_fdd + 12 * kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_5_hourly_fdd + 15.5 * kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_6_hourly_fdd + 17 * kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_7_hourly_fdd + 20 * kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_8_hourly_fdd) FROM kpi_db://kpi_pme_cell_simple_fdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "ul_pusch_sinr_den_hourly_fdd",
+            "expression": "SUM(kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_0_hourly_fdd + kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_1_hourly_fdd + kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_2_hourly_fdd + kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_3_hourly_fdd + kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_4_hourly_fdd + kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_5_hourly_fdd + kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_6_hourly_fdd + kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_7_hourly_fdd + kpi_pme_cell_simple_fdd_60.pm_sinr_pusch_distr_bin_8_hourly_fdd) FROM kpi_db://kpi_pme_cell_simple_fdd_60",
+            "object_type": "LONG",
+            "aggregation_type": "FIRST",
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "ul_pusch_sinr_hourly_fdd",
+            "expression": "CEIL(pme_cell_complex.ul_pusch_sinr_num_hourly_fdd / NULLIF(pme_cell_complex.ul_pusch_sinr_den_hourly_fdd, 0)) FROM kpi_inmemory://pme_cell_complex",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "pme_cell_complex.nodeFDN",
+              "pme_cell_complex.moFdn",
+              "pme_cell_complex.fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "voip_cell_integrity_hourly_fdd",
+            "expression": "100 * kpi_pme_cell_simple_fdd_60.voip_cell_integrity_hourly_num_fdd / NULLIF(kpi_pme_cell_simple_fdd_60.voip_cell_integrity_hourly_den_fdd, 0) FROM kpi_db://kpi_pme_cell_simple_fdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "diff_initial_erab_establishment_sr_enodeb_hourly_fdd",
+            "expression": "100 * (kpi_pme_cell_simple_fdd_60.pm_rrc_conn_estab_succ_hourly_fdd * kpi_pme_cell_simple_fdd_60.pm_s1_sig_conn_estab_succ_hourly_fdd * kpi_pme_cell_simple_fdd_60.pm_flex_erab_estab_succ_init_hourly_fdd) / NULLIF(kpi_pme_cell_simple_fdd_60.rrc_conn_estab_att_hourly_fdd * kpi_pme_cell_simple_fdd_60.s1_sig_conn_estab_att_hourly_fdd * kpi_pme_cell_simple_fdd_60.pm_flex_erab_estab_att_init_hourly_fdd, 0) FROM kpi_db://kpi_pme_cell_simple_fdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "avg_conn_users_hourly_tdd",
+            "expression": "kpi_pme_cell_simple_tdd_60.avg_conn_users_hourly_num_tdd / NULLIF(kpi_pme_cell_simple_tdd_60.avg_conn_users_hourly_den_tdd, 0) FROM kpi_db://kpi_pme_cell_simple_tdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_tdd_60.nodeFDN",
+              "kpi_pme_cell_simple_tdd_60.moFdn",
+              "kpi_pme_cell_simple_tdd_60.fdn_tdd as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "avg_dl_latency_hourly_tdd",
+            "expression": "kpi_pme_cell_simple_tdd_60.avg_dl_latency_hourly_num_tdd / NULLIF(kpi_pme_cell_simple_tdd_60.avg_dl_latency_hourly_den_tdd, 0) FROM kpi_db://kpi_pme_cell_simple_tdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_tdd_60.nodeFDN",
+              "kpi_pme_cell_simple_tdd_60.moFdn",
+              "kpi_pme_cell_simple_tdd_60.fdn_tdd as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "cell_availability_hourly_tdd",
+            "expression": "100 * (1 - (kpi_pme_cell_simple_tdd_60.cell_downtime_4g_hourly_tdd / 3600)) FROM kpi_db://kpi_pme_cell_simple_tdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_tdd_60.nodeFDN",
+              "kpi_pme_cell_simple_tdd_60.moFdn",
+              "kpi_pme_cell_simple_tdd_60.fdn_tdd as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "cell_handover_success_rate_hourly_tdd",
+            "expression": "100 * (kpi_pme_cell_simple_tdd_60.cell_prep_succ_hourly_tdd * kpi_pme_cell_simple_tdd_60.cell_exe_succ_hourly_tdd) / NULLIF(kpi_pme_cell_simple_tdd_60.cell_prep_att_hourly_tdd * kpi_pme_cell_simple_tdd_60.cell_exe_att_hourly_tdd, 0) FROM kpi_db://kpi_pme_cell_simple_tdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_tdd_60.nodeFDN",
+              "kpi_pme_cell_simple_tdd_60.moFdn",
+              "kpi_pme_cell_simple_tdd_60.fdn_tdd as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "avg_dl_pdcp_ue_throughput_cell_hourly_tdd",
+            "expression": "1000 * kpi_pme_cell_simple_tdd_60.dl_pdcp_ue_throughput_num_cell_hourly_tdd / NULLIF(kpi_pme_cell_simple_tdd_60.dl_pdcp_ue_throughput_den_cell_hourly_tdd, 0) FROM kpi_db://kpi_pme_cell_simple_tdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_tdd_60.nodeFDN",
+              "kpi_pme_cell_simple_tdd_60.moFdn",
+              "kpi_pme_cell_simple_tdd_60.fdn_tdd as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "e_rab_retainability_percentage_lost_hourly_tdd",
+            "expression": "100 * kpi_pme_cell_simple_tdd_60.e_rab_retainability_percentage_lost_hourly_num_tdd / NULLIF(kpi_pme_cell_simple_tdd_60.e_rab_retainability_percentage_lost_hourly_den_tdd, 0) FROM kpi_db://kpi_pme_cell_simple_tdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_tdd_60.nodeFDN",
+              "kpi_pme_cell_simple_tdd_60.moFdn",
+              "kpi_pme_cell_simple_tdd_60.fdn_tdd as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "initial_and_added_e_rab_establishment_sr_hourly_tdd",
+            "expression": "100 * (kpi_pme_cell_simple_tdd_60.pm_rrc_conn_estab_succ_hourly_tdd * kpi_pme_cell_simple_tdd_60.pm_s1_sig_conn_estab_succ_hourly_tdd * kpi_pme_cell_simple_tdd_60.erab_estab_succ_hourly_tdd) / NULLIF(kpi_pme_cell_simple_tdd_60.rrc_conn_estab_att_hourly_tdd * kpi_pme_cell_simple_tdd_60.s1_sig_conn_estab_att_hourly_tdd * kpi_pme_cell_simple_tdd_60.erab_estab_att_hourly_tdd, 0) FROM kpi_db://kpi_pme_cell_simple_tdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_tdd_60.nodeFDN",
+              "kpi_pme_cell_simple_tdd_60.moFdn",
+              "kpi_pme_cell_simple_tdd_60.fdn_tdd as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "avg_ul_pdcp_ue_throughput_cell_hourly_tdd",
+            "expression": "1000 * kpi_pme_cell_simple_tdd_60.ul_pdcp_ue_throughput_num_cell_hourly_tdd / NULLIF(kpi_pme_cell_simple_tdd_60.ul_pdcp_ue_throughput_den_cell_hourly_tdd, 0) FROM kpi_db://kpi_pme_cell_simple_tdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_tdd_60.nodeFDN",
+              "kpi_pme_cell_simple_tdd_60.moFdn",
+              "kpi_pme_cell_simple_tdd_60.fdn_tdd as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "ul_pusch_sinr_num_hourly_tdd",
+            "expression": "SUM(-5 * kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_0_hourly_tdd + -3.5 * kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_1_hourly_tdd + 0 * kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_2_hourly_tdd + 4 * kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_3_hourly_tdd + 8 * kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_4_hourly_tdd + 12 * kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_5_hourly_tdd + 15.5 * kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_6_hourly_tdd + 17 * kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_7_hourly_tdd + 20 * kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_8_hourly_tdd) FROM kpi_db://kpi_pme_cell_simple_tdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_tdd_60.nodeFDN",
+              "kpi_pme_cell_simple_tdd_60.moFdn",
+              "kpi_pme_cell_simple_tdd_60.fdn_tdd as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "ul_pusch_sinr_den_hourly_tdd",
+            "expression": "SUM(kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_0_hourly_tdd + kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_1_hourly_tdd + kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_2_hourly_tdd + kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_3_hourly_tdd + kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_4_hourly_tdd + kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_5_hourly_tdd + kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_6_hourly_tdd + kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_7_hourly_tdd + kpi_pme_cell_simple_tdd_60.pm_sinr_pusch_distr_bin_8_hourly_tdd) FROM kpi_db://kpi_pme_cell_simple_tdd_60",
+            "object_type": "LONG",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_tdd_60.nodeFDN",
+              "kpi_pme_cell_simple_tdd_60.moFdn",
+              "kpi_pme_cell_simple_tdd_60.fdn_tdd as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "ul_pusch_sinr_hourly_tdd",
+            "expression": "CEIL(pme_cell_complex.ul_pusch_sinr_num_hourly_tdd / NULLIF(pme_cell_complex.ul_pusch_sinr_den_hourly_tdd, 0)) FROM kpi_inmemory://pme_cell_complex",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "pme_cell_complex.nodeFDN",
+              "pme_cell_complex.moFdn",
+              "pme_cell_complex.fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "voip_cell_integrity_hourly_tdd",
+            "expression": "100 * kpi_pme_cell_simple_tdd_60.voip_cell_integrity_hourly_num_tdd / NULLIF(kpi_pme_cell_simple_tdd_60.voip_cell_integrity_hourly_den_tdd, 0) FROM kpi_db://kpi_pme_cell_simple_tdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_tdd_60.nodeFDN",
+              "kpi_pme_cell_simple_tdd_60.moFdn",
+              "kpi_pme_cell_simple_tdd_60.fdn_tdd as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "diff_initial_erab_establishment_sr_enodeb_hourly_tdd",
+            "expression": "100 * (kpi_pme_cell_simple_tdd_60.pm_rrc_conn_estab_succ_hourly_tdd * kpi_pme_cell_simple_tdd_60.pm_s1_sig_conn_estab_succ_hourly_tdd * kpi_pme_cell_simple_tdd_60.pm_flex_erab_estab_succ_init_hourly_tdd) / NULLIF(kpi_pme_cell_simple_tdd_60.rrc_conn_estab_att_hourly_tdd * kpi_pme_cell_simple_tdd_60.s1_sig_conn_estab_att_hourly_tdd * kpi_pme_cell_simple_tdd_60.pm_flex_erab_estab_att_init_hourly_tdd, 0) FROM kpi_db://kpi_pme_cell_simple_tdd_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_tdd_60.nodeFDN",
+              "kpi_pme_cell_simple_tdd_60.moFdn",
+              "kpi_pme_cell_simple_tdd_60.fdn_tdd as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "avg_nr_en_dc_rrc_connected_users_per_cell_hourly",
+            "expression": "kpi_pme_cell_simple_nrcellcu_60.pm_rrc_conn_level_sum_en_dc_hourly / NULLIF(kpi_pme_cell_simple_nrcellcu_60.pm_rrc_conn_level_samp_hourly, 0) FROM kpi_db://kpi_pme_cell_simple_nrcellcu_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_nrcellcu_60.nodeFDN",
+              "kpi_pme_cell_simple_nrcellcu_60.moFdn",
+              "kpi_pme_cell_simple_nrcellcu_60.fdn_nrcellcu as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "endc_ps_cell_change_success_rate_hourly",
+            "expression": "100 * kpi_pme_cell_simple_nrcellcu_60.endc_ps_cell_change_success_rate_hourly_num / NULLIF(kpi_pme_cell_simple_nrcellcu_60.endc_ps_cell_change_success_rate_hourly_den, 0) FROM kpi_db://kpi_pme_cell_simple_nrcellcu_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_nrcellcu_60.nodeFDN",
+              "kpi_pme_cell_simple_nrcellcu_60.moFdn",
+              "kpi_pme_cell_simple_nrcellcu_60.fdn_nrcellcu as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "en_dc_setup_sr_captured_gnodeb_hourly",
+            "expression": "100 * kpi_pme_cell_simple_nrcellcu_60.pm_endc_setup_ue_succ_hourly / NULLIF(kpi_pme_cell_simple_nrcellcu_60.pm_endc_setup_ue_att_hourly, 0) FROM kpi_db://kpi_pme_cell_simple_nrcellcu_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_nrcellcu_60.nodeFDN",
+              "kpi_pme_cell_simple_nrcellcu_60.moFdn",
+              "kpi_pme_cell_simple_nrcellcu_60.fdn_nrcellcu as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "nr_handover_success_rate_gnodeb_hourly",
+            "expression": "100 * (kpi_pme_cell_simple_nrcellcu_60.nr_handover_prep_succ_out_hourly * kpi_pme_cell_simple_nrcellcu_60.nr_handover_exe_succ_out_hourly) / NULLIF(kpi_pme_cell_simple_nrcellcu_60.nr_handover_prep_att_out_hourly * kpi_pme_cell_simple_nrcellcu_60.nr_handover_exe_att_out_hourly, 0) FROM kpi_db://kpi_pme_cell_simple_nrcellcu_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_nrcellcu_60.nodeFDN",
+              "kpi_pme_cell_simple_nrcellcu_60.moFdn",
+              "kpi_pme_cell_simple_nrcellcu_60.fdn_nrcellcu as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "nr_to_lte_inter_rat_handover_sr_gnodeb_hourly",
+            "expression": "100 * (kpi_pme_cell_simple_nrcellcu_60.pm_ho_exe_succ_out_eutran_hourly * kpi_pme_cell_simple_nrcellcu_60.pm_ho_prep_succ_out_eutran_hourly) / NULLIF(kpi_pme_cell_simple_nrcellcu_60.pm_ho_exe_att_out_eutran_hourly * kpi_pme_cell_simple_nrcellcu_60.pm_ho_prep_att_out_eutran_hourly, 0) FROM kpi_db://kpi_pme_cell_simple_nrcellcu_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_nrcellcu_60.nodeFDN",
+              "kpi_pme_cell_simple_nrcellcu_60.moFdn",
+              "kpi_pme_cell_simple_nrcellcu_60.fdn_nrcellcu as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "scg_active_radio_resource_retainability_gnodeb_hourly",
+            "expression": "100 * kpi_pme_cell_simple_nrcellcu_60.endc_ue_rel_abnormal_act_hourly / NULLIF(kpi_pme_cell_simple_nrcellcu_60.endc_ue_rel_total_hourly, 0) FROM kpi_db://kpi_pme_cell_simple_nrcellcu_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_nrcellcu_60.nodeFDN",
+              "kpi_pme_cell_simple_nrcellcu_60.moFdn",
+              "kpi_pme_cell_simple_nrcellcu_60.fdn_nrcellcu as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "avg_dl_mac_drb_throughput_hourly",
+            "expression": "64 * kpi_pme_cell_simple_nrcelldu_60.pm_mac_vol_dl_drb_hourly / NULLIF(kpi_pme_cell_simple_nrcelldu_60.pm_mac_time_dl_drb_hourly, 0) FROM kpi_db://kpi_pme_cell_simple_nrcelldu_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_nrcelldu_60.nodeFDN",
+              "kpi_pme_cell_simple_nrcelldu_60.moFdn",
+              "kpi_pme_cell_simple_nrcelldu_60.fdn_nrcelldu as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "avg_ul_mac_ue_throughput_hourly",
+            "expression": "64 * kpi_pme_cell_simple_nrcelldu_60.pm_mac_vol_ul_res_ue_hourly / NULLIF(kpi_pme_cell_simple_nrcelldu_60.pm_mac_time_ul_res_ue_hourly, 0) FROM kpi_db://kpi_pme_cell_simple_nrcelldu_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_nrcelldu_60.nodeFDN",
+              "kpi_pme_cell_simple_nrcelldu_60.moFdn",
+              "kpi_pme_cell_simple_nrcelldu_60.fdn_nrcelldu as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "normalized_avg_dl_mac_cell_throughput_traffic_hourly",
+            "expression": "64 * kpi_pme_cell_simple_nrcelldu_60.pm_mac_vol_dl_hourly / NULLIF(kpi_pme_cell_simple_nrcelldu_60.pm_pdsch_sched_activity_hourly, 0) FROM kpi_db://kpi_pme_cell_simple_nrcelldu_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_nrcelldu_60.nodeFDN",
+              "kpi_pme_cell_simple_nrcelldu_60.moFdn",
+              "kpi_pme_cell_simple_nrcelldu_60.fdn_nrcelldu as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          },
+          {
+            "name": "partial_cell_availability_gnodeb_hourly",
+            "expression": "100 * (1 - (kpi_pme_cell_simple_nrcelldu_60.cell_downtime_5g_hourly / 3600)) FROM kpi_db://kpi_pme_cell_simple_nrcelldu_60",
+            "object_type": "FLOAT",
+            "aggregation_type": "FIRST",
+            "aggregation_elements": [
+              "kpi_pme_cell_simple_nrcelldu_60.nodeFDN",
+              "kpi_pme_cell_simple_nrcelldu_60.moFdn",
+              "kpi_pme_cell_simple_nrcelldu_60.fdn_nrcelldu as fullFdn"
+            ],
+            "execution_group": "pme_complex_group"
+          }
+        ]
+      }
+    ]
+  }
+}

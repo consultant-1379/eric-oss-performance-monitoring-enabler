@@ -1,0 +1,106 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+# Default values for eric-oss-performance-monitoring-enabler-integration.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  registry:
+    password: SNeGOEQi83qy5eFUGRuops86
+    username: deaasuser
+  networkPolicy:
+    enabled: false
+  log:
+    streamingMethod: indirect
+
+eric-oss-data-loader:
+  dataGenerator:
+    schemaRegistry:
+      url: http://eric-schema-registry-sr:8081
+    dataCatalog:
+      baseUrl: http://eric-oss-data-catalog:9590/catalog
+
+eric-oss-dmm:
+  init:
+    external:
+      port:
+        - 9092
+  api-gateway-route:
+    enable: false
+
+eric-oss-pm-stats-calc-handling:
+  apiGWRouteCalculator:
+    enabled: false
+  apiGWRouteQueryService:
+    enabled: false
+  apiGatewayRoute:
+    enable: false
+  eric-oss-pm-stats-exporter:
+    replicaCount: 0
+  rbac:
+    enabled: false
+  eric-oss-pm-stats-calculator:
+    cnom:
+      enabled: false
+    dst:
+      enabled: false
+    brAgent:
+      enabled: false
+#    kpiData:
+#      enabled: true
+      #nameOverride: eric-dmm-common-db
+  eric-oss-pm-stats-query-service:
+    query:
+      database:
+        url: "jdbc:postgresql://eric-pm-kpi-data:5432/kpi_service_db"
+
+pmsch:
+  ingress:
+    host:
+    pmscServiceName: eric-oss-pm-stats-calculator
+    queryServiceName: eric-oss-pm-stats-query-service
+    port: 8080
+    namespace:
+
+pme:
+  ingress:
+    host:
+    serviceName: eric-oss-performance-monitoring-enabler
+    port: 8080
+    namespace:
+
+dmm:
+  ingress:
+    host:
+    dcc:
+      serviceName: eric-oss-data-collection-controller
+      port: 8080
+    catalog:
+      serviceName: eric-oss-data-catalog
+      port: 9590
+    namespace:
+
+# choice='unconfined, runtime/default, localhost' [ default= ""]
+# Configuration of AppArmor profile type. The following values are possible:
+# unconfined  - Indicates that there is no profile loaded.
+# runtime/default - Applies the default profile of the container engine.
+# localhost   - Applies a specific profile loaded on the host
+appArmorProfile:
+  type: ""
+seccompProfile:
+  type: "RuntimeDefault"
+

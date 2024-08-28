@@ -1,0 +1,188 @@
+/*
+ * COPYRIGHT Ericsson 2023
+ *
+ *
+ *
+ * The copyright to the computer program(s) herein is the property of
+ *
+ * Ericsson Inc. The programs may be used and/or copied only with written
+ *
+ * permission from Ericsson Inc. or in accordance with the terms and
+ *
+ * conditions stipulated in the agreement/contract under which the
+ *
+ * program(s) have been supplied.
+ */
+
+import com.bmuschko.gradle.docker.tasks.container.*
+import com.bmuschko.gradle.docker.tasks.image.*
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:8.0.0'
+    }
+}
+
+apply plugin: 'com.bmuschko.docker-remote-api'
+
+ext {
+    k6BaseImageVersion = System.getProperty("base.image.version", "latest")
+
+    // Creates a random dummy jobUrl for testing
+    jobUrl = "http://localhost/job/${UUID.randomUUID().toString()}" as String
+}
+
+task clean(type:Delete) {
+    group = "clean"
+    description = "clear resources created by previous builds"
+    delete buildDir
+}
+
+tasks.register('copyTestwareResources', Copy) {
+    group = "package"
+    description = "copy testware resources to target folder"
+
+    from(new File(System.getProperty('user.dir'), '../src/main/resources/KpiDefinitions.json'))
+    into "${buildDir}/docker/input/resources"
+
+    from(new File(System.getProperty('user.dir'), '../ci/csar_template/OtherDefinitions/DataManagement/input-data-specification.json'))
+    into "${buildDir}/docker/input/resources"
+
+    from 'src/main'
+    include 'js/**', 'resources/**'
+    into "${buildDir}/docker/input"
+}
+
+tasks.register('copyExternalTestwareResources', Copy) {
+    group = "package"
+    description = "copy external k6 testware resources to target folder"
+
+    dependsOn copyTestwareResources
+
+    from(new File(projectDir.getAbsolutePath(), '../../src/main/resources/KpiDefinitions.json'))
+    into "${buildDir}/docker/input/resources"
+
+    from(new File(projectDir.getAbsolutePath(), '../../src/main/resources/schemas/MonitoringObjects.avsc'))
+    into "${buildDir}/docker/input/resources"
+
+    from(new File(projectDir.getAbsolutePath(), '../../src/main/resources/schemas/Verdict.avsc'))
+    into "${buildDir}/docker/input/resources"
+
+    from(new File(projectDir.getAbsolutePath(), '../../ci/csar_template/OtherDefinitions/DataManagement/input-data-specification.json'))
+    into "${buildDir}/docker/input/resources"
+}
+
+tasks.register('copyDockerfile', Copy) {
+    group = "package"
+    description = "copy Dockerfile to target folder"
+
+    dependsOn copyExternalTestwareResources
+    from 'src/main/docker'
+    include 'Dockerfile'
+    into "${buildDir}/docker/input"
+    expand([
+        name: rootProject.name,
+        version: getReleaseVersion(),
+        k6BaseImageVersion: k6BaseImageVersion
+    ])
+}
+
+tasks.register('buildDockerImage', DockerBuildImage) {
+    group = "package"
+    description = "builds a docker image with the testware contents"
+
+    dependsOn copyDockerfile
+    inputDir = file("build/docker/input")
+    labels = [
+            "org.opencontainers.image.title"   : rootProject.name,
+            "org.opencontainers.image.created" : LocalDateTime.now() as String,
+            "org.opencontainers.image.vendor"  : "Ericsson",
+            "org.opencontainers.image.version" : imageVersion
+    ]
+    pull = true
+    images = [defaultDockerTag, latestDockerTag]
+}
+
+tasks.register('pushDockerImage', DockerPushImage) {
+    group = "publish"
+    description = "pushes the docker images to the repository"
+
+    dependsOn buildDockerImage
+
+    images = [defaultDockerTag, latestDockerTag]
+}
+
+
+tasks.register('createTestwareContainer', DockerCreateContainer) {
+    group = "run"
+    description = "creates a container to run the K6 tests"
+
+    dependsOn buildDockerImage
+
+    def logsDir = "${project.buildDir}/testware/output/logs"
+    def reportsDir = "${project.buildDir}/testware/output/reports"
+    doFirst {
+        new File("${project.buildDir}/testware").deleteDir()
+        mkdir(logsDir)
+        mkdir(reportsDir)
+    }
+
+    tty = true
+    imageId = defaultDockerTag
+    hostConfig.autoRemove = true
+    hostConfig.binds = [
+        "${logsDir}"      : "/logs",
+        "${reportsDir}"   : "/reports",
+    ]
+
+    envVars = [
+            APP_NAME                : rootProject.name,
+            APP_VERSION             : getReleaseVersion(),
+            BUILD_URL               : jobUrl,
+            ENVIRONMENT             : "development",
+            LOG_LEVEL               : "DEBUG",
+            OPTIONS_FILE            : "/resources/config/preOnboarding.options.json",
+            PRODUCT                 : "eric-oss-performance-monitoring-enabler",
+            PRODUCT_VERSION         : getReleaseVersion(),
+            SHUTDOWN_WAIT_TIME      : "0",
+            STAGING_TYPE            : "APPLICATION",
+            TESTWARE_NAME           : rootProject.name,
+            TEST_VERSION            : getReleaseVersion(),
+            ADDITIONAL_ARGS         : "--insecure-skip-tls-verify",
+            API_URL                 : "http://api.dev-staging-report.ews.gic.ericsson.se/api",
+            GUI_URL                 : "http://gui.dev-staging-report.ews.gic.ericsson.se/staging-reports",
+            DATABASE_URL            : "postgresql://testware_user:testware@kroto017.rnd.gic.ericsson.se:30001/staging",
+            INGRESS_SCHEMA          : "https",
+            INGRESS_HOST            : "gas.stsvp1eic28.stsoss.sero.gic.ericsson.se",
+            INGRESS_LOGIN_USER      : "sys-user",
+            INGRESS_LOGIN_PASSWORD  : "idunEr!css0n",
+            EPME_INGRESS_SCHEMA     : "",
+            EPME_INGRESS_HOST       : "",
+            INGRESS_DMM_USER        : "",
+            INGRESS_DMM_PASSWORD    : "",
+            RAPP_ID                 : "",
+            BUILD_ID                : "12345"
+    ]
+}
+
+tasks.register('startTestwareContainer', DockerStartContainer) {
+    group = "run"
+    description = "starts the testware container"
+
+    dependsOn createTestwareContainer
+    containerId = createTestwareContainer.getContainerId()
+}
+
+tasks.register('run', DockerLogsContainer) {
+    group = "run"
+    description = "runs your testware container"
+
+    dependsOn startTestwareContainer
+
+    targetContainerId createTestwareContainer.getContainerId()
+    follow = true
+    tailAll = true
+}

@@ -1,0 +1,43 @@
+#
+# COPYRIGHT Ericsson 2021
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "eric-oss-data-generator.name" . }}-configmap
+  labels:
+  {{- include "eric-oss-data-generator.labels" . | nindent 4 }}
+data:
+  application.properties: |
+    spring.kafka.bootstrap-servers: {{ .Values.dataGenerator.kafka.bootstrapServers }}
+    spring.kafka.producer.key-serializer: {{ .Values.dataGenerator.kafka.producer.keySerializer }}
+    spring.kafka.producer.value-serializer: {{ .Values.dataGenerator.kafka.producer.valueSerializer }}
+    spring.kafka.producer.group-id: {{ .Values.dataGenerator.kafka.producer.groupId }}
+    spring.kafka.producer.properties.linger.ms: {{ .Values.dataGenerator.kafka.producer.properties.lingerMs }}
+    spring.kafka.producer.properties.batch.size: {{ .Values.dataGenerator.kafka.producer.properties.batchSize }}
+    spring.kafka.producer.properties.buffer.memory: {{ .Values.dataGenerator.kafka.producer.properties.bufferMemory }}
+    spring.kafka.producer.properties.compression.type: {{ .Values.dataGenerator.kafka.producer.properties.compressionType }}
+    spring.kafka.properties.schema.registry.url: {{ .Values.dataGenerator.kafka.properties.schemaRegistryUrl }}
+    schema-registry.url: {{ .Values.dataGenerator.schemaRegistry.url }}
+    config-location: {{ .Values.dataGenerator.configLocation }}
+    data-catalog.base-url: {{ .Values.dataGenerator.dataCatalog.baseUrl }}
+    data-catalog.message-bus-cluster-name: {{ .Values.dataGenerator.dataCatalog.messageBusClusterName }}
+    data-catalog.message-bus-namespace: {{ .Values.dataGenerator.dataCatalog.messageBusNamespace }}
+    data-catalog.message-bus-name: {{ .Values.dataGenerator.dataCatalog.messageBusName }}
+    data-catalog.message-bus-access-endpoints: {{ .Values.dataGenerator.dataCatalog.messageBusAccessEndpoints }}
+    data-catalog.data-space-name: {{ .Values.dataGenerator.dataCatalog.dataSpaceName }}
+
+{{ (.Files.Glob "config/*").AsConfig | indent 2 }}

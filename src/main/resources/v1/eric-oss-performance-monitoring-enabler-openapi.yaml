@@ -1,0 +1,831 @@
+#
+# COPYRIGHT Ericsson 2023 - 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+openapi: 3.0.2
+
+servers:
+  - url : http://localhost/performance-monitoring-enabler/v1alpha3
+
+info:
+  x-api-id: 9a23a7fc-5aa5-469f-a234-9b47f3c3955e
+  x-audience: external-partner
+  description: |
+    Performance Monitoring Enabler (PME) provides the capability to monitor 
+    KPIs in the network and determine if they fall outside a certain threshold. 
+    The KPIs and the threshold information is defined in a configuration, 
+    while a session allows the client to control how long these KPIs are 
+    monitored for.  A configuration can be shared among several sessions.
+  version: 0.0.3
+  title: Performance Monitoring Enabler API
+  license:
+    name: COPYRIGHT Ericsson 2024
+    url: https://www.ericsson.com/en/legal
+  termsOfService: https://www.ericsson.com/en/legal
+  contact:
+    email: pdlteamvad@pdl.internal.ericsson.com
+tags:
+  - name: configurations
+    description: Provides the capability to configure the KPIs and threshold information.
+  - name: sessions
+    description: Provides the capability to define a monitoring session.
+paths:
+  /sessions:
+    get:
+      tags:
+        - sessions
+      summary: Get the list of PME Monitoring Sessions
+      description: Gets all the PME Monitoring Session for the given rApp Client ID
+      operationId: getSessions
+      parameters:
+        - $ref: '#/components/parameters/acceptInHeader'
+        - $ref: "#/components/parameters/clientId"  # @TODO clientId is a temporary solution and will be removed before first release
+        - name: sessionReference
+          in: query
+          description: A client reference that is unique to the session.
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Session"
+        "503":
+          $ref: "#/components/responses/503"
+        default:
+          $ref: "#/components/responses/500"
+    post:
+      tags:
+        - sessions
+      summary: Create an PME Monitoring Session
+      description: Creates an PME Monitoring Session for the given rApp Client ID
+      operationId: createSession
+      parameters:
+        - $ref: '#/components/parameters/acceptInHeader'
+        - $ref: '#/components/parameters/contentTypeInHeader'
+        - $ref: "#/components/parameters/clientId"  # @TODO clientId is a temporary solution and will be removed before first release
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionRequest'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Session"
+        "400":
+          $ref: "#/components/responses/400"
+        "409":
+          $ref: "#/components/responses/409"
+        "415":
+          $ref: "#/components/responses/415"
+        "503":
+          $ref: "#/components/responses/503"
+        default:
+          $ref: "#/components/responses/500"
+  /sessions/{sessionId}:
+    get:
+      tags:
+        - sessions
+      summary: Get an PME Monitoring Session
+      description: Get an PME Monitoring Session for the given rApp Client ID and Session ID
+      operationId: getSessionById
+      parameters:
+        - $ref: '#/components/parameters/acceptInHeader'
+        - $ref: "#/components/parameters/clientId"  # @TODO clientId is a temporary solution and will be removed before first release
+        - $ref: "#/components/parameters/sessionId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Session"
+        "404":
+          $ref: "#/components/responses/404"
+        "503":
+          $ref: "#/components/responses/503"
+        default:
+          $ref: "#/components/responses/500"
+  /sessions/{sessionId}/status:
+    put:
+      tags:
+        - sessions
+      summary: Stop an PME Monitoring Session
+      description: Stop an PME Monitoring Session for the given rApp Client ID and Session ID
+      operationId: stopSessionById
+      parameters:
+        - $ref: '#/components/parameters/acceptInHeader'
+        - $ref: '#/components/parameters/contentTypeInHeader'
+        - $ref: "#/components/parameters/clientId"  # @TODO clientId is a temporary solution and will be removed before first release
+        - $ref: "#/components/parameters/sessionId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionStopRequest'
+      responses:
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionStopRequest"
+        "400":
+          $ref: "#/components/responses/400"
+        "404":
+          $ref: "#/components/responses/404"
+        "409":
+          $ref: "#/components/responses/409"
+        "415":
+          $ref: "#/components/responses/415"
+        "503":
+          $ref: "#/components/responses/503"
+        default:
+          $ref: "#/components/responses/500"
+
+  /configurations:
+    get:
+      tags:
+        - configurations
+      summary: Get PME Configurations
+      description: Gets all the PME Configurations
+      operationId: getConfigurations
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Configuration"
+        default:
+          $ref: "#/components/responses/500"
+    post:
+      tags:
+        - configurations
+      summary: Create an PME Configuration
+      description: Creates an PME Configuration
+      operationId: createConfiguration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Configuration"
+        "400":
+          $ref: "#/components/responses/400"
+        "415":
+          $ref: "#/components/responses/415"
+        default:
+          $ref: "#/components/responses/500"
+  /configurations/{configurationId}:
+    get:
+      tags:
+        - configurations
+      summary: Get an PME Configuration
+      description: Get an PME Configuration for the given Configuration ID
+      operationId: getConfigurationById
+      parameters:
+        - $ref: '#/components/parameters/acceptInHeader'
+        - $ref: "#/components/parameters/configurationId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Configuration"
+        "404":
+          $ref: "#/components/responses/404"
+        default:
+          $ref: "#/components/responses/500"
+    put:
+      tags:
+        - configurations
+      summary: Update an PME Configuration
+      description: Updates an PME Configuration
+      operationId: updateConfiguration
+      parameters:
+        - $ref: '#/components/parameters/acceptInHeader'
+        - $ref: '#/components/parameters/contentTypeInHeader'
+        - $ref: "#/components/parameters/configurationId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationUpdate'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Configuration"
+        "400":
+          $ref: "#/components/responses/400"
+        "404":
+          $ref: "#/components/responses/404"
+        "409":
+          $ref: "#/components/responses/409"
+        "415":
+          $ref: "#/components/responses/415"
+        default:
+          $ref: "#/components/responses/500"
+    delete:
+      tags:
+        - configurations
+      summary: Delete a PME Configuration
+      description: Deletes a PME Configuration
+      operationId: deleteConfiguration
+      parameters:
+        - $ref: '#/components/parameters/acceptInHeader'
+        - $ref: "#/components/parameters/configurationId"
+      responses:
+        "204":
+          description: "No Content"
+        "400":
+          $ref: "#/components/responses/400"
+        "404":
+          $ref: "#/components/responses/404"
+        "409":
+          $ref: "#/components/responses/409"
+        default:
+          $ref: "#/components/responses/500"
+
+components:
+  # Common Params
+  parameters:
+    clientId:
+      name: clientId
+      in: query
+      description: ID of the Client who owns the session
+      required: true
+      schema:
+        type: string
+        minLength: 4
+        maxLength: 64
+        pattern: "^[\\w-]+$"
+    sessionId:
+      name: sessionId
+      in: path
+      description: ID of session
+      required: true
+      schema:
+        type: string
+    configurationId:
+      name: configurationId
+      in: path
+      description: Configuration id
+      required: true
+      schema:
+        type: string
+    acceptInHeader:
+      name: Accept
+      in: header
+      required: false
+      schema:
+        type: string
+        example: application/json
+        default: application/json
+    contentTypeInHeader:
+      name: Content-Type
+      in: header
+      required: false
+      schema:
+        type: string
+        example: application/json
+        default: application/json
+
+  # Common error responses
+  responses:
+    "400":
+      description: Bad Request
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetails"
+          example: {
+            "title": "Validation Failed",
+            "status": 400,
+            "detail": "Failed to read request"
+          }
+
+    "404":
+      description: Not Found
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetails"
+          example: {
+            "title": "Provide a valid Configuration ID",
+            "status": 404,
+            "detail": "Configuration with provided ID does not exist"
+          }
+    "409":
+      description: Conflict
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetails"
+          example: {
+            "title": "Only Configurations not associated with a Session can be updated",
+            "status": 409,
+            "detail": "Configuration with provided ID is used in a Session"
+          }
+    "415":
+      description: Unsupported Media Type
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetails"
+          example: {
+            "title": "Validation Failed",
+            "status": 415,
+            "detail": "Content-Type 'text/plain;charset=ISO-8859-1' is not supported"
+          }
+    "503":
+      description: Service Unavailable
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetails"
+          example: {
+            "title": "Service is not ready",
+            "status": 503,
+            "detail": "Start up operations have started"
+          }
+    "500":
+      description: Internal Server Error
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ErrorDetails"
+          example: {
+            "title": "Internal Server Error",
+            "status": 500,
+            "detail": "Failed to persist change to the database"
+          }
+  schemas:
+    SessionRequest:
+      description: The session sent by the client.
+      type: object
+      required:
+        - sessionReference
+        - pmeConfigId
+      properties:
+        sessionReference:
+          description: A client reference that is unique to the session.
+          type: string
+          minLength: 4
+          maxLength: 64
+          pattern: "^[\\w-_]+$"
+        duration:
+          description: The number of hours for which the session will be active and monitoring will be performed.
+          type: integer
+          maximum: 24
+          minimum: 1
+          default: 18
+          format: int32
+        pmeConfigId:
+          description: The id of the configuration to be used by this session.
+          type: string
+    SessionStopRequest:
+      description: The payload to stop an PME Session
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - STOPPED
+    Session:
+      description: The created session.
+      type: object
+      required:
+        - id
+        - sessionReference
+        - duration
+        - pmeConfigId
+        - monitoringObjectTopicName
+        - verdictTopicName
+        - status
+        - createdAt
+      properties:
+        id:
+          type: string
+          minLength: 4
+          maxLength: 255
+          pattern: "^[\\w-_]+$"
+        sessionReference:
+          type: string
+          minLength: 4
+          maxLength: 64
+          pattern: "^[\\w-_]+$"
+        duration:
+          type: integer
+          maximum: 24
+          minimum: 1
+          format: int32
+        pmeConfigId:
+          type: string
+        monitoringObjectTopicName:
+          type: string
+        verdictTopicName:
+          type: string
+        status:
+          type: string
+          enum:
+            - CREATED
+            - STARTED
+            - STOPPED
+            - FINISHED
+        createdAt:
+          type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+          nullable: true
+        stoppedAt:
+          type: string
+          format: date-time
+          nullable: true
+
+    ConfigurationRequest:
+      description: The PME configuration to be created.
+      type: object
+      required:
+        - name
+        - weekendDays
+        - fixedThresholdKpis
+      properties:
+        name:
+          type: string
+        weekendDays:
+          $ref: '#/components/schemas/weekendDays'
+        fixedThresholdKpis:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/fixed'
+      example: {
+        "name": "sample_configuration_with_all_predefined_kpis_included",
+        "weekendDays": "SATURDAY,SUNDAY",
+        "fixedThresholdKpis": [
+          {
+            "kpiName": "en_dc_setup_sr_captured_gnodeb_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "diff_initial_erab_establishment_sr_enodeb_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "scg_active_radio_resource_retainability_gnodeb_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "avg_dl_mac_drb_throughput_hourly",
+            "fixedThreshold": 1000000
+          },
+          {
+            "kpiName": "avg_ul_mac_ue_throughput_hourly",
+            "fixedThreshold": 1000000
+          },
+          {
+            "kpiName": "normalized_avg_dl_mac_cell_throughput_traffic_hourly",
+            "fixedThreshold": 1000000
+          },
+          {
+            "kpiName": "endc_ps_cell_change_success_rate_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "partial_cell_availability_gnodeb_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "nr_to_lte_inter_rat_handover_sr_gnodeb_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "nr_handover_success_rate_gnodeb_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "cell_availability_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "initial_and_added_e_rab_establishment_sr_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "avg_ul_pdcp_ue_throughput_cell_hourly",
+            "fixedThreshold": 100000
+          },
+          {
+            "kpiName": "avg_dl_pdcp_ue_throughput_cell_hourly",
+            "fixedThreshold": 100000
+          },
+          {
+            "kpiName": "ul_pusch_sinr_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "cell_handover_success_rate_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "e_rab_retainability_percentage_lost_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "avg_dl_latency_hourly",
+            "fixedThreshold": 1000
+          },
+          {
+            "kpiName": "voip_cell_integrity_hourly",
+            "fixedThreshold": 99.00
+          }
+        ]
+      }
+    ConfigurationUpdate:
+      description: The PME configuration to replace the existing configuration.
+      type: object
+      required:
+        - weekendDays
+        - fixedThresholdKpis
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        weekendDays:
+          $ref: '#/components/schemas/weekendDays'
+        fixedThresholdKpis:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/fixed'
+      example: {
+        "id": "1",
+        "name": "sample_configuration_with_all_predefined_kpis_included",
+        "weekendDays": "SATURDAY,SUNDAY",
+        "fixedThresholdKpis": [
+          {
+            "kpiName": "en_dc_setup_sr_captured_gnodeb_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "diff_initial_erab_establishment_sr_enodeb_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "scg_active_radio_resource_retainability_gnodeb_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "avg_dl_mac_drb_throughput_hourly",
+            "fixedThreshold": 1000000
+          },
+          {
+            "kpiName": "avg_ul_mac_ue_throughput_hourly",
+            "fixedThreshold": 1000000
+          },
+          {
+            "kpiName": "normalized_avg_dl_mac_cell_throughput_traffic_hourly",
+            "fixedThreshold": 1000000
+          },
+          {
+            "kpiName": "endc_ps_cell_change_success_rate_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "partial_cell_availability_gnodeb_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "nr_to_lte_inter_rat_handover_sr_gnodeb_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "nr_handover_success_rate_gnodeb_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "cell_availability_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "initial_and_added_e_rab_establishment_sr_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "avg_ul_pdcp_ue_throughput_cell_hourly",
+            "fixedThreshold": 100000
+          },
+          {
+            "kpiName": "avg_dl_pdcp_ue_throughput_cell_hourly",
+            "fixedThreshold": 100000
+          },
+          {
+            "kpiName": "ul_pusch_sinr_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "cell_handover_success_rate_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "e_rab_retainability_percentage_lost_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "avg_dl_latency_hourly",
+            "fixedThreshold": 1000
+          },
+          {
+            "kpiName": "voip_cell_integrity_hourly",
+            "fixedThreshold": 99.00
+          }
+        ]
+      }
+    Configuration:
+      description: The PME configuration.
+      type: object
+      required:
+        - id
+        - name
+        - weekendDays
+        - fixedThresholdKpis
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        weekendDays:
+          $ref: '#/components/schemas/weekendDays'
+        fixedThresholdKpis:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/fixed'
+      example: {
+        "id": "1",
+        "name": "sample_configuration_with_all_predefined_kpis_included",
+        "weekendDays": "SATURDAY,SUNDAY",
+        "fixedThresholdKpis": [
+          {
+            "kpiName": "en_dc_setup_sr_captured_gnodeb_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "diff_initial_erab_establishment_sr_enodeb_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "scg_active_radio_resource_retainability_gnodeb_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "avg_dl_mac_drb_throughput_hourly",
+            "fixedThreshold": 1000000
+          },
+          {
+            "kpiName": "avg_ul_mac_ue_throughput_hourly",
+            "fixedThreshold": 1000000
+          },
+          {
+            "kpiName": "normalized_avg_dl_mac_cell_throughput_traffic_hourly",
+            "fixedThreshold": 1000000
+          },
+          {
+            "kpiName": "endc_ps_cell_change_success_rate_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "partial_cell_availability_gnodeb_hourly",
+            "fixedThreshold": 98.99
+          },
+          {
+            "kpiName": "nr_to_lte_inter_rat_handover_sr_gnodeb_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "nr_handover_success_rate_gnodeb_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "cell_availability_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "initial_and_added_e_rab_establishment_sr_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "avg_ul_pdcp_ue_throughput_cell_hourly",
+            "fixedThreshold": 100000
+          },
+          {
+            "kpiName": "avg_dl_pdcp_ue_throughput_cell_hourly",
+            "fixedThreshold": 100000
+          },
+          {
+            "kpiName": "ul_pusch_sinr_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "cell_handover_success_rate_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "e_rab_retainability_percentage_lost_hourly",
+            "fixedThreshold": 99.00
+          },
+          {
+            "kpiName": "avg_dl_latency_hourly",
+            "fixedThreshold": 1000
+          },
+          {
+            "kpiName": "voip_cell_integrity_hourly",
+            "fixedThreshold": 99.00
+          }
+        ]
+      }
+    kpiCommonData:
+      type: object
+      required:
+        - kpiName
+      properties:
+        kpiName:
+          type: string
+          description: Must be one of the KPI names supported by PME. If this does not match one of the supported KPI names then the operation will fail and the full list of KPI names will be included in the error response.
+    fixed:
+      allOf:
+        - $ref: '#/components/schemas/kpiCommonData'
+        - type: object
+          required:
+            - fixedThreshold
+          properties:
+            fixedThreshold:
+              type: number
+              format: double
+    weekendDays:
+      type: string
+      description: Two consecutive days representing the weekend days.
+      enum:
+        - SATURDAY,SUNDAY
+        - SUNDAY,MONDAY
+        - MONDAY,TUESDAY
+        - TUESDAY,WEDNESDAY
+        - WEDNESDAY,THURSDAY
+        - THURSDAY,FRIDAY
+        - FRIDAY,SATURDAY
+    ErrorDetails:
+      description: Provides additional information in an error response.
+      type: object
+      properties:
+        title:
+          type: string
+          description: Short, human-readable summary of the problem.
+        status:
+          type: integer
+          description: HTTP status code.
+        detail:
+          type: string
+          description: Optional human-readable explanation of the problem. if present, ought to focus on helping the client correct the problem, rather than giving debugging information.

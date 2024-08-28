@@ -1,0 +1,27 @@
+{
+  "name": "k6-static-analysis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install:all": "npm install",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "format": "npm run format:eslint && npm run format:prettier",
+    "lint:eslint": "eslint --ext .js,.html . --ignore-path .eslintignore",
+    "format:eslint": "eslint --ext .js,.html . --fix --ignore-path .eslintignore",
+    "lint:prettier": "prettier \"**/*.{js,html,css}\" --config .prettierrc --check --ignore-path .eslintignore",
+    "format:prettier": "prettier \"**/*.{js,html,css}\" --config .prettierrc --write --ignore-path .eslintignore"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/eslint-parser": "7.19.1",
+    "@open-wc/eslint-config": "9.0.0",
+    "eslint": "8.29.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-lit-a11y": "2.3.0",
+    "prettier": "2.8.1"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "user": {
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "username": "pme-testware-user",
+    "status": "Enabled",
+    "privileges": [
+      "PMSCH_Application_ReadOnly",
+      "default-roles-master",
+      "DataCatalog_Application_ReadOnly",
+      "DataCatalog_Producer_Application_Operator",
+      "DataCollectionControl_Subscriber_Application_Operator",
+      "SchemaRegistry_Consumer_Application_Operator",
+      "SchemaRegistry_Producer_Application_Operator",
+      "OSSPortalAdmin",
+      "UserAdministration_ExtAppRbac_Application_SecurityAdministrator",
+      "LogAPI_ExtApps_Application_ReadOnly"
+    ]
+  },
+  "password": "idunEr!css0n",
+  "tenant": "master",
+  "passwordResetFlag": false
+}

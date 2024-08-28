@@ -1,0 +1,52 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+suite: Test EPME Log Design Rule (DR-D470222-010) - verify indirect steaming (from global)
+templates:
+  - deployment.yaml
+values:
+  - global_log_streaming_indirect_values.yaml
+tests:
+  - it: When EPME is deployed with indirect logging configuration, then indirect logging is correctly configured
+    asserts:
+      - isKind:
+          of: Deployment
+#
+#     Deployment should not render a logger-communication-type for indirect logging
+######################################################################################
+      - isNull:
+          path: spec.template.metadata.labels.logger-communication-type
+#
+#     Verify that the first container is the EPME container
+######################################################################################
+      - equal:
+          path: spec.template.spec.containers[0].name
+          value: eric-oss-performance-monitoring-enabler
+#
+#     Verify the indirect specific env parameter
+######################################################################################
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: LOGBACK_CONFIG_FILE
+            value: "classpath:logback-json.xml"
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: LOG_STREAMING_METHOD
+            value: "indirect"
+          any: true

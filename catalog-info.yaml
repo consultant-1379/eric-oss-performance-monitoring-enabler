@@ -1,0 +1,87 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: eric-oss-performance-monitoring-enabler
+  title: Ericsson Performance Monitoring Enabler
+  description: Performance Monitoring Enabler (EPME) monitors network data on a defined set of network resources for a given time window to determine if there has been a degrade in network performance.
+  annotations:
+    backstage.io/source-location: url:https://gerrit-gamma.gic.ericsson.se/plugins/gitiles/OSS/com.ericsson.oss.apps/eric-oss-performance-monitoring-enabler
+    gerrit/component: OSS/com.ericsson.oss.apps/eric-oss-performance-monitoring-enabler
+    jira.com/project-keys: IDUN
+    # Filters require component to include "Automation Apps" and PME in the title to be picked up
+    jira.com/filter-ids: 228520,228526,228525,228522,228524,228523
+    jenkins:
+      fem1s11-eiffel216.eiffel.gic.ericsson.se:8443/eric-oss-performance-monitoring-enabler_PreCodeReview_Hybrid/,
+      fem1s11-eiffel216.eiffel.gic.ericsson.se:8443/eric-oss-performance-monitoring-enabler_Publish_Hybrid/,
+      fem5s11-eiffel216.eiffel.gic.ericsson.se:8443/AUTOAPP-PME-Integration-Testing/,
+      fem5s11-eiffel052.eiffel.gic.ericsson.se:8443/AutoApp-PME-Pre-Onboarding-Testing/,
+      fem5s11-eiffel052.eiffel.gic.ericsson.se:8443/AutoApp-PME-Post-Instantiation-Testing/
+    sonarqube.org/project-key: com.ericsson.oss.apps:eric-oss-performance-monitoring-enabler
+    spinnaker.io/application-name: autoapp-pme-e2e-cicd
+    spinnaker.io/pipelines: eric-oss-pme-E2E-Flow
+    backstage.io/kubernetes-label-selector: 'app.kubernetes.io/name=eric-oss-performance-monitoring-enabler'
+  tags:
+    - development-started
+    - ericsson-intelligent-controller
+  links:
+    - title: EPME rApp Confluence
+      url: https://eteamspace.internal.ericsson.com/display/IDUN/EPME+rApp
+      icon: dashboard
+    - title: Team Vader Confluence
+      url: https://eteamspace.internal.ericsson.com/display/IDUN/Team+Vader
+      icon: dashboard
+    - title: Team Zenith Confluence
+      url: https://eteamspace.internal.ericsson.com/display/IDUN/Team+Zenith
+      icon: dashboard
+    - title: EPME CSARs
+      url: https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-drop-generic-local/csars/rapps/eric-oss-performance-monitoring-enabler/
+      icon: dashboard
+  roles:
+    scrum-master: eeibrmn
+    product-owner: egergro
+    microservice-architect: eeimacn
+    security-master: ezfarpe
+    #    ci-spoc: signum
+    #    test-expert: signum
+    line-manager: eeitgy
+  approval: # Used to highlight the 'freshness' of the component. When updated, be sure to update approver signum and date
+    date: 13-02-2024 # dd-mm-yyyy
+    approver: ebeecon
+spec:
+  lifecycle: production
+  owner: team-vader
+  type: microservice
+  domain: oss-apps
+  providesApis:
+    - eric-oss-performance-monitoring-enabler-api
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: eric-oss-performance-monitoring-enabler-api
+  title: Performance Monitoring Enabler API
+  description: Performance Monitoring Enabler (PME) provides the capability to monitor KPIs in the network and determine if they fall outside a certain threshold. The KPIs and the threshold information is defined in a configuration, while a session allows the client to control how long these KPIs are monitored for. A configuration can be shared among several sessions.
+spec:
+  type: openapi
+  lifecycle: production
+  owner: team-vader
+  domain: oss-apps
+  definition:
+    $text: https://gerrit-gamma.gic.ericsson.se/plugins/gitiles/OSS/com.ericsson.oss.apps/eric-oss-performance-monitoring-enabler/+/refs/heads/master/src/main/resources/v1/eric-oss-performance-monitoring-enabler-openapi.yaml

@@ -1,0 +1,429 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+openapi: 3.0.1
+info:
+  title: KPI Definition and Calculation API
+  contact:
+    name: Team Velociraptors
+    email: PDLVELOCIR@pdl.internal.ericsson.com
+  license:
+    name: COPYRIGHT Ericsson 2022
+    url: https://www.ericsson.com/en/legal
+  version: 1.0.0
+  x-audience: internal
+  x-api-id: 14debd9c-19df-4868-bbb6-80c133efbd33
+servers:
+- url: http://eric-pm-stats-calculator:8080/kpi-handling
+  variables: {}
+paths:
+  /calc/v1/calculations:
+    get:
+      tags:
+        - Monitor KPI calculations
+      summary: Retrieve a list of calculations started in the previous elapsed minutes.
+      description: "Returns the status of each recently started calculation. Calculation in this context refers to a process
+                    of calculating all KPIs within an execution group. Calculations can be identified in the response by
+                    the execution group name, and by the type of the included KPIs. The response includes a uuid (calculation_id)
+                    for each calculation. The calculations in the response are ordered by their start time from latest to earliest."
+      operationId: findCalculationsCreatedAfter
+      parameters:
+        - name: elapsedMinutes
+          in: query
+          description: The duration that specifies how many minutes back the started calculations should be listed.
+          schema:
+            type: integer
+            format: int32
+            default: 60
+        - name: includeNothingCalculated
+          in: query
+          description: Determines whether the received list should include all started calculations or exclude those
+            calculations in which no KPIs were calculated.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalculationGetResponse'
+              example:
+                [
+                  {
+                    "executionGroup": "COMPLEX2",
+                    "kpiType": "SCHEDULED_COMPLEX",
+                    "status": "FINISHED",
+                    "calculationId": "070bba4a-c3d8-4de0-98c1-7caa6c427d57"
+                  },
+                  {
+                    "executionGroup": "COMPLEX1",
+                    "kpiType": "SCHEDULED_COMPLEX",
+                    "status": "FINISHED",
+                    "calculationId": "fec86f08-d04e-4a91-9815-45155aacc484"
+                  }
+                ]
+          description: "Calculations have been found, status and calculation IDs are returned for each."
+    post:
+      tags:
+      - kpi-calculation
+      summary: Trigger On-Demand KPI calculation(s)
+      description: Submit an On-Demand calculation request for validation and calculation
+      operationId: calculateKpis
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KpiCalculationRequestPayload'
+      responses:
+        "201":
+          description: KPI calculation request has been validated and calculation
+            has been launched
+        "400":
+          description: KPI calculation request has failed validation due to the issue
+            described in the userMessage
+        "429":
+          description: "KPI calculation request has failed, currently the maximum\
+            \ number of On-Demand KPI calculations is being handled"
+        "500":
+          description: KPI calculation request has failed as an internal server error
+            has occurred
+  /calc/v1/calculations/{calculation_id}:
+    get:
+      tags:
+        - Monitor KPI calculations
+      summary: Retrieve info about a specific KPI calculation
+      description: "Retrieve the status, execution group and readiness logs of a KPI\
+        \ calculation, identified by a calculation id. Readiness log contains an entry for each datasource of the\
+        \ calculation, containing the datasource name, number of rows collected, time\
+        \ for earliest and the latest data collected."
+      operationId: getApplicationState
+      parameters:
+        - name: calculation_id
+          in: path
+          description: The calculation id of a calculation to be listed. The calculation ids can be obtained from the
+                       response of the GET request to the calc/v1/calculations endpoint. For On-Demand calculations, they
+                       can also be obtained from the response of the POST request to the /calc/v1/calculations endpoint.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalculationResponse'
+          description: "Requested calculation has been found, kpi calculation info\
+            \ is returned"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 400
+                error: "Bad Request"
+                message: "The provided parameter is not an UUID"
+          description: Provided KPI calculation ID is invalid
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 404
+                error: "Not Found"
+                message: "Calculation state with id '74324e06-f902-4302-9c61-d6db71b284fa' is not found"
+          description: Calculation with the provided id is not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 500
+                error: "Internal Server Error"
+                message: ""
+          description: Failed to retrieve KPI state from database
+  /model/v1/definitions:
+    get:
+      tags:
+      - kpi-definition
+      summary: Retrieve KPI definitions
+      description: Retrieve KPI Definition list from the database
+      operationId: getKpiDefinitions
+      parameters:
+      - name: showDeleted
+        in: query
+        schema:
+          type: boolean
+          default: false
+      responses:
+        "200":
+          description: Successfully retrieved KPI definitions
+        "500":
+          description: Failed to retrieve KPI definitions
+    put:
+      tags:
+      - kpi-definition
+      summary: Add KPI definitions
+      description: Add KPI Definition list to the database and submit simple KPIs
+      operationId: updateKpiDefinitions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KpiDefinitionRequest'
+      responses:
+        "201":
+          description: The proposed KPI Definitions are compatible with the expected
+            schema and have been updated
+        "400":
+          description: Payload is not valid
+        "409":
+          description: Conflicting KPI definitions exist
+        "500":
+          description: Failed to process the incoming KPI definitions
+    post:
+      tags:
+      - kpi-definition
+      summary: Add KPI definitions
+      description: Validate that all proposed KPI Definitions are compatible with
+        the expected schema and add them to the database
+      operationId: addKpiDefinitions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KpiDefinitionRequest'
+      responses:
+        "201":
+          description: The proposed KPI Definitions are compatible with the expected
+            schema and have been added
+        "400":
+          description: Payload is not valid
+        "409":
+          description: Conflicting KPI definitions exist
+        "500":
+          description: Failed to process the incoming KPI definitions
+    delete:
+      tags:
+      - kpi-definition
+      summary: Delete KPI definitions
+      description: Deletes KPI Definitions from the database.
+      operationId: deleteKpiDefinitions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        "200":
+          description: The KPI Definitions have been successfully deleted.
+        "400":
+          description: Payload is not valid
+        "500":
+          description: Failed to process the incoming KPI definitions
+  /model/v1/definitions/{name}:
+    patch:
+      tags:
+      - kpi-definition
+      summary: Update a single KPI definition
+      description: Update a single KPI Definition in the database
+      operationId: updateKpiDefinition
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KpiDefinitionPatchRequest'
+      responses:
+        "200":
+          description: The KPI Definition update request is compatible with the expected
+            schema and has been updated
+        "400":
+          description: Payload is not valid
+        "500":
+          description: Failed to process the incoming KPI definition update request
+components:
+  schemas:
+    BulkData:
+      required:
+      - format
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the bulk data
+          example: cell_configuration
+        format:
+          type: string
+          description: The type of the value field
+          example: CSV
+          enum:
+          - CSV
+          - JSON
+        header:
+          type: string
+          description: The header of the values if applicable
+          example: date_for_filter
+        value:
+          type: string
+          description: The values of the parameters
+          example: "FDN1,0.2,2 \n FDN2,1.2,13"
+    KpiCalculationRequestPayload:
+      required:
+      - kpiNames
+      type: object
+      properties:
+        source:
+          type: string
+          description: unused field
+          deprecated: true
+        kpiNames:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+        bulkData:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkData'
+    Parameter:
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the parameter
+          example: date_for_filter
+        value:
+          type: string
+          description: Value of the parameter
+          example: 2023-06-06
+    KpiDefinitionRequest:
+      type: object
+    KpiDefinitionPatchRequest:
+      type: object
+      properties:
+        expression:
+          type: string
+        object_type:
+          type: string
+        filters:
+          type: array
+          items:
+            type: string
+        data_lookback_limit:
+          type: integer
+          format: int32
+        reexport_late_data:
+          type: boolean
+        exportable:
+          type: boolean
+    SdkErrorResponse:
+      type: object
+      properties:
+        userMessage:
+          type: string
+        httpStatusCode:
+          type: integer
+        internalErrorCode:
+          type: string
+        developerMessage:
+          type: string
+        time:
+          type: string
+        links:
+          type: array
+          items:
+            type: object
+        errorData:
+          type: array
+          items:
+            type: object
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+        status:
+          type: integer
+        error:
+          type: string
+        message:
+          type: string
+    CalculationResponse:
+      type: object
+      properties:
+        calculationId:
+          type: string
+          example: "74324e06-f902-4302-9c61-d6db71b284fd"
+        status:
+          type: string
+          example: "FINISHED"
+        executionGroup:
+          type: string
+          example: complex_arbitrary_group
+        readinessLogs:
+          type: array
+          items:
+            type: object
+            properties:
+              collectedRowCount:
+                type: integer
+                example: 42
+              datasource:
+                type: string
+                example: "5G|PM_COUNTERS|example_schema"
+              earliestCollectedData:
+                type: string
+                example: "2023-04-22T14:00:00"
+              latestCollectedData:
+                type: string
+                example: "2023-04-22T19:00:00"
+    CalculationGetResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          executionGroup:
+            type: string
+          kpiType:
+            type: string
+          status:
+            type: string
+          calculationId:
+            type: string

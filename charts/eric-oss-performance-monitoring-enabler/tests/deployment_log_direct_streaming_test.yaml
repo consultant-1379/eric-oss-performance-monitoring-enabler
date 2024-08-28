@@ -1,0 +1,133 @@
+#
+# COPYRIGHT Ericsson 2023 - 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+suite: Test EPME Log Design Rule (DR-D470222-010) - verify direct steaming
+templates:
+  - deployment.yaml
+tests:
+  - it: When EPME is deployed with its default configuration, then direct stream logging is correctly configured
+    set:
+      log:
+        streamingDestination: eric-log-transformer
+    asserts:
+      - isKind:
+          of: Deployment
+      #
+      #     Deployment should render a logger-communication-type set to direct by default
+      ######################################################################################
+      - equal:
+          path: spec.template.metadata.labels.logger-communication-type
+          value:
+            direct
+      #
+      #     Verify that the first container is the EPME container
+      ######################################################################################
+      - equal:
+          path: spec.template.spec.containers[0].name
+          value: eric-oss-performance-monitoring-enabler
+      #
+      #     Verify the mounts for logging
+      ######################################################################################
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: log-control-configmap-volume
+            mountPath: /logcontrol
+          any: true
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: log-control-configmap-volume
+            configMap:
+              name: eric-oss-performance-monitoring-enabler-log-control-configmap
+          any: true
+      #
+      #     Verify each of the specific env parameters that are needed for direct streaming
+      ######################################################################################
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: SERVICE_ID
+            value: "rapp-eric-oss-performance-monitoring-enabler"
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: LOG_CTRL_FILE
+            value: "/logcontrol/logcontrol.json"
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: LOGBACK_CONFIG_FILE
+            value: "classpath:logback-https.xml"
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: LOG_STREAMING_METHOD
+            value: "direct"
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: LOGSTASH_DESTINATION
+            value: eric-log-transformer
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: LOGSTASH_PORT
+            value: "443"
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: CONTAINER_NAME
+            value: eric-oss-performance-monitoring-enabler
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: POD_UID
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.uid
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          any: true

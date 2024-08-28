@@ -1,0 +1,33 @@
+{
+  "name":"MonitoringObjectMessage",
+  "type":"record",
+  "namespace": "com.ericsson.oss.apps.model",
+  "fields":[
+    {
+      "name":"pmeSessionId",
+      "type":"string"
+    },
+    {
+      "name":"fdn",
+      "type":"string"
+    },
+    {
+      "name":"time",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name":"state",
+      "type":{
+        "type":"enum",
+        "name":"StateEnum",
+        "symbols":[
+          "ENABLED",
+          "STOPPED"
+        ]
+      }
+    }
+  ]
+}

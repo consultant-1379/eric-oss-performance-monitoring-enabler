@@ -1,0 +1,48 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+modelVersion: 2.0
+
+description: "Ruleset for running PME post instantiation test"
+
+docker-images:
+  - adp-helm-kubectl: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/bob-py3kubehelmbuilder:latest
+
+env:
+  - PWD
+  - WORKSPACE
+  - KUBECONFIG_FILE_PATH
+  - NAMESPACE
+  - EPME_DEPLOYMENT
+
+rules:
+  test-preparation-post-instantiation:
+    - task: update-number-of-retries
+      docker-image: adp-helm-kubectl
+      docker-flags:
+        - "--env KUBECONFIG=/.kube/kubeconfig"
+      docker-mounts:
+        - "${env.KUBECONFIG_FILE_PATH}:/.kube/kubeconfig"
+      cmd:
+        - kubectl -n ${env.NAMESPACE} set env deployment/$EPME_DEPLOYMENT RETRIES_COUNT=60
+    - task: set-execution-schedule
+      docker-image: adp-helm-kubectl
+      docker-flags:
+        - "--env KUBECONFIG=/.kube/kubeconfig"
+      docker-mounts:
+        - "${env.KUBECONFIG_FILE_PATH}:/.kube/kubeconfig"
+      cmd:
+        - kubectl -n ${env.NAMESPACE} set env deployment/$EPME_DEPLOYMENT EXECUTION_SCHEDULE="0 $(date -d "-50 minutes" +"%M") * * * *"

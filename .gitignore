@@ -1,0 +1,63 @@
+HELP.md
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/
+
+### BOB Temporary Files/Folders ###
+.bob.env
+.bob/
+.bob*/
+k8s-logs/
+build
+
+### SonarQube Working Directory ###
+?/
+
+### Spinnaker Temporary Properties ###
+artifact.properties
+
+### REST2HTML Artifacts ###
+rest2html*.zip
+rest_conversion_log.txt
+**/*.zip
+
+### index.html & openapi sha256 files
+src/main/resources/v1/index.html
+src/main/resources/v1/.openapi-generator/*.sha256
+
+### ignore CI-Jenkinsfiles
+ci/common_precodereview.Jenkinsfile
+ci/common_ruleset2.0.yaml
+
+### open api generated files
+**/.openapi-generator/*.sha256
+
+### ignore tmp output directory for localScripts
+tmp
+
+### helm ###
+charts/eric-oss-performance-monitoring-enabler/charts/*
+charts/eric-oss-performance-monitoring-enabler/Chart.lock
+charts/eric-oss-performance-monitoring-enabler-integration/charts/*.tgz
+charts/eric-oss-performance-monitoring-enabler-integration/Chart.lock
+
+
+### Java truststores ###
+**/truststore.jks
+
+##definitions
+src/main/resources/KpiDefinitionsShortForm.json
+k6/src/test/resources/KpiDefinitions.json
+k6/src/test/resources/input-data-specification.json
+
+### node modules ###
+epme-testware/epme-testware-impl/src/node_modules
+epme-testware/epme-testware-impl/src/k6/package-lock.json

@@ -1,0 +1,31 @@
+#
+# COPYRIGHT Ericsson 2023 - 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+Description of an APP:
+  APPName: eric-oss-performance-monitoring-enabler
+  APPVersion: VERSION
+  APPType: rApp
+APPComponent:
+  NameofComponent: eric-oss-performance-monitoring-enabler
+  Version: VERSION
+  Path: OtherDefinitions/ASD/eric-oss-performance-monitoring-enablerASD.yaml
+  ArtefactType: Microservice
+APPPermissions:
+  - Resource: kafka
+    Scope: foo
+APPRoles:
+  - Name: PMSCH_Application_Operator
+  - Name: DataCatalog_Application_ReadOnly

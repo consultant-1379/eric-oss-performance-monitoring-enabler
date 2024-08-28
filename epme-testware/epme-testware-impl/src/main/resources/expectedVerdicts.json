@@ -1,0 +1,848 @@
+[
+  {
+    "pmeSessionId": "PME-81dadad4-staging-execution-489",
+    "fdn": "SubNetwork=Europe,SubNetwork=Ireland,SubNetwork=NETSimW,ManagementElement=constant1MoFdn0001,ENodeBFunction=constant2MoFdn001,EUtranCellTDD_1=constant3MoFdn01",
+    "timestamp": "2023-12-11T17:00:00Z",
+    "kpiVerdicts": [
+      {
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 5
+        },
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "avg_dl_latency_hourly",
+        "kpiType": "LTE"
+      },
+      {
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95000
+        },
+        "kpiName": "normalized_avg_dl_mac_cell_throughput_traffic_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE"
+      },
+      {
+        "kpiName": "avg_dl_mac_drb_throughput_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95000
+        }
+      },
+      {
+        "kpiName": "avg_dl_pdcp_ue_throughput_cell_hourly",
+        "kpiType": "LTE",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 500
+        },
+        "thresholdValue": {
+          "double": 95000
+        }
+      },
+      {
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95000
+        },
+        "kpiName": "avg_ul_mac_ue_throughput_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE"
+      },
+      {
+        "kpiName": "avg_ul_pdcp_ue_throughput_cell_hourly",
+        "kpiType": "LTE",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 500
+        },
+        "thresholdValue": {
+          "double": 95000
+        }
+      },
+      {
+        "kpiName": "cell_availability_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 98
+        },
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "kpiValue": {
+          "double": 88.73456790123457
+        },
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "cell_handover_success_rate_hourly",
+        "kpiType": "LTE",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED"
+      },
+      {
+        "kpiName": "e_rab_retainability_percentage_lost_hourly",
+        "kpiType": "LTE",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 20
+        },
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "en_dc_setup_sr_captured_gnodeb_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED"
+      },
+      {
+        "kpiName": "endc_ps_cell_change_success_rate_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 89.90073529411765
+        },
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "diff_initial_erab_establishment_sr_enodeb_hourly",
+        "kpiType": "LTE",
+        "verdict": "DEGRADED"
+      },
+      {
+        "kpiValue": {
+          "double": 89.95695839311334
+        },
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "initial_and_added_e_rab_establishment_sr_hourly",
+        "kpiType": "LTE",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED"
+      },
+      {
+        "kpiName": "nr_handover_success_rate_gnodeb_hourly",
+        "kpiType": "NR_SA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "kpiType": "NR_SA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "nr_to_lte_inter_rat_handover_sr_gnodeb_hourly"
+      },
+      {
+        "kpiName": "partial_cell_availability_gnodeb_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "kpiName": "scg_active_radio_resource_retainability_gnodeb_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 19
+        },
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "ul_pusch_sinr_hourly",
+        "kpiType": "LTE"
+      },
+      {
+        "kpiName": "voip_cell_integrity_hourly",
+        "kpiType": "LTE",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 40
+        },
+        "thresholdValue": {
+          "double": 95
+        }
+      }
+    ]
+  },
+  {
+    "pmeSessionId": "PME-81dadad4-staging-execution-489",
+    "fdn": "SubNetwork=Europe,SubNetwork=Ireland,SubNetwork=NETSimW,ManagementElement=constant1MoFdn0001,ENodeBFunction=constant2MoFdn001,EUtranCellTDD_1=constant3MoFdn02",
+    "timestamp": "2023-12-11T17:00:00Z",
+    "kpiVerdicts": [
+      {
+        "kpiType": "LTE",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 5
+        },
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "avg_dl_latency_hourly"
+      },
+      {
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95000
+        },
+        "kpiName": "normalized_avg_dl_mac_cell_throughput_traffic_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE"
+      },
+      {
+        "kpiName": "avg_dl_mac_drb_throughput_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95000
+        }
+      },
+      {
+        "kpiName": "avg_dl_pdcp_ue_throughput_cell_hourly",
+        "kpiType": "LTE",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 500
+        },
+        "thresholdValue": {
+          "double": 95000
+        }
+      },
+      {
+        "kpiName": "avg_ul_mac_ue_throughput_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95000
+        }
+      },
+      {
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 500
+        },
+        "thresholdValue": {
+          "double": 95000
+        },
+        "kpiName": "avg_ul_pdcp_ue_throughput_cell_hourly",
+        "kpiType": "LTE",
+        "verdict": "DEGRADED"
+      },
+      {
+        "kpiName": "cell_availability_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 98
+        },
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "kpiName": "cell_handover_success_rate_hourly",
+        "kpiType": "LTE",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 88.73456790123457
+        },
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "e_rab_retainability_percentage_lost_hourly",
+        "kpiType": "LTE",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 20
+        }
+      },
+      {
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "en_dc_setup_sr_captured_gnodeb_hourly",
+        "kpiType": "NR_NSA"
+      },
+      {
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "endc_ps_cell_change_success_rate_hourly",
+        "kpiType": "NR_NSA"
+      },
+      {
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 89.90073529411765
+        },
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "diff_initial_erab_establishment_sr_enodeb_hourly",
+        "kpiType": "LTE"
+      },
+      {
+        "kpiValue": {
+          "double": 89.95695839311334
+        },
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "initial_and_added_e_rab_establishment_sr_hourly",
+        "kpiType": "LTE",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED"
+      },
+      {
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "nr_handover_success_rate_gnodeb_hourly",
+        "kpiType": "NR_SA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED"
+      },
+      {
+        "kpiType": "NR_SA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "nr_to_lte_inter_rat_handover_sr_gnodeb_hourly"
+      },
+      {
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "partial_cell_availability_gnodeb_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED"
+      },
+      {
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "scg_active_radio_resource_retainability_gnodeb_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED"
+      },
+      {
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 19
+        },
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "ul_pusch_sinr_hourly",
+        "kpiType": "LTE"
+      },
+      {
+        "kpiType": "LTE",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 40
+        },
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "voip_cell_integrity_hourly"
+      }
+    ]
+  },
+  {
+    "pmeSessionId": "PME-81dadad4-staging-execution-489",
+    "fdn": "SubNetwork=Europe,SubNetwork=Ireland,SubNetwork=NETSimW,ManagementElement=constant1MoFdn0001,ENodeBFunction=constant2MoFdn001,EUtranCellTDD_1=constant3MoFdn03",
+    "timestamp": "2023-12-11T17:00:00Z",
+    "kpiVerdicts": [
+      {
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "avg_dl_latency_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null
+      },
+      {
+        "kpiName": "normalized_avg_dl_mac_cell_throughput_traffic_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 640
+        },
+        "thresholdValue": {
+          "double": 95000
+        }
+      },
+      {
+        "kpiName": "avg_dl_mac_drb_throughput_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 6400
+        },
+        "thresholdValue": {
+          "double": 95000
+        }
+      },
+      {
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95000
+        },
+        "kpiName": "avg_dl_pdcp_ue_throughput_cell_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE"
+      },
+      {
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 7111.111111111111
+        },
+        "thresholdValue": {
+          "double": 95000
+        },
+        "kpiName": "avg_ul_mac_ue_throughput_hourly",
+        "kpiType": "NR_NSA"
+      },
+      {
+        "thresholdValue": {
+          "double": 95000
+        },
+        "kpiName": "avg_ul_pdcp_ue_throughput_cell_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null
+      },
+      {
+        "kpiName": "cell_availability_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "kpiName": "cell_handover_success_rate_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "e_rab_retainability_percentage_lost_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED"
+      },
+      {
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "en_dc_setup_sr_captured_gnodeb_hourly",
+        "kpiType": "NR_NSA"
+      },
+      {
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "endc_ps_cell_change_success_rate_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED"
+      },
+      {
+        "kpiName": "diff_initial_erab_establishment_sr_enodeb_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "initial_and_added_e_rab_establishment_sr_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null
+      },
+      {
+        "kpiType": "NR_SA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "nr_handover_success_rate_gnodeb_hourly"
+      },
+      {
+        "kpiName": "nr_to_lte_inter_rat_handover_sr_gnodeb_hourly",
+        "kpiType": "NR_SA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "kpiName": "partial_cell_availability_gnodeb_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 98
+        },
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "scg_active_radio_resource_retainability_gnodeb_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE"
+      },
+      {
+        "kpiName": "ul_pusch_sinr_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "kpiName": "voip_cell_integrity_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        }
+      }
+    ]
+  },
+  {
+    "pmeSessionId": "PME-81dadad4-staging-execution-489",
+    "fdn": "SubNetwork=Europe,SubNetwork=Ireland,SubNetwork=NETSimW,ManagementElement=constant1MoFdn0001,ENodeBFunction=constant2MoFdn001,EUtranCellTDD_1=constant3MoFdn04",
+    "timestamp": "2023-12-11T17:00:00Z",
+    "kpiVerdicts": [
+      {
+        "kpiName": "avg_dl_latency_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "kpiName": "normalized_avg_dl_mac_cell_throughput_traffic_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95000
+        }
+      },
+      {
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95000
+        },
+        "kpiName": "avg_dl_mac_drb_throughput_hourly",
+        "kpiType": "NR_NSA"
+      },
+      {
+        "kpiName": "avg_dl_pdcp_ue_throughput_cell_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95000
+        }
+      },
+      {
+        "kpiName": "avg_ul_mac_ue_throughput_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95000
+        }
+      },
+      {
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95000
+        },
+        "kpiName": "avg_ul_pdcp_ue_throughput_cell_hourly",
+        "kpiType": "LTE"
+      },
+      {
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "cell_availability_hourly",
+        "kpiType": "LTE"
+      },
+      {
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "cell_handover_success_rate_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null
+      },
+      {
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "e_rab_retainability_percentage_lost_hourly"
+      },
+      {
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 95.23809523809524
+        },
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "en_dc_setup_sr_captured_gnodeb_hourly"
+      },
+      {
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 96
+        },
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "endc_ps_cell_change_success_rate_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_DEGRADED"
+      },
+      {
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "diff_initial_erab_establishment_sr_enodeb_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE"
+      },
+      {
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "initial_and_added_e_rab_establishment_sr_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null
+      },
+      {
+        "kpiType": "NR_SA",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 81
+        },
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "nr_handover_success_rate_gnodeb_hourly"
+      },
+      {
+        "thresholdValue": {
+          "double": 95
+        },
+        "kpiName": "nr_to_lte_inter_rat_handover_sr_gnodeb_hourly",
+        "kpiType": "NR_SA",
+        "verdict": "DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 81
+        }
+      },
+      {
+        "kpiName": "partial_cell_availability_gnodeb_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "kpiName": "scg_active_radio_resource_retainability_gnodeb_hourly",
+        "kpiType": "NR_NSA",
+        "verdict": "NOT_DEGRADED",
+        "thresholdType": "FIXED",
+        "kpiValue": {
+          "double": 96.15384615384616
+        },
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "kpiName": "ul_pusch_sinr_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        }
+      },
+      {
+        "kpiName": "voip_cell_integrity_hourly",
+        "kpiType": "LTE",
+        "verdict": "NOT_POSSIBLE",
+        "thresholdType": "FIXED",
+        "kpiValue": null,
+        "thresholdValue": {
+          "double": 95
+        }
+      }
+    ]
+  }
+]

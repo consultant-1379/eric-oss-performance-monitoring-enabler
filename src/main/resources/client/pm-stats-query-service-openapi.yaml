@@ -1,0 +1,300 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+openapi: "3.0.2"
+info:
+  x-api-id: 3ce3524b-aaae-471e-af2e-9e58d54ad70d
+  x-audience: external-public
+  description: "PM Stats Query Service"
+  version: "1.0.0"
+  title: "PM Stats Query Service"
+  license:
+    name: "COPYRIGHT Ericsson 2023"
+    url: "https://www.ericsson.com/en/legal"
+  termsOfService: "https://www.ericsson.com/en/legal"
+servers:
+  - "url": "http://localhost:8080/kpi-handling"
+tags:
+  - "name": "Describe KPI output tables"
+paths:
+  "/exposure/v1/{schema}":
+    "get":
+      "tags":
+        - "Describe KPI output tables"
+      "summary": "Returns the elements of the schema"
+      "responses":
+        "200":
+          "description": "OK"
+          "content":
+            "application/json":
+              "schema":
+                "type": "array"
+                "description": "Name and URL pairs"
+                "items":
+                  "type": "object"
+                  "properties":
+                    name:
+                      type: "string"
+                    url:
+                      type: "string"
+              "example":
+                "value": [
+                  {
+                    "name": "kpi_simple_60",
+                    "url": "kpi_simple_60"
+                  },
+                  {
+                    "name": "kpi_complex_60",
+                    "url": "kpi_complex_60"
+                  },
+                  {
+                    "name": "kpi_on_demand_1440",
+                    "url": "kpi_on_demand_1440"
+                  }
+                ]
+        "404":
+          "description": "Not Found"
+          "content":
+            "application/json":
+              "example":
+                "error": {
+                  "code": "Not Found",
+                  "message": "org.apache.olingo.server.api.ODataApplicationException: Invalid schema"
+                }
+      "parameters":
+        - "required": true
+          "in": path
+          "name": schema
+          "description": "The schema. Currently this is always 'kpi'."
+          "schema":
+            "type": "string"
+  "/exposure/v1/{schema}/$metadata":
+    "get":
+      "tags":
+        - "Describe KPI output tables"
+      "summary": "Get the model of a schema. This endpoint returns the response in XML format by default, but we can override it with the $format query parameter (\"xml\" or \"json\" value)."
+      "responses":
+        "200":
+          "description": "OK"
+          "content":
+            "application/json":
+              "schema":
+                "type": "array"
+                "items":
+                  type: object
+                  properties:
+                    enitytype:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          propertyname:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+              "example":
+                {
+                  "$Version": "4.01",
+                  "public": {
+                    "kpi_simple_60": {
+                      "$Kind": "EntityType",
+                      "agg_begin_time": {
+                        "$Type": "Edm.DateTimeOffset"
+                      },
+                      "agg_end_time": {
+                        "$Type": "Edm.DateTimeOffset"
+                      },
+                      "avg_resp_time": {
+                        "$Type": "Edm.Double"
+                      }
+                    },
+                    "kpi_complex_60": {
+                      "$Kind": "EntityType",
+                      "agg_begin_time": {
+                        "$Type": "Edm.DateTimeOffset"
+                      },
+                      "agg_end_time": {
+                        "$Type": "Edm.DateTimeOffset"
+                      },
+                      "avg_resp_time": {
+                        "$Type": "Edm.Double"
+                      }
+                    },
+                    "kpi_on_demand_1440": {
+                      "$Kind": "EntityType",
+                      "agg_begin_time": {
+                        "$Type": "Edm.DateTimeOffset"
+                      },
+                      "agg_end_time": {
+                        "$Type": "Edm.DateTimeOffset"
+                      },
+                      "avg_resp_time": {
+                        "$Type": "Edm.Double"
+                      }
+                    },
+                    "Container": {
+                      "$Kind": "EntityContainer",
+                      "kpi_simple_60": {
+                        "$Kind": "EntitySet",
+                        "$Type": "public.kpi_simple_60"
+                      },
+                      "kpi_complex_60": {
+                        "$Kind": "EntitySet",
+                        "$Type": "public.kpi_complex_60"
+                      },
+                      "kpi_on_demand_1440": {
+                        "$Kind": "EntitySet",
+                        "$Type": "public.kpi_on_demand_1440"
+                      }
+                    }
+                  }
+                }
+        "404":
+          "description": "Not Found"
+          "content":
+            "application/json":
+              "example":
+                "error": {
+                  "code": "Not Found",
+                  "message": "org.apache.olingo.server.api.ODataApplicationException: Invalid schema"
+                }
+      "parameters":
+        - "required": true
+          "in": path
+          "name": schema
+          "description": "The schema. Currently this is always 'kpi'."
+          "schema":
+            "type": "string"
+        - "name": "$format"
+          "in": "query"
+          "description": "The $format system query option allows clients to request a response in a particular format and is useful for clients without access to request headers for standard content-type negotiation."
+          "schema":
+            "type": "string"
+            "enum": [
+              "xml",
+              "json"
+            ]
+  "/exposure/v1/{schema}/{entityset}":
+    "get":
+      "tags":
+        - "Query KPI results"
+      "summary": "Returns the elements of the schema"
+      "responses":
+        "200":
+          "description": "OK"
+          "content":
+            "application/json":
+              "schema":
+                "$ref": "#/components/schemas/KpiResults"
+              "example":
+                "value": [
+                  {
+                    "aggregation_begin_time": "2022-03-01T10:00:00Z",
+                    "aggregation_end_time": "2022-03-01T11:00:00Z",
+                    "avg_resp_time": 83648.777
+                  },
+                  {
+                    "aggregation_begin_time": "2022-03-01T11:00:00Z",
+                    "aggregation_end_time": "2022-03-01T12:00:00Z",
+                    "avg_resp_time": 563456.123
+                  },
+                  {
+                    "aggregation_begin_time": "2022-03-01T12:00:00Z",
+                    "aggregation_end_time": "2022-03-01T13:00:00Z",
+                    "avg_resp_time": 8765474.56
+                  }
+                ]
+        "404":
+          "description": "Not Found"
+          "content":
+            "application/json":
+              "example":
+                "error": {
+                  "code": "Not Found",
+                  "message": "org.apache.olingo.server.api.ODataApplicationException: Invalid EntitySet"
+                }
+      "parameters":
+        - "required": true
+          "in": path
+          "name": schema
+          "description": "The schema. Currently this is always 'kpi'."
+          "schema":
+            "type": "string"
+        - "required": true
+          "in": path
+          "name": entityset
+          "description": "The entity set. This is always a KPI Table name."
+          "schema":
+            "type": "string"
+        - "name": "$select"
+          "in": "query"
+          "description": "The $select system query option allows clients to request a specific set of properties for each entity or complex type."
+          "schema":
+            "type": "string"
+        - "name": "$orderby"
+          "in": "query"
+          "description": "The $orderby system query option allows clients to request resources in a particular order."
+          "schema":
+            "type": "string"
+        - "name": "$top"
+          "in": "query"
+          "description": "The $top system query option requests the number of items in the queried collection to be included in the result. The $skip query option requests the number of items in the queried collection that are to be skipped and not included in the result. A client can request a particular page of items by combining $top and $skip."
+          "schema":
+            "type": "number"
+        - "name": "$skip"
+          "in": "query"
+          "description": "The $top system query option requests the number of items in the queried collection to be included in the result. The $skip query option requests the number of items in the queried collection that are to be skipped and not included in the result. A client can request a particular page of items by combining $top and $skip."
+          "schema":
+            "type": "number"
+        - "name": "$count"
+          "in": "query"
+          "description": "The $count system query option allows clients to request a count of the matching resources included with the resources in the response."
+          "schema":
+            "type": "boolean"
+        - "name": "$filter"
+          "in": "query"
+          "description": "The $filter system query option allows clients to filter a collection of resources that are addressed by a request URL. The expression specified with $filter is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response."
+          "schema":
+            "type": "string"
+        - "name": "$format"
+          "in": "query"
+          "description": "The $format system query option allows clients to request a response in a particular format and is useful for clients without access to request headers for standard content-type negotiation."
+          "schema":
+            "type": "string"
+            "enum": [
+              "xml",
+              "json"
+            ]
+components:
+  schemas:
+    KpiResults:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/KpiResult'
+    KpiResult:
+      type: object
+      properties:
+        aggregation_begin_time:
+          type: string
+          format: date-time
+        aggregation_end_time:
+          type: string
+          format: date-time
+      additionalProperties: true

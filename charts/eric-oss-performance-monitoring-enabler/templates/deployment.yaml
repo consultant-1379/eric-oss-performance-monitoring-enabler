@@ -1,0 +1,331 @@
+#
+# COPYRIGHT Ericsson 2023 - 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "eric-oss-performance-monitoring-enabler.fullname" . }}
+  labels:
+  {{- include "eric-oss-performance-monitoring-enabler.labels" . | nindent 4 }}
+  annotations:
+  {{- include "eric-oss-performance-monitoring-enabler.annotations" . | nindent 4 }}
+spec:
+{{- if not .Values.autoScaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+{{- end }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "eric-oss-performance-monitoring-enabler.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  strategy:
+    type: {{ .Values.updateStrategy.type | quote }}
+    {{- if and (eq .Values.updateStrategy.type "RollingUpdate") .Values.updateStrategy.rollingUpdate }}
+    rollingUpdate:
+      maxUnavailable: {{ .Values.updateStrategy.rollingUpdate.maxUnavailable }}
+      maxSurge: {{ .Values.updateStrategy.rollingUpdate.maxSurge }}
+    {{- end }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "eric-oss-performance-monitoring-enabler.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/version: {{ include "eric-oss-performance-monitoring-enabler.version" . }}
+{{- include "eric-oss-performance-monitoring-enabler.pgAccessLabel" . | nindent 8 }}
+{{- include "eric-oss-performance-monitoring-enabler.directStreamingLabel" . | indent 8 }}
+{{- include "eric-oss-performance-monitoring-enabler.pmMetricsScraping" . | nindent 8 }}
+      annotations:
+{{- include "eric-oss-performance-monitoring-enabler.prometheus" . | nindent 8 }}
+{{- include "eric-oss-performance-monitoring-enabler.product-info" . | indent 8 }}
+{{- include "eric-oss-performance-monitoring-enabler.config-annotations" . | indent 8 }}
+{{- include "eric-oss-performance-monitoring-enabler.container-annotations" . | indent 8 }}
+    spec:
+      {{- if include "eric-oss-performance-monitoring-enabler.pullSecret" . }}
+      imagePullSecrets:
+        - name: {{ include "eric-oss-performance-monitoring-enabler.pullSecret" . | quote}}
+      {{- end }}
+      serviceAccountName: {{ template "eric-oss-performance-monitoring-enabler.fullname" . }}
+      securityContext:
+        fsGroup: {{ include "eric-oss-performance-monitoring-enabler.fsGroup.coordinated" . }}
+        {{- include "eric-oss-performance-monitoring-enabler.seccomp-profile" . | indent 8 }}
+      volumes:
+        - name: tmp-volume
+          emptyDir: {}
+        - name: config-volume
+          configMap:
+            defaultMode: 493
+            name: {{ include "eric-oss-performance-monitoring-enabler.name" . }}-configmap
+        - name: log-control-configmap-volume
+          configMap:
+            name: {{ template "eric-oss-performance-monitoring-enabler.log-control-configmap.name" . }}
+        {{- if .Values.tls.enabled }}
+        - name: truststore-certificates
+          secret:
+            secretName: {{ .Values.tls.platformCaCert.secretName }}
+        {{- if or (eq .Values.log.streamingMethod "direct") (eq .Values.log.streamingMethod "dual") }}
+        - name: keystore-certificates
+          secret:
+            secretName: {{ .Values.tls.appCert.secretName }}
+        {{- end }}
+        {{- end }}
+        {{- if eq .Values.kafka.tls.enabled true }}
+        - name: kafka-certificates
+          secret:
+            secretName: {{ .Values.tls.kafkaCaCert.secretName }}
+        {{- end }}
+      containers:
+        - name: eric-oss-performance-monitoring-enabler
+          image: {{ template "eric-oss-performance-monitoring-enabler.mainImagePath" . }}
+          imagePullPolicy: {{ template "eric-oss-performance-monitoring-enabler.registryImagePullPolicy" . }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - all
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp-volume
+            - name: config-volume
+              mountPath: /config
+            - name: log-control-configmap-volume
+              mountPath: /logcontrol
+            {{- if .Values.tls.enabled }}
+            - name: truststore-certificates
+              mountPath: {{ .Values.tls.platformCaCert.mountPath | quote }}
+              readOnly: true
+              {{- if or (eq .Values.log.streamingMethod "direct") (eq .Values.log.streamingMethod "dual") }}
+            - name: keystore-certificates
+              mountPath: {{ .Values.tls.appCert.mountPath | quote }}
+              readOnly: true
+              {{- end }}
+            {{- end }}
+            {{- if eq .Values.kafka.tls.enabled true}}
+            - name: kafka-certificates
+              mountPath: {{ .Values.tls.kafkaCaCert.mountPath | quote }}
+              readOnly: true
+            {{- end }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+          {{- if (index .Values "probes" "eric-oss-performance-monitoring-enabler" "livenessProbe" "initialDelaySeconds") }}
+            {{ print "initialDelaySeconds: " (index .Values "probes" "eric-oss-performance-monitoring-enabler" "livenessProbe" "initialDelaySeconds") }}
+          {{- end }}
+          {{- if (index .Values "probes" "eric-oss-performance-monitoring-enabler" "livenessProbe" "failureThreshold") }}
+            {{ print "failureThreshold: " (index .Values "probes" "eric-oss-performance-monitoring-enabler" "livenessProbe" "failureThreshold") }}
+          {{- end }}
+          {{- if (index .Values "probes" "eric-oss-performance-monitoring-enabler" "livenessProbe" "periodSeconds") }}
+            {{ print "periodSeconds: " (index .Values "probes" "eric-oss-performance-monitoring-enabler" "livenessProbe" "periodSeconds") }}
+          {{- end }}
+          {{- if (index .Values "probes" "eric-oss-performance-monitoring-enabler" "livenessProbe" "timeoutSeconds") }}
+            {{ print "timeoutSeconds: " (index .Values "probes" "eric-oss-performance-monitoring-enabler" "livenessProbe" "timeoutSeconds") }}
+          {{- end }}
+            httpGet:
+              path: /actuator/health
+              port: http
+          readinessProbe:
+          {{- if (index .Values "probes" "eric-oss-performance-monitoring-enabler" "readinessProbe" "initialDelaySeconds") }}
+            {{ print "initialDelaySeconds: " (index .Values "probes" "eric-oss-performance-monitoring-enabler" "readinessProbe" "initialDelaySeconds") }}
+          {{- end }}
+          {{- if (index .Values "probes" "eric-oss-performance-monitoring-enabler" "readinessProbe" "failureThreshold") }}
+            {{ print "failureThreshold: " (index .Values "probes" "eric-oss-performance-monitoring-enabler" "readinessProbe" "failureThreshold") }}
+          {{- end }}
+          {{- if (index .Values "probes" "eric-oss-performance-monitoring-enabler" "readinessProbe" "periodSeconds") }}
+            {{ print "periodSeconds: " (index .Values "probes" "eric-oss-performance-monitoring-enabler" "readinessProbe" "periodSeconds") }}
+          {{- end }}
+          {{- if (index .Values "probes" "eric-oss-performance-monitoring-enabler" "readinessProbe" "timeoutSeconds") }}
+            {{ print "timeoutSeconds: " (index .Values "probes" "eric-oss-performance-monitoring-enabler" "readinessProbe" "timeoutSeconds") }}
+          {{- end }}
+            httpGet:
+              path: /actuator/health
+              port: http
+          env:
+          - name: KAFKA_BOOTSTRAP_SERVER
+            value: {{ (index .Values "kafka" "bootstrapServer" "path") | quote }}
+          - name: KAFKA_BOOTSTRAP_PORT
+            value: {{ (index .Values "kafka" "bootstrapServer" "port") | quote }}
+            {{- if .Values.kafka.consumerGroup }}
+          - name: KAFKA_TOPICS_CONSUMER_GROUP_ID
+            value: {{ .Values.kafka.consumerGroup | quote}}
+            {{- end }}
+          - name: KAFKA_TLS_ENABLED
+            value: {{ (index .Values "kafka" "tls" "enabled") | quote }}
+          - name: KAFKA_BOOTSTRAP_NAME
+            value: {{ (index .Values "kafka" "bootstrapServer" "path") | quote }}
+          - name: KAFKA_CERTIFICATE_MOUNT_PATH
+            value: {{ .Values.tls.kafkaCaCert.mountPath | quote }}
+          - name: KAFKA_CERT_SECRET_NAME
+            value: {{ .Values.tls.kafkaCaCert.secretName | quote }}
+          - name: DMM_URL
+            value: {{ include "eric-oss-performance-monitoring-enabler.dmmUrl" . | quote }}
+          - name: DMM_DATA_DISCOVERY_BASE_PATH
+            value: {{ (index .Values "dmm" "data-discovery" "basePath") | quote }}
+          - name: PMSCH_URL
+            value: {{ include "eric-oss-performance-monitoring-enabler.pmschUrl" . | quote }}
+          - name: PMSCH_CALCULATOR_BASE_PATH
+            value: {{ .Values.pmsch.calculator.basePath | quote }}
+          - name: IAM_URL
+            value: {{ include "eric-oss-performance-monitoring-enabler.iamUrl" . | quote}}
+          - name: IAM_BASE_PATH
+            value: {{ .Values.iam.basePath | quote }}
+          - name: IAM_CLIENT_ID
+            value: {{ .Values.clientId | quote }}
+          - name: IAM_CLIENT_SECRET
+            value: {{ .Values.clientSecret | quote }}
+          - name: IAM_TOKEN_ENDPOINT_PATH
+            value: {{ .Values.iam.tokenEndpointPath | quote }}
+          - name: SERVICE_ID
+            value: {{ include "eric-oss-performance-monitoring-enabler.serviceId" . | quote}}
+          - name: JAVA_OPTS
+            value: {{ include "eric-oss-performance-monitoring-enabler.jvmHeapSettings" . }}
+          - name: TLS_JAVA_OPTS
+            value: {{ include "eric-oss-performance-monitoring-enabler.clientProtocol" . }}
+          - name: TLS_ENABLED
+            value: {{ .Values.tls.enabled | quote }}
+          - name: TZ
+            value: {{ template "eric-oss-performance-monitoring-enabler.timezone" . }}
+          - name: CLIENT_PROTOCOL
+            value: {{ .Values.tls.clientProtocol | quote }}
+            {{- if .Values.tls.enabled }}
+          - name: TRUSTSTORE_CERTIFICATE_MOUNT_PATH
+            value: {{ .Values.tls.platformCaCert.mountPath | quote }}
+          - name: TRUSTSTORE_PASS
+            value: {{ default (randAlphaNum 16) .Values.tls.platformCaCert.truststorePass | quote }}
+          - name: KEYSTORE_CERTIFICATE_MOUNT_PATH
+            value: /mtls/certs
+          - name: ERIC_LOG_TRANSFORMER_KEYSTORE_PW
+            value: {{ default (randAlphaNum 16) .Values.tls.appCert.appKeyStorePass | quote }}
+          - name: LOGSTASH_DESTINATION
+            value: {{ .Values.log.streamingDestination | quote }}
+          - name: LOGSTASH_PORT
+            value: "443"
+            {{- end }}
+          - name: LOG_CTRL_FILE
+            value: "/logcontrol/logcontrol.json"
+          - name: ENABLE_AUDIT_LOG_OF_READS
+            value: {{ .Values.logging.enableAuditLogOfReads | quote }}
+          {{- if (index .Values "kpiDefinitions" "fileName") }}
+          - name: KPI_DEFINITION_FILE
+            value: {{ index .Values "kpiDefinitions" "fileName" | quote }}
+          {{- end }}
+          - name: SESSION_RETENTION_PERIOD
+            value: {{ index .Values "eric-oss-performance-monitoring-enabler-pg" "retention" "sessionRetentionSchedule" | quote }}
+          - name: SESSION_EXPIRATION_TIME
+            value: {{ index .Values "eric-oss-performance-monitoring-enabler-pg" "retention" "sessionExpirationPeriodInHours" | quote }}
+          - name: DB_HOST
+            value: {{ index .Values "eric-oss-performance-monitoring-enabler-pg" "host" }}
+          - name: DB_PORT
+            value: {{ index .Values "eric-oss-performance-monitoring-enabler-pg" "port" | quote }}
+          - name: DB_NAME
+            value: {{ index .Values "eric-oss-performance-monitoring-enabler-pg" "postgresDatabase" }}
+          - name: DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ index .Values "eric-oss-performance-monitoring-enabler-pg" "credentials" "kubernetesSecretName" }}
+                key: custom-user
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ index .Values "eric-oss-performance-monitoring-enabler-pg" "credentials" "kubernetesSecretName" }}
+                key: custom-pwd
+      {{- if .Values.global }}
+        {{- if .Values.global.security }}
+          {{- if .Values.global.security.tls }}
+            {{- if .Values.global.security.tls.enabled }}
+          - name: CONNECT_MODE
+            value: "tls"
+            {{- if (eq .Values.service.endpoints.chassisapi.tls.enforced "required") }}
+          - name: TLS_MODE
+            value: "only_tls"
+            {{- if (eq .Values.service.endpoints.chassisapi.tls.verifyClientCertificate "required") }}
+          - name: TLS_CA
+            value: "ca_path"
+            {{- end }}
+            {{- end }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- include "eric-oss-performance-monitoring-enabler.loggingEnv" . | indent 10 }}
+          resources:
+            requests:
+            {{- if (index .Values "resources" "eric-oss-performance-monitoring-enabler" "requests" "cpu") }}
+              cpu: {{ (index .Values "resources" "eric-oss-performance-monitoring-enabler" "requests" "cpu" | quote) }}
+            {{- end }}
+            {{- if (index .Values "resources" "eric-oss-performance-monitoring-enabler" "requests" "memory") }}
+              memory: {{ (index .Values "resources" "eric-oss-performance-monitoring-enabler" "requests" "memory" | quote) }}
+            {{- end }}
+            {{- if (index .Values "resources" "eric-oss-performance-monitoring-enabler" "requests" "ephemeral-storage") }}
+            {{ println "  ephemeral-storage:" (index .Values "resources" "eric-oss-performance-monitoring-enabler" "requests" "ephemeral-storage" | quote) }}
+            {{- end }}
+            limits:
+            {{- if (index .Values "resources" "eric-oss-performance-monitoring-enabler" "limits" "cpu") }}
+              cpu: {{ (index .Values "resources" "eric-oss-performance-monitoring-enabler" "limits" "cpu" | quote) }}
+            {{- end }}
+            {{- if (index .Values "resources" "eric-oss-performance-monitoring-enabler" "limits" "memory") }}
+              memory: {{ (index .Values "resources" "eric-oss-performance-monitoring-enabler" "limits" "memory" | quote) }}
+            {{- end }}
+            {{- if (index .Values "resources" "eric-oss-performance-monitoring-enabler" "limits" "ephemeral-storage") }}
+            {{ println "  ephemeral-storage:" (index .Values "resources" "eric-oss-performance-monitoring-enabler" "limits" "ephemeral-storage" | quote) }}
+            {{- end }}
+      nodeSelector: {{ include "eric-oss-performance-monitoring-enabler.nodeSelector" . | nindent 6 -}}
+
+      {{- if .Values.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds:
+        {{- include "eric-oss-performance-monitoring-enabler.terminationGracePeriodSeconds" . | nindent 8 }}
+      {{- end }}
+
+      {{- if .Values.tolerations }}
+      tolerations:
+        {{- include "eric-oss-performance-monitoring-enabler.tolerations" . | nindent 8 }}
+      {{- end }}
+
+      {{- if (index .Values "podPriority" "eric-oss-performance-monitoring-enabler" "priorityClassName") }}
+      priorityClassName: {{ (index .Values "podPriority" "eric-oss-performance-monitoring-enabler" "priorityClassName") }}
+      {{- end }}
+
+      {{- with .Values.topologySpreadConstraints.deployment }}
+      topologySpreadConstraints:
+        {{- toYaml . | nindent 6 }}
+      {{- end }}
+      {{- if eq .Values.affinity.podAntiAffinity "hard" }}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - {{ include "eric-oss-performance-monitoring-enabler.name" . }}
+            topologyKey: "kubernetes.io/hostname"
+      {{- else if eq .Values.affinity.podAntiAffinity  "soft" }}
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - {{ include "eric-oss-performance-monitoring-enabler.name" . }}
+              topologyKey: "kubernetes.io/hostname"
+      {{- end }}

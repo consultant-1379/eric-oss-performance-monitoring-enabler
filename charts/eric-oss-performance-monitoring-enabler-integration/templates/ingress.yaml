@@ -1,0 +1,93 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: eric-oss-pm-stats-calculator-ingress
+  {{- if .Values.pmsch.ingress.namespace }}
+  namespace: {{ .Values.pmsch.ingress.namespace }}
+  {{- end }}
+spec:
+  rules:
+    - host: {{ .Values.pmsch.ingress.host }}
+      http:
+        paths:
+          - path: /kpi-handling
+            pathType: Prefix
+            backend:
+              service:
+               name: {{ .Values.pmsch.ingress.pmscServiceName }}
+               port:
+                 number: {{ .Values.pmsch.ingress.port }}
+          - path: /kpi-handling/exposure/
+            pathType: Prefix
+            backend:
+              service:
+               name: {{ .Values.pmsch.ingress.queryServiceName }}
+               port:
+                 number: {{ .Values.pmsch.ingress.port }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: eric-oss-dmm-ingress
+  {{- if .Values.dmm.ingress.namespace }}
+  namespace: {{ .Values.dmm.ingress.namespace }}
+  {{- end }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: {{ .Values.dmm.ingress.host }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: {{ .Values.dmm.ingress.dcc.serviceName }}
+                port:
+                  number: {{ .Values.dmm.ingress.dcc.port }}
+            path: /dmm-data-collection-controller(/|$)(.*)
+            pathType: Prefix
+          - backend:
+              service:
+                name: {{ .Values.dmm.ingress.catalog.serviceName }}
+                port:
+                  number: {{ .Values.dmm.ingress.catalog.port }}
+            path: /dmm-data-catalog(/|$)(.*)
+            pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: eric-oss-pme-ingress
+  {{- if .Values.pme.ingress.namespace }}
+  namespace: {{ .Values.pme.ingress.namespace }}
+  {{- end }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: {{ .Values.pme.ingress.host }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: {{ .Values.pme.ingress.serviceName }}
+                port:
+                  number: {{ .Values.pme.ingress.port }}
+            path: /performance-monitoring-enabler(/|$)(.*)
+            pathType: Prefix

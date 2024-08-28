@@ -1,0 +1,113 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+suite: Test PME Deployment TLS
+templates:
+  - deployment.yaml
+tests:
+  - it: When PME is deployed with TLS disabled, then deployment does not include TLS env and volumes
+    set:
+      tls:
+        enabled: false
+        platformCaCert:
+          secretName: tls-secret
+        appCert:
+          secretName: mtls-secret
+    asserts:
+      - isKind:
+          of: Deployment
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: TLS_ENABLED
+            value: "false"
+          count: 1
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: TRUSTSTORE_CERTIFICATE_MOUNT_PATH
+            value: "/tls/certs"
+          count: 1
+      - notContains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: trustore-certificates
+            mountPath: /tls/certs
+            readOnly: true
+          count: 1
+      - notContains:
+          path: spec.template.spec.volumes
+          content:
+            name: trustore-certificates
+            secret:
+              secretName: tls-secret
+  - it: When PME is deployed with TLS enabled, then deployment has correct TLS env and volumes
+    set:
+      tls:
+        enabled: true
+        platformCaCert:
+          secretName: tls-secret
+          truststorePass: password123
+        appCert:
+          secretName: mtls-secret
+          appKeyStorePass: password321
+    asserts:
+      - isKind:
+          of: Deployment
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: TLS_ENABLED
+            value: "true"
+          count: 1
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: TRUSTSTORE_CERTIFICATE_MOUNT_PATH
+            value: "/tls/certs"
+          count: 1
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: TRUSTSTORE_PASS
+            value: "password123"
+          count: 1
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            mountPath: /tls/certs
+            name: truststore-certificates
+            readOnly: true
+          count: 1
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: KEYSTORE_CERTIFICATE_MOUNT_PATH
+            value: "/mtls/certs"
+          count: 1
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: ERIC_LOG_TRANSFORMER_KEYSTORE_PW
+            value: "password321"
+          count: 1
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            mountPath: /mtls/certs
+            name: keystore-certificates
+            readOnly: true
+          count: 1

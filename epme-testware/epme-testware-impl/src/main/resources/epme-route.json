@@ -1,0 +1,33 @@
+{
+  "id": "eric-oss-performance-monitoring-enabler",
+  "predicates": [
+    {
+      "name": "Path",
+      "args": {
+        "_genkey_0": "/performance-monitoring-enabler/*/sessions/**",
+        "_genkey_1": "/performance-monitoring-enabler/*/configurations/**"
+      }
+    },
+    {
+      "name": "Host",
+      "args": {
+        "_genkey_0": "$HOSTNAME"
+      }
+    }
+  ],
+  "filters": [
+    {
+      "name": "RewritePath",
+      "args": {
+        "_genkey_0": "/performance-monitoring-enabler/(?<segment>.*)",
+        "_genkey_1": "/$\\{segment}"
+      }
+    },
+    {
+      "name": "AddTokenHeaderFilter",
+      "args": {}
+    }
+  ],
+  "uri": "http://eric-oss-performance-monitoring-enabler:8080",
+  "order": 0
+}

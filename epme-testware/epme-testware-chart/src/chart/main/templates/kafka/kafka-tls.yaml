@@ -1,0 +1,40 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+{{- if eq .Values.kafka.tls.enabled true }}
+{{- $bootStrapServerHost := .Values.kafka.host }}
+apiVersion: siptls.sec.ericsson.com/v1
+kind: InternalCertificate
+metadata:
+  name: {{ include "eric-oss-performance-monitoring-enabler-testware.name" . }}-kafka-cert
+  labels:
+  {{- include "eric-oss-performance-monitoring-enabler-testware.labels" .| nindent 4 }}
+spec:
+  kubernetes:
+    generatedSecretName: {{ include "eric-oss-performance-monitoring-enabler-testware.name" . }}-kafka-secret
+    certificateName: "cert.pem"
+    privateKeyName: "key.pem"
+  certificate:
+    subject:
+      cn: {{ include "eric-oss-performance-monitoring-enabler-testware.name" . }}
+      {{- if eq "eric-oss-dmm-kf-op-sz-kafka-bootstrap" $bootStrapServerHost }}
+    issuer:
+      reference: eric-oss-dmm-kf-op-sz-clients-ca-cert
+      {{- end }}
+    extendedKeyUsage:
+      tlsClientAuth: true
+      tlsServerAuth: true
+{{- end }}

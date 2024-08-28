@@ -1,0 +1,162 @@
+#
+# COPYRIGHT Ericsson 2023 - 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}"
+  labels:
+    {{ .Values.env.PG_ACCESS_LABEL_KEY }}: "true"
+    helm.sh/chart: {{.Chart.Name | quote}}
+    app.kubernetes.io/version: {{.Chart.AppVersion | quote}}
+    app.kubernetes.io/managed-by: {{.Release.Service}}
+spec:
+  volumes:
+{{- if eq .Values.kafka.tls.enabled true }}
+    - name: root-cert-volume
+      secret:
+        optional: true
+        secretName: eric-sec-sip-tls-trusted-root-cert
+    - name: "{{ .Release.Name }}-kafka-credentials"
+      secret:
+        optional: true
+        secretName: {{ include "eric-oss-performance-monitoring-enabler-testware.kafka-tls-secret" . | quote }}
+{{- end }}
+  containers:
+    - name: "{{ $.Chart.Name }}"
+      image: {{$.Values.images.testwareImage | quote}}
+      env:
+        - name: "APP_NAME"
+          value: {{$.Values.env.APP_NAME}}
+        - name: "APP_VERSION"
+          value: {{$.Values.env.APP_VERSION | quote}}
+        - name: "BUILD_URL"
+          value: {{$.Values.env.BUILD_URL}}
+        - name: "ENVIRONMENT"
+          value: {{$.Values.env.ENVIRONMENT}}
+        - name: "OPTIONS_FILE"
+          value: "/resources/config/{{$.Values.env.OPTIONS_FILE}}"
+        - name: "PRODUCT"
+          value: {{$.Values.env.PRODUCT}}
+        - name: "PRODUCT_VERSION"
+          value: {{$.Values.env.PRODUCT_VERSION | quote}}
+        - name: "SHUTDOWN_WAIT_TIME"
+          value: {{$.Values.env.SHUTDOWN_WAIT_TIME | quote}}
+        - name: "STAGING_TYPE"
+          value: {{$.Values.env.STAGING_TYPE}}
+        - name: "TESTWARE_NAME"
+          value: {{$.Values.env.TESTWARE_NAME}}
+        - name: "TEST_VERSION"
+          value: {{$.Values.env.TEST_VERSION | quote}}
+        - name: "ADDITIONAL_ARGS"
+          value: {{$.Values.env.ADDITIONAL_ARGS}}
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: testware-resources-secret
+              key: database_url
+        - name: K6_TOOL_GUI_URL
+          valueFrom:
+            secretKeyRef:
+              name: testware-resources-secret
+              key: gui_url
+        - name: API_URL
+          valueFrom:
+            secretKeyRef:
+              name: testware-resources-secret
+              key: api_url
+        - name: "INGRESS_SCHEMA"
+          value: {{$.Values.env.INGRESS_SCHEMA}}
+        - name: "INGRESS_HOST"
+          value: {{$.Values.env.INGRESS_HOST}}
+        - name: "INGRESS_LOGIN_USER"
+          value: {{$.Values.env.INGRESS_LOGIN_USER}}
+        - name: "INGRESS_LOGIN_PASSWORD"
+          value: {{$.Values.env.INGRESS_LOGIN_PASSWORD}}
+        - name: "EPME_INGRESS_SCHEMA"
+          value: {{$.Values.env.EPME_INGRESS_SCHEMA}}
+        - name: "EPME_INGRESS_HOST"
+          value: {{$.Values.env.EPME_INGRESS_HOST}}
+        - name: "INGRESS_PME_TESTWARE_USER"
+          value: {{$.Values.env.INGRESS_PME_TESTWARE_USER}}
+        - name: "EPME_PREFIX"
+          value: {{$.Values.env.EPME_PREFIX}}
+        - name: "RAPP_ID"
+          value: {{$.Values.env.RAPP_ID | quote}}
+        - name: "BUILD_ID"
+          value: {{$.Values.env.BUILD_ID | quote}}
+        - name: "INGRESS_SESSION_OPERATOR"
+          value: {{$.Values.env.INGRESS_SESSION_OPERATOR | quote}}
+        - name: "INGRESS_CONFIGURATION_OPERATOR"
+          value: {{$.Values.env.INGRESS_CONFIGURATION_OPERATOR | quote}}
+        - name: "INGRESS_CONFIGURATION_READER"
+          value: {{$.Values.env.INGRESS_CONFIGURATION_READER | quote}}
+        - name: "VALIDATE_EPME_RBAC"
+          value: {{$.Values.env.VALIDATE_EPME_RBAC | quote}}
+        - name: EPME_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{$.Values.postgres.secretName}}
+              key: custom-user
+              optional: true
+        - name: EPME_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{$.Values.postgres.secretName}}
+              key: custom-pwd
+              optional: true
+        - name: "EPME_DB_HOST"
+          value: {{$.Values.env.EPME_DB_HOST}}
+        - name: "EPME_DB_PORT"
+          value: {{$.Values.env.EPME_DB_PORT | quote}}
+        - name: "EPME_DB_NAME"
+          value: {{$.Values.env.EPME_DB_NAME}}
+        - name: "KAFKA_TLS"
+          value: {{$.Values.kafka.tls.enabled | quote }}
+        - name: "KAFKA_BOOTSTRAP_SERVER"
+          value: {{$.Values.kafka.host}}
+        - name: "KAFKA_BOOTSTRAP_PORT"
+{{- if eq .Values.kafka.tls.enabled true }}
+          value: {{$.Values.kafka.tls.port | quote}}
+{{- else }}
+          value: {{$.Values.kafka.port | quote}}
+{{- end }}
+        - name: "KAFKA_MONITORING_OBJECT_TOPIC"
+          value: {{$.Values.env.KAFKA_MONITORING_OBJECT_TOPIC}}
+        - name: "KAFKA_VERDICT_TOPIC"
+          value: {{ $.Values.env.KAFKA_VERDICT_TOPIC }}
+      volumeMounts:
+{{- if eq .Values.kafka.tls.enabled true }}
+        - name: root-cert-volume
+          mountPath: "/certs/eric-sec-sip-tls-trusted-root-cert"
+        - name: "{{ .Release.Name }}-kafka-credentials"
+          mountPath: /certs/kafka-credentials
+{{- end }}
+      imagePullPolicy: Always
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: true
+        runAsNonRoot: false
+        runAsUser: 0
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+  dnsPolicy: ClusterFirst
+  imagePullSecrets:
+    - name: {{$.Values.pullSecretName}}
+  schedulerName: default-scheduler
+  restartPolicy: Never
+  securityContext: {}
+  terminationGracePeriodSeconds: 5

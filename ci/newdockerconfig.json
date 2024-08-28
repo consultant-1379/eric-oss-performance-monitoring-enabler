@@ -1,0 +1,13 @@
+{
+    "auths": {
+        "armdocker.rnd.ericsson.se": {
+            "auth": "ZGVhYXN1c2VyOlNOZUdPRVFpODNxeTVlRlVHUnVvcHM4Ng=="
+        },
+        "selndocker.mo.sw.ericsson.se": {
+            "auth": "ZGVhYXN1c2VyOlNOZUdPRVFpODNxeTVlRlVHUnVvcHM4Ng=="
+        },
+        "serodocker.sero.gic.ericsson.se": {
+            "auth": "ZGVhYXN1c2VyOlNOZUdPRVFpODNxeTVlRlVHUnVvcHM4Ng=="
+        }
+    }
+}

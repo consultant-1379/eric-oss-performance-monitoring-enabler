@@ -1,0 +1,183 @@
+#
+# COPYRIGHT Ericsson 2023 - 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+modelVersion: 2.0
+
+description: "eric-oss-performance-monitoring-enabler-vulnerability-analysis"
+
+docker-images:
+  - adp-release-auto: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/bob-adp-release-auto:${env.RELEASE_AUTO_TAG}
+  - adp-helm-kubectl: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/bob-py3kubehelmbuilder:${env.HELM_KUBECTL_TAG}
+  - hadolint-scan: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/hadolint-scan:${env.HADOLINT_TAG}
+  - trivy-inline-scan: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/trivy-inline-scan:${env.TRIVY_TAG}
+  - grype-scan: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/va-image-scanning-grype:${env.ANCHORE_TAG}
+  - va-scan-kubehunter: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/va-scan-kubehunter:${env.KUBEHUNTER_TAG}
+
+import:
+  common: ../../common-properties.yaml
+
+properties:
+  - config-dir: ${env.PWD}/config
+  - project-subpath: proj-eric-oss
+  - image-to-scan: armdocker.rnd.ericsson.se/proj-eric-oss-ci-internal/eric-oss-performance-monitoring-enabler:${var.version}
+  - nmap-config: ${config-dir}/nmap_config.yaml
+
+env:
+  - HOME
+  - PWD
+  - K8S_NAMESPACE (default=${common.helm-chart-name}-${var.commithash})
+  - KUBECONFIG
+  - RELEASE_AUTO_TAG (default=latest)
+  - HELM_KUBECTL_TAG (default=latest)
+  - MVN_BUILDER_TAG (default=latest)
+  - SERO_ARTIFACTORY_REPO_USER
+  - SERO_ARTIFACTORY_REPO_PASS
+  - HADOLINT_TAG (default=latest)
+  - TRIVY_TAG (default=latest)
+  - ANCHORE_TAG (default=latest)
+  - KUBEHUNTER_TAG (default=latest)
+  - XRAY_USER
+  - XRAY_APIKEY
+  - VHUB_API_TOKEN
+
+var:
+  - version
+
+rules:
+  zap-test:
+    - task: zap-scan
+      docker-image: adp-helm-kubectl
+      docker-flags:
+        - "--env KUBECONFIG=${env.KUBECONFIG}"
+        - "--env K8S_NAMESPACE=${env.K8S_NAMESPACE}"
+        - "--env SERO_ARTIFACTORY_REPO_USER=${env.SERO_ARTIFACTORY_REPO_USER}"
+        - "--env SERO_ARTIFACTORY_REPO_PASS=${env.SERO_ARTIFACTORY_REPO_PASS}"
+        - "--volume ${env.KUBECONFIG}:${env.KUBECONFIG}"
+        - "--volume ${env.PWD}/build/va-reports/zap-reports:/va-reports/zap-reports/"
+        - "--volume ${env.PWD}/src/main/resources/v1:/openapi/"
+      cmd: test.py --helm-v3 --kubernetes-admin-conf=${env.KUBECONFIG}
+        --helm-user=${env.SERO_ARTIFACTORY_REPO_USER}
+        --arm-api-token=${env.SERO_ARTIFACTORY_REPO_PASS}
+        --kubernetes-namespace=${env.K8S_NAMESPACE}
+        --only-zap-test
+        --zap-config-file=${config-dir}/zap_config.yaml
+  trivy-inline-scan:
+    - task: fetch-image
+      cmd:
+        - "docker pull ${image-to-scan}"
+        - mkdir -p build/va-reports/trivy-reports
+    - task: trivy-inline-scan-console-report
+      docker-image: trivy-inline-scan
+      docker-in-docker: socket
+      cmd: --offline-scan --timeout 30m ${image-to-scan} 2>&1 | tee build/va-reports/trivy-reports/trivy.console.summary.txt
+    - task: trivy-inline-scan-json-report
+      docker-image: trivy-inline-scan
+      docker-in-docker: socket
+      cmd: --format json --output build/va-reports/trivy-reports/trivy.report.json --offline-scan --timeout 30m ${image-to-scan}
+
+  fetch-xray-report:
+    - task: fetch-xray-report
+      docker-image: adp-release-auto
+      cmd: bash -c 'fetch-xray
+        --config ${env.PWD}/config/xray_report.config
+        --debug
+        --user ${env.XRAY_USER}
+        --apikey ${env.XRAY_APIKEY}
+        --output ${env.PWD}/build/va-reports/xray-reports/xray_report.json
+        --set artifactory-subpath=${project-subpath}
+        --set image=eric-oss-performance-monitoring-enabler
+        --set version=${var.version}
+        --raw-output ${env.PWD}/build/va-reports/xray-reports/raw_xray_report.json'
+
+  anchore-grype-scan:
+    - task: fetch-image
+      cmd: "docker pull ${image-to-scan}"
+    - task: anchore-grype-scan
+      docker-image: grype-scan
+      docker-in-docker: socket
+      cmd: grype_scan
+        --image ${image-to-scan}
+        --report-dir build/va-reports/anchore-reports
+
+  nmap-port-scanning:
+    - task: nmap-port-scanning-test
+      docker-image: adp-helm-kubectl
+      docker-flags:
+        - "--env KUBECONFIG=${env.KUBECONFIG}"
+        - "--volume ${env.KUBECONFIG}:${env.KUBECONFIG}:ro"
+        - "--volume ${env.PWD}:${env.PWD}"
+        - "--env K8S_NAMESPACE=${env.K8S_NAMESPACE}"
+        - "--env KUBECONFIG=${env.KUBECONFIG}"
+        - "--env SERO_ARTIFACTORY_REPO_USER=${env.SERO_ARTIFACTORY_REPO_USER}"
+        - "--env SERO_ARTIFACTORY_REPO_PASS=${env.SERO_ARTIFACTORY_REPO_PASS}"
+      cmd: va-scanner nmap-scan
+        --kubernetes-admin-conf=${env.KUBECONFIG}
+        --helm-user=${env.SERO_ARTIFACTORY_REPO_USER}
+        --arm-api-token=${env.SERO_ARTIFACTORY_REPO_PASS}
+        --kubernetes-namespace=${env.K8S_NAMESPACE}
+        --nmap-config-file=${nmap-config}
+        --skip-services-status-check
+
+  kubehunter-scan:
+    - task: get-config
+      cmd: cp -v .kube/config  ${env.PWD}/config/config
+    - task: kubehunter-scan-test
+      docker-image: va-scan-kubehunter
+      docker-flags:
+        - "--workdir /opt/kubehunter/"
+        - "--env KUBECONFIG=${env.KUBECONFIG}"
+        - "--volume ${env.KUBECONFIG}:${env.KUBECONFIG}:ro"
+        - "-v ${env.PWD}/config:/opt/kubehunter/conf"
+        - "-v ${env.PWD}/build/va-reports/kubehunter-report/:/tmp/reports"
+      cmd: " "
+
+  generate-VA-report-V2:
+    - task: create-va-folders
+      cmd:
+        - if [ ! -d "${env.PWD}/build/va-reports/zap-reports" ]; then mkdir -p ${env.PWD}/build/va-reports/zap-reports; fi
+        - if [ ! -d "${env.PWD}/build/va-reports/anchore-reports" ]; then mkdir -p ${env.PWD}/build/va-reports/anchore-reports; fi
+        - if [ ! -d "${env.PWD}/build/va-reports/xray-reports" ]; then mkdir -p ${env.PWD}/build/xray-reports/xray-reports; fi
+        - if [ ! -d "${env.PWD}/build/va-reports/trivy-reports" ]; then mkdir -p ${env.PWD}/build/va-reports/trivy-reports; fi
+        - if [ ! -d "${env.PWD}/build/va-reports/hadolint-scan" ];then mkdir -p ${env.PWD}/build/va-reports/hadolint-scan; fi
+        - if [ ! -d "${env.PWD}/build/va-reports/kube-audit-report" ]; then mkdir -p ${env.PWD}/build/va-reports/kube-audit-report/${common.helm-chart-name}/templates/deployment; fi
+        - if [ ! -d "${env.PWD}/build/va-reports/kubesec-reports" ]; then mkdir -p ${env.PWD}/build/va-reports/kubesec-reports; fi
+        - if [ ! -d "${env.PWD}/build/va-reports/nmap_reports" ]; then mkdir -p ${env.PWD}/build/va-reports/nmap_reports; fi
+    - task: no-upload
+      docker-image: adp-release-auto
+      docker-flags:
+        - --env VHUB_API_TOKEN
+      cmd: bash -c 'va-report
+        --set version=${var.version}
+        --config ${env.PWD}/config/va-report.config
+        --output ${env.PWD}/build/va-reports/Vulnerability_Report_2.0.md
+        --md
+        --debug
+        --zap-reports ${env.PWD}/build/va-reports/zap-reports/
+        --anchore-reports ${env.PWD}/build/va-reports/anchore-reports
+        --trivy-reports ${env.PWD}/build/va-reports/trivy-reports
+        --xray-report ${env.PWD}/build/va-reports/xray-reports/xray_report.json
+        --raw-xray-report ${env.PWD}/build/va-reports/xray-reports/raw_xray_report.json
+        --hadolint-reports ${env.PWD}/build/va-reports/hadolint-scan
+        --kubeaudit-reports ${env.PWD}/build/va-reports/kube-audit-report/${common.helm-chart-name}/templates/deployment
+        --kubesec-reports ${env.PWD}/build/va-reports/kubesec-reports
+        --nmap-reports ${env.PWD}/build/va-reports/nmap_reports'; exit 0;
+
+  delete-images:
+    - task: cleanup-anchore-trivy-images
+      cmd:
+        - docker image remove -f ${grype-image}:${env.ANCHORE_TAG} $(docker images -f "dangling=true" -q) || true
+        - docker image remove -f ${trivy-image}:${env.TRIVY_TAG} $(docker images -f "dangling=true" -q) || true
+        - docker image remove -f ${image-to-scan} $(docker images -f "dangling=true" -q) || true

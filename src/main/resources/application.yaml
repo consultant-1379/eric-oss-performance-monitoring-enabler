@@ -1,0 +1,209 @@
+#
+# COPYRIGHT Ericsson 2023 - 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+#Metrics related configurations
+management.endpoint.metrics.enabled: "true"
+management.endpoints.web.exposure.include: "health, prometheus, info"
+management.endpoint.prometheus.enabled: "true"
+management.metrics.export.prometheus.enabled: "true"
+management.metrics.web.server.auto-time-requests: "true"
+management.metrics.web.client.request.autotime.enabled: "true"
+management.metrics.distribution.percentiles-histogram.http.server.requests.duration: "true"
+management.metrics.distribution.minimum-expected-value.pme.http.server.requests.duration: "500ms"
+management.metrics.distribution.maximum-expected-value.pme.http.server.requests.duration: "20s"
+management.metrics.distribution.percentiles-histogram.pme.http.requests.duration: "true"
+management.metrics.distribution.minimum-expected-value.pme.http.requests.duration: "500ms"
+management.metrics.distribution.maximum-expected-value.pme.http.requests.duration: "20s"
+management.info.env.enabled: "true"
+management.endpoint.health.group.startup:
+  include: healthCheck
+  show-details: "always"
+  status:
+    order: out-of-service,running,started,up
+    http-mapping:
+      out-of-service: 503
+      running: 200
+      started: 200
+
+#opentracing.jaeger.enabled: "true"
+
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER:eric-oss-dmm-kf-op-sz-kafka-bootstrap}:${KAFKA_BOOTSTRAP_PORT:9092}
+    consumer:
+      group-id: ${KAFKA_TOPICS_CONSUMER_GROUP_ID:performance-monitoring-enabler-consumer-group}
+      properties:
+        allow.auto.create.topics: false
+    admin:
+      auto-create: false
+    topics:
+      monitoringObjectTopic: ${MONITORING_OBJECT_TOPIC:epme-monitoring-objects}
+      verdictTopic: ${VERDICT_TOPIC:epme-verdicts}
+  flyway:
+    locations: "classpath:database"
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    user: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    database: POSTGRESQL
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driverClassName: org.postgresql.Driver
+  task.scheduling.pool.size: 4
+
+endpoints.health.sensitive: "false"
+info.app.name: '@name@'
+info.app.description: Microservice chassis app
+info.app.version: '@version@'
+info.app.legal: "COPYRIGHT Ericsson 2023 -
+ The copyright to the computer program(s) herein is the property of
+ Ericsson Inc. The programs may be used and/or copied only with written
+ permission from Ericsson Inc. or in accordance with the terms and
+ conditions stipulated in the agreement/contract under which the
+ program(s) have been supplied."
+
+#See more details about pattern layout: https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html
+#See more details about logging.pattern.level : https://docs.spring.io/spring-boot/docs/2.5.2/reference/html/features.html#features.logging.custom-log-configuration
+#logging.pattern.level: "%5p [%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}][%X{userName}]"
+
+#Set the stubrunner credentials:
+#stubrunner.username: <LAN SIGNUM ID>
+#stubrunner.password: <LAN encripted PWD or JFrog API Key>
+stubrunner.username: ${SELI_ARTIFACTORY_REPO_USER}
+stubrunner.password: ${SELI_ARTIFACTORY_REPO_PASS}
+
+messageBus:
+  name: ${KAFKA_BOOTSTRAP_NAME:eric-oss-dmm-kf-op-sz-kafka-bootstrap}
+  retry:
+    get:
+      maxAttempts: 100
+
+kafkaStartup:
+  tls:
+    enabled: ${KAFKA_TLS_ENABLED:true}
+  retry:
+    waitPeriodInSeconds: 30
+    expectedStartupTimeInSeconds: 10
+    maxAttempts: 100
+
+kpiDefinition:
+  retry:
+    post:
+      maxAttempts: 100
+  fileName: ${KPI_DEFINITION_FILE:KpiDefinitions.json}
+
+dataSubscription:
+  retry:
+    get:
+      maxAttempts: 100
+
+queryKpis:
+  retry:
+    get:
+      maxAttempts: 10
+      # Backoff in millis
+      backoff: 60000
+  batchSize: 80000
+
+kpiCalculationMonitoring:
+  retry:
+    get:
+      maxAttempts: 10
+      # Backoff in millis
+      backoff: 60000
+  kpiReadinessRetry:
+    numberOfRetries: ${RETRIES_COUNT:20}
+    # Backoff in millis
+    backoff: 60000
+
+database:
+  retention:
+    sessionCronExpression: ${SESSION_RETENTION_PERIOD:0 0 1 ? * *}
+    sessionExpirationPeriodInHours: ${SESSION_EXPIRATION_TIME:48}
+  maxConfigurations: 1000
+  maxKpisPerConfigurations: 1000
+
+startup:
+  initialDelayInSeconds: 30
+  certificate:
+    retry:
+      intervalInSeconds: 300
+
+gateway:
+  scheme: ${GATEWAY_SCHEME:https}
+  host: ${GATEWAY_HOST:localhost}
+  port: ${GATEWAY_PORT:}
+  services:
+    iam:
+      url: ${IAM_URL:}
+      basePath: ${IAM_BASE_PATH:}
+      clientId: ${IAM_CLIENT_ID:}
+      clientSecret: ${IAM_CLIENT_SECRET:}
+      tokenEndpointPath: ${IAM_TOKEN_ENDPOINT_PATH:}
+    pmsc:
+      url: ${PMSCH_URL:}
+      host: ${PMSCH_HOST:}
+      basePath: ${PMSCH_CALCULATOR_BASE_PATH:}
+    pmsqs:
+      url: ${PMSCH_URL:}
+      host: ${PMSCH_HOST:}
+      basePath: ${PMSCH_CALCULATOR_BASE_PATH:}
+    data-discovery:
+      url: ${DMM_URL:}
+      host: ${DMM_HOST:}
+      basePath: ${DMM_DATA_DISCOVERY_BASE_PATH:}
+
+tls:
+  enabled: ${TLS_ENABLED:true}
+  clientProtocol: ${CLIENT_PROTOCOL:TLSv1.3}
+  truststore:
+    certFilePath: ${TRUSTSTORE_CERTIFICATE_MOUNT_PATH:}
+    appStorePath: /tmp/truststore.jks
+    appStorePass: ${TRUSTSTORE_PASS:}
+  keystore:
+    certFilePath: ${KEYSTORE_CERTIFICATE_MOUNT_PATH:}
+    appStorePath: /tmp/eric-log-transformer.p12
+    appKeyStorePass: ${ERIC_LOG_TRANSFORMER_KEYSTORE_PW:}
+  kafka:
+    kafkaCertFilePath: ${KAFKA_CERTIFICATE_MOUNT_PATH:}
+    kafkaCertSecretName: ${KAFKA_CERT_SECRET_NAME:}
+    kafkaCertFileName: ${KAFKA_CERT_FILE_NAME:}
+
+logging:
+  config: ${LOGBACK_CONFIG_FILE:classpath:logback-json.xml}
+  endpoints:
+    exclude: /actuator/health, /actuator/prometheus, /ping, /metrics, /actuator/id-(.*)
+  logcontrol-file: ${LOG_CTRL_FILE:/logcontrol/logcontrol.json}
+  streamingMethod: ${LOG_STREAMING_METHOD:direct}
+  enableAuditLogOfReads: ${ENABLE_AUDIT_LOG_OF_READS:false}
+
+# We are providing our own watcher, this disables the watcher in eric-common-logging
+ericsson:
+  logging:
+    runtime-level-control:
+      enabled: false
+
+execution:
+  schedule:
+    cron-expression: ${EXECUTION_SCHEDULE:0 30 * * * *}
+  threadPool:
+    size: 10

@@ -1,0 +1,116 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+modelVersion: '3.0'
+dependencies:
+  - ID: com.fasterxml.jackson.datatype:jackson-datatype-jsr310+2.15.2
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: com.fasterxml.jackson.module:jackson-module-parameter-names+2.15.2
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: com.sun.istack:istack-commons-runtime+4.1.2
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: com.zaxxer:HikariCP+5.0.1
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.apache.commons:commons-lang3+3.12.0
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.bouncycastle:bcprov-jdk15on+1.69
+    bazaar:
+      stako_decision_reason: ESW4
+  - ID: org.checkerframework:checker-qual+3.31.0
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.glassfish.hk2:osgi-resource-locator+1.0.3
+    bazaar:
+      stako_decision_reason: ESW4
+  - ID: org.glassfish.jaxb:jaxb-core+4.0.3
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.glassfish.jaxb:jaxb-runtime+4.0.3
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.glassfish.jaxb:txw2+4.0.3
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.glassfish.jersey.containers:jersey-container-servlet+3.1.2
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.glassfish.jersey.containers:jersey-container-servlet-core+3.1.2
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.glassfish.jersey.core:jersey-client+3.1.2
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.glassfish.jersey.core:jersey-common+3.1.2
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.glassfish.jersey.core:jersey-server+3.1.2
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.glassfish.jersey.ext:jersey-bean-validation+3.1.2
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.glassfish.jersey.ext:jersey-entity-filtering+3.1.2
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.glassfish.jersey.inject:jersey-hk2+3.1.2
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.glassfish.jersey.media:jersey-media-json-jackson+3.1.2
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.springframework.boot:spring-boot+3.1.1
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.springframework.boot:spring-boot-actuator+3.1.1
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.springframework.boot:spring-boot-actuator-autoconfigure+3.1.1
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.springframework.boot:spring-boot-autoconfigure+3.1.1
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.springframework.boot:spring-boot-starter+3.1.1
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.springframework.boot:spring-boot-starter-actuator+3.1.1
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.springframework.boot:spring-boot-starter-aop+3.1.1
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.springframework.boot:spring-boot-starter-json+3.1.1
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.springframework.boot:spring-boot-starter-logging+3.1.1
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.springframework.boot:spring-boot-starter-tomcat+3.1.1
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.springframework.boot:spring-boot-starter-validation+3.1.1
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.springframework.boot:spring-boot-starter-web+3.1.1
+    bazaar:
+      stako_decision_reason: ESW3
+  - ID: org.yaml:snakeyaml+2.1
+    bazaar:
+      stako_decision_reason: ESW3

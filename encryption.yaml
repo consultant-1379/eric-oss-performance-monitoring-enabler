@@ -1,0 +1,39 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+modelVersion: 2.0
+uses_encryption:
+  - product_number: APR 201 912
+    encryptions:
+      - usage: |-
+          Used in TLS based secure communication with platform services.
+        # Encryption Purpose (possible values: 'Data confidentiality, OAM only', 'Data confidentiality, not only OAM', 'Other than data confidentiality')
+        purpose: "Data confidentiality"
+        protocols:
+          - protocol: TLS 1.3
+            usage: "Secure communication between PME and platform services"
+            standard: "IETF"
+        crypto_algorithms:
+          # Algorithm Name: The identifier of algorithm. For full list see Mimer documentation in elex (mandatory)
+          # Key length: only mention same algorithm ones with the longes key (optional)
+          # Encryption Mode: specify the encryption mode which is free text (optional)
+          - name: CHACHA20_POLY1305
+          - name: AES
+            key_length: 256
+            encryption_mode: GCM
+          - name: AES
+            key_length: 128
+            encryption_mode: GCM

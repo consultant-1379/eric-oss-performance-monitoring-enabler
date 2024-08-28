@@ -1,0 +1,156 @@
+#
+# COPYRIGHT Ericsson 2021
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "eric-oss-data-generator.fullname" . }}
+  labels:
+{{- include "eric-oss-data-generator.labels" . | nindent 4 }}
+  annotations:
+{{ include "eric-oss-data-generator.product-info" . | indent 4 }}
+{{- include "eric-oss-data-generator.config-annotations" . | indent 4 }}
+spec:
+{{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+{{- end }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "eric-oss-data-generator.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  strategy:
+    type: {{ .Values.updateStrategy.type | quote }}
+    {{- if and (eq .Values.updateStrategy.type "RollingUpdate") .Values.updateStrategy.rollingUpdate }}
+    rollingUpdate:
+      maxUnavailable: {{ .Values.updateStrategy.rollingUpdate.maxUnavailable }}
+      maxSurge: {{ .Values.updateStrategy.rollingUpdate.maxSurge }}
+    {{- end }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "eric-oss-data-generator.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/version: {{ include "eric-oss-data-generator.version" . }}
+      annotations:
+        prometheus.io/path: {{ .Values.prometheus.path | quote }}
+        prometheus.io/port: {{ .Values.service.port | quote }}
+        prometheus.io/scrape: {{ .Values.prometheus.scrape | quote }}
+{{ include "eric-oss-data-generator.product-info" . | indent 8 }}
+{{- include "eric-oss-data-generator.config-annotations" . | indent 8 }}
+    spec:
+      {{- if include "eric-oss-data-generator.pullSecrets" . }}
+      imagePullSecrets:
+        - name: {{ template "eric-oss-data-generator.pullSecrets" . }}
+      {{- end }}
+      serviceAccountName: {{ include "eric-oss-data-generator.serviceAccountName" . }}
+      securityContext:
+        fsGroup: {{ include "eric-oss-data-generator.fsGroup.coordinated" . }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ include "eric-oss-data-generator.name" . }}-configmap
+      containers:
+        - name: eric-oss-data-generator
+          image: "{{ template "eric-oss-data-generator.registryUrl" . }}/{{ template "eric-oss-data-generator.repoPath" . }}/{{ index .Values "images" "eric-oss-data-generator" "name" }}:{{ index .Values "images" "eric-oss-data-generator" "tag" }}"
+          imagePullPolicy: {{ index .Values "imageCredentials" "eric-oss-data-generator" "pullPolicy" | quote }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+              - all
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }} # Added initialDelaySeconds as the application is taking to come up
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+            httpGet:
+              path: /actuator/health
+              port: http
+          readinessProbe:
+            initialDelaySeconds: 60 # Added initialDelaySeconds as the application is taking to come up
+            httpGet:
+              path: /actuator/health
+              port: http
+          env:
+          - name: TZ
+            value: {{ template "eric-oss-data-generator.timezone" . }}
+      {{- if .Values.global }}
+        {{- if .Values.global.security }}
+          {{- if .Values.global.security.tls }}
+            {{- if .Values.global.security.tls.enabled }}
+          - name: CONNECT_MODE
+            value: "tls"
+            {{- if (eq .Values.service.endpoints.chassisapi.tls.enforced "required") }}
+          - name: TLS_MODE
+            value: "only_tls"
+            {{- if (eq .Values.service.endpoints.chassisapi.tls.verifyClientCertificate "required") }}
+          - name: TLS_CA
+            value: "ca_path"
+            {{- end }}
+            {{- end }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+        {{- with index .Values "resources" "eric-oss-data-generator" }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if eq .Values.affinity.podAntiAffinity "hard" }}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - {{ template "eric-oss-data-generator.name" . }}
+              topologyKey: "kubernetes.io/hostname"
+      {{- else if eq .Values.affinity.podAntiAffinity  "soft" }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - {{ template "eric-oss-data-generator.name" . }}
+                topologyKey: "kubernetes.io/hostname"
+      {{- end }}

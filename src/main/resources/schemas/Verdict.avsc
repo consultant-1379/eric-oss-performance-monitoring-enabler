@@ -1,0 +1,89 @@
+{
+  "name": "VerdictMessage",
+  "type": "record",
+  "namespace": "com.ericsson.oss.apps.model",
+  "fields": [
+    {
+      "name": "pmeSessionId",
+      "type": "string"
+    },
+    {
+      "name": "fdn",
+      "type": "string"
+    },
+    {
+      "name": "timestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "kpiVerdicts",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "KpiVerdict",
+          "fields": [
+            {
+              "name": "kpiName",
+              "type": "string"
+            },
+            {
+              "name": "kpiType",
+              "type": {
+                "type": "enum",
+                "name": "KpiTypeEnum",
+                "symbols": [
+                  "LTE",
+                  "NR_SA",
+                  "NR_NSA"
+                ]
+              }
+            },
+            {
+              "name": "verdict",
+              "type": {
+                "type": "enum",
+                "name": "VerdictEnum",
+                "symbols": [
+                  "DEGRADED",
+                  "NOT_DEGRADED",
+                  "NOT_POSSIBLE"
+                ]
+              }
+            },
+            {
+              "name": "thresholdType",
+              "type": {
+                "type": "enum",
+                "name": "ThresholdTypeEnum",
+                "symbols": [
+                  "DERIVED",
+                  "FIXED"
+                ]
+              }
+            },
+            {
+              "name": "kpiValue",
+              "type": [
+                "null",
+                "double"
+              ],
+              "default": null
+            },
+            {
+              "name": "thresholdValue",
+              "type": [
+                "null",
+                "double"
+              ],
+              "default": null
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

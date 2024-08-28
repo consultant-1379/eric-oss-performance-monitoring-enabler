@@ -1,0 +1,3 @@
+/node_modules/**
+/main/js/modules/k6-summary.js
+/main/js/main.js

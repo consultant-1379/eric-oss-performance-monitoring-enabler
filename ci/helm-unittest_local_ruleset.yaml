@@ -1,0 +1,56 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+modelVersion: 2.0
+
+description: "eric-oss-performance-monitoring-enabler-helm-unittest-build"
+
+docker-images:
+  - adp-release-auto: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/bob-adp-release-auto:${env.RELEASE_AUTO_TAG}
+  - adp-helm-kubectl: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/bob-py3kubehelmbuilder:${env.HELM_KUBECTL_TAG}
+
+import:
+  common: ../common-properties.yaml
+
+env:
+  - HOME
+  - PWD
+  - RELEASE (default=false)
+  - DOCKER_VOLUME_MAPPING_PASSWD (default=--volume ${env.HOME}/mypasswd:/etc/passwd:ro)
+  - K8S_NAMESPACE (default=${common.helm-chart-name}-${var.commithash})
+  - KUBECONFIG
+  - RELEASE_AUTO_TAG (default=latest)
+  - HELM_KUBECTL_TAG (default=latest)
+  - GERRIT_CHANGE_NUMBER (default=$GERRIT_CHANGE_NUMBER)
+  - SELI_ARTIFACTORY_REPO_USER
+  - SELI_ARTIFACTORY_REPO_PASS
+  - SONAR_AUTH_TOKEN
+  - SONAR_HOST_URL
+  - SONAR_BRANCH (default="master")
+
+var:
+  - version
+  - version-prefix
+  - commithash
+  - rstate
+  - image-full-name-internal
+
+rules:
+  test:
+    - task: helm-unittest-test-mkdir
+      cmd: mkdir ${env.PWD}/charts/eric-oss-performance-monitoring-enabler/tests/__snapshot__
+    - task: helm-unittest-test
+      cmd: docker run --rm -v "/$(pwd)/charts/eric-oss-performance-monitoring-enabler":/apps armdocker.rnd.ericsson.se/proj-eric-oss-dev-test/helm-unittest_image:1.1.1 .

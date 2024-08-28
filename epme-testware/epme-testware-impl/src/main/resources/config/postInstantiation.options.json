@@ -1,0 +1,27 @@
+{
+  "summaryTrendStats": [
+    "avg",
+    "min",
+    "med",
+    "max",
+    "p(95)",
+    "p(99)",
+    "p(90)",
+    "count"
+  ],
+  "hosts": {
+    "issue-report.ericsson.se": "127.0.0.1:3005"
+  },
+  "thresholds": {
+    "checks": ["rate == 1.0"]
+  },
+  "scenarios": {
+    "post_instantiation": {
+      "maxDuration": "120m",
+      "exec": "postInstantiationScenario",
+      "executor": "shared-iterations",
+      "vus": 1,
+      "iterations": 1
+    }
+  }
+}

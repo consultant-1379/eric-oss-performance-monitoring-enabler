@@ -1,0 +1,11 @@
+stage-marker-test:
+  - name: archive-artifacts.Jenkinsfile
+  - name: helm-unittest-test.Jenkinsfile
+stage-marker-build:
+  - name: static-analysis/static-analysis.Jenkinsfile
+  - name: testware/build.Jenkinsfile
+stage-marker-helm:
+  - name: helm/helmInstall.Jenkinsfile
+  - name: va-analysis/va-analysis.Jenkinsfile
+stage-marker-init:
+  - name: helm-init-custom.Jenkinsfile

@@ -1,0 +1,54 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+tls:
+  enabled: false
+
+spring:
+  flyway:
+    locations: "classpath:database"
+    url: jdbc:h2:mem:mydb;DB_CLOSE_DELAY=-1
+    user: admin
+    password: admin
+    baseline-on-migrate: true
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: admin
+    password: admin
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+  h2:
+    console.enabled: true
+  kafka:
+    consumer:
+      group-id: pme-monitoring-objects-test-consumer
+      auto_offset_reset: "earliest"
+      properties:
+        allow.auto.create.topics: false
+    admin:
+      auto-create: false
+    bootstrap-servers: localhost:9092
+    topics:
+      monitoringObjectTopic: epme-monitoring-objects
+      verdictTopic: epme-verdicts
+
+kafkaStartup:
+  tls:
+    enabled: false
